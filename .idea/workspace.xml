@@ -11,16 +11,9 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="d4f89acf-9b07-40e5-be99-9763865e4c40" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/dataSources.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/ProjetApi/api/serializers.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/ProjetApi/api/urls.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ProjetApi/api/admin.py" beforeDir="false" afterPath="$PROJECT_DIR$/ProjetApi/api/admin.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ProjetApi/api/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/ProjetApi/api/models.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/ProjetApi/api/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/ProjetApi/api/views.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ProjetApi/db.sqlite3" beforeDir="false" afterPath="$PROJECT_DIR$/ProjetApi/db.sqlite3" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ProjetApi/project/settings.py" beforeDir="false" afterPath="$PROJECT_DIR$/ProjetApi/project/settings.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ProjetApi/project/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/ProjetApi/project/urls.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -103,7 +96,7 @@
       <workItem from="1647536801094" duration="70000" />
       <workItem from="1647536921127" duration="2455000" />
       <workItem from="1647618937631" duration="3113000" />
-      <workItem from="1647688470058" duration="7921000" />
+      <workItem from="1647688470058" duration="8737000" />
     </task>
     <servers />
   </component>
@@ -131,22 +124,22 @@
       <screen x="0" y="0" width="1920" height="1032" />
     </state>
     <state x="740" y="270" key="FileChooserDialogImpl/-1920.0.1920.1032/0.0.1920.1032@0.0.1920.1032" timestamp="1647261800632" />
-    <state width="1204" height="279" key="GridCell.Tab.0.bottom" timestamp="1647691418373">
+    <state width="1177" height="279" key="GridCell.Tab.0.bottom" timestamp="1647701024288">
       <screen x="0" y="0" width="1920" height="1032" />
     </state>
-    <state width="1204" height="279" key="GridCell.Tab.0.bottom/-1920.0.1920.1032/0.0.1920.1032@0.0.1920.1032" timestamp="1647691418373" />
-    <state width="1204" height="279" key="GridCell.Tab.0.center" timestamp="1647691418372">
+    <state width="1177" height="279" key="GridCell.Tab.0.bottom/-1920.0.1920.1032/0.0.1920.1032@0.0.1920.1032" timestamp="1647701024288" />
+    <state width="1177" height="279" key="GridCell.Tab.0.center" timestamp="1647701024287">
       <screen x="0" y="0" width="1920" height="1032" />
     </state>
-    <state width="1204" height="279" key="GridCell.Tab.0.center/-1920.0.1920.1032/0.0.1920.1032@0.0.1920.1032" timestamp="1647691418372" />
-    <state width="1204" height="279" key="GridCell.Tab.0.left" timestamp="1647691418372">
+    <state width="1177" height="279" key="GridCell.Tab.0.center/-1920.0.1920.1032/0.0.1920.1032@0.0.1920.1032" timestamp="1647701024287" />
+    <state width="1177" height="279" key="GridCell.Tab.0.left" timestamp="1647701024287">
       <screen x="0" y="0" width="1920" height="1032" />
     </state>
-    <state width="1204" height="279" key="GridCell.Tab.0.left/-1920.0.1920.1032/0.0.1920.1032@0.0.1920.1032" timestamp="1647691418372" />
-    <state width="1204" height="279" key="GridCell.Tab.0.right" timestamp="1647691418373">
+    <state width="1177" height="279" key="GridCell.Tab.0.left/-1920.0.1920.1032/0.0.1920.1032@0.0.1920.1032" timestamp="1647701024287" />
+    <state width="1177" height="279" key="GridCell.Tab.0.right" timestamp="1647701024288">
       <screen x="0" y="0" width="1920" height="1032" />
     </state>
-    <state width="1204" height="279" key="GridCell.Tab.0.right/-1920.0.1920.1032/0.0.1920.1032@0.0.1920.1032" timestamp="1647691418373" />
+    <state width="1177" height="279" key="GridCell.Tab.0.right/-1920.0.1920.1032/0.0.1920.1032@0.0.1920.1032" timestamp="1647701024288" />
     <state width="498" height="446" key="SwitcherDM" timestamp="1647621007009">
       <screen x="0" y="0" width="1920" height="1032" />
     </state>

@@ -32,7 +32,7 @@ class FichePatientViewSet(viewsets.ModelViewSet):
                 user = request.user
                 prenom = request.data['prenom']
                 patient = FichePatient.objects.get(prenom=prenom)
-                print("requete faite par ", user)
+                print("requete faite par", user)
                 print(patient.prenom, "a", patient.description_probleme)
             except:
                 print("pas de nom")
