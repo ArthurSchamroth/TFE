@@ -1,9 +1,13 @@
 import React, {useState, useEffect} from 'react';
 import './App.css';
+import FichePatientsList from './components/fichePatient-list';
+import FichePatientsDetails from './components/fichePatients-details';
 
 function App() {
 
   const [fichePatients, setFichePatients] = useState([]);
+  const [selectedFichePatients, setSelectedFichePatients] = useState(null)
+
   useEffect(() => {
     fetch("http://127.0.0.1:8000/api/fichePatient/", {
       method: 'GET',
@@ -18,19 +22,18 @@ function App() {
     .catch(error => console.log(error))
   }, [])
 
+  const fichePatientClicked = fichePatient => {
+    setSelectedFichePatients(fichePatient)
+  }
+
   return (
     <div className="App">
       <header className="App-header">
         <h1>Allez le kiné</h1>
       </header>
       <div className="layout">
-        <div>
-          {fichePatients.map(fichePatient => {
-            return <h2>{fichePatient.prenom + " " + fichePatient.nom}</h2>
-          })}
-        </div>
-        
-        <div>Détails patients</div>
+        <FichePatientsList fichePatients={fichePatients} fichePatientClicked={fichePatientClicked}/>
+        <FichePatientsDetails fichePatient={selectedFichePatients}/>
       </div>
     </div>
   );
