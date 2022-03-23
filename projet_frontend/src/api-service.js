@@ -10,4 +10,33 @@ export class API{
             body: JSON.stringify(body)
         }).then(resp=>resp.json())
     }
+
+    static registerUser(body){
+        return fetch('http://127.0.0.1:8000/api/users/',{
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(body)
+        })
+        .then(resp=>resp.json())
+        .then(res => {
+            if(res.status == 400){
+                console.log("error")
+            }else{
+                console.log(res)
+            }
+        })
+    }
+
+    static listingUser(body){
+        return fetch('http://127.0.0.1:8000/api/users/',{
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json',
+                'authorization': `TOKEN ${TOKEN}`
+            },
+            body: JSON.stringify(body)
+        })
+    }
 }
