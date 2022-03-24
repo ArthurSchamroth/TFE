@@ -2,7 +2,7 @@ import React, {useState, useEffect} from 'react';
 import './App.css';
 import FichePatientsList from './components/fichePatient-list';
 import FichePatientsDetails from './components/fichePatients-details';
-
+import 'bootstrap/dist/css/bootstrap.min.css';
 function App() {
 
   const [fichePatients, setFichePatients] = useState([]);
