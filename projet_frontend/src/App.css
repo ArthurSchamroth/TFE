@@ -1,7 +1,7 @@
 .App {
   padding: 20px;
   min-height: 100vh;
-  background-color: #282c34;
+  background-color: #363B48;
   color: white;
 }
 
@@ -69,7 +69,7 @@ button:disabled {
   color: crimson;
 }
 h1 {
-  color: orange;
+  color: #CFC486;
 }
 h1 .fa-film {
   color: white;
