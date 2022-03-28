@@ -1,4 +1,21 @@
-.map_container{
-    width: 50%;
-    height: 50%
+.App{
+    padding-top: 3%;
+}
+
+.container{
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+}
+
+.nom_patient{
+    background: red;
+    padding: 12px;
+    text-align: center;
+}
+
+.fiche-item{
+    background: green;
+    padding: 12px;
+    text-align: center;
 }

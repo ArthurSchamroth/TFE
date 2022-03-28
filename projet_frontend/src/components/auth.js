@@ -1,6 +1,7 @@
 import React, {useState, useEffect} from 'react';
 import {API} from '../api-service';
 import {useCookies} from 'react-cookie';
+import './auth.css'
 
 function Auth(){
 

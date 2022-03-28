@@ -1,0 +1,119 @@
+a{
+    text-decoration: none;
+} 
+
+.links_container{
+    display: flex;
+    justify-content: space-around;
+    margin: 0;
+    height: 100px;
+    background: #1f2020;
+    list-style-type: none;
+    padding: 0;
+    align-items: center;
+}
+
+nav{
+    width: 100%;
+}
+
+.links_container > a {
+    text-decoration: none;
+}
+
+.links{
+    text-align: center;
+    color: #CfC486;
+    font-size: 24px;
+}
+
+.links:hover{
+    border-bottom: solid 3px;
+    transition: width 0.2s;
+}
+
+
+.links_logo{
+    color: #CfC486;
+    font-size: 24px;
+}
+
+.links_logo:hover{
+    color: #CfC486;
+}
+
+.links_login{
+    border: solid 3px #CFC486;
+    color: #CFC486;
+    text-align: center;
+    border-radius: 4px;
+    padding: 4px;
+    font-size: 24px;
+}
+
+.links_login:hover{
+    border: solid hsl(180, 1%, 28%);
+    background-color: #CFC486;
+    color: #474949;
+    text-align: center;
+    border-radius: 4px;
+}
+
+.links_container_mobile{
+    display: none;
+}
+
+.hamburger_menu{
+    display: none;
+}
+
+@media only screen and (max-width:840px){
+
+    .hamburger_menu{
+        display: flex;
+        position: absolute;
+        right: 1rem;
+        flex-direction: column;
+        justify-content: space-between;
+        font-size: 48px;
+        color: #CfC486;
+    }
+
+    .links_container{
+        display: none;
+    }
+
+    .links_container_mobile{
+        display: flex;
+        flex-direction: column;
+        justify-content: space-around;
+        margin: 0;
+        height: 100%;
+        background: #1f2020;
+        list-style-type: none;
+        padding: 0;
+        align-items: center;
+    }
+
+    .links_container_mobile > a {
+        text-decoration: none;
+        height: 120%;
+        padding: 12px;
+    }
+
+    .links_logo{
+        text-decoration: none;
+    }
+
+    .navbar_mobile{
+        display: flex;
+        justify-content: start;
+        flex-direction: column;
+        margin: 0;
+        height: 100%;
+        background: #1f2020;
+        list-style-type: none;
+        padding: 0;
+        align-items: center;
+    }
+}

@@ -2,6 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
+import ListingPatients from './components/listing_patients/listing';
 import Auth from './components/auth';
 import HomePage from './components/home_page';
 import reportWebVitals from './reportWebVitals';
@@ -18,7 +19,7 @@ function Router(){
           <Routes>
             <Route exact path="/" element={<HomePage/>}/>
             <Route exact path="/login" element={<Auth/>}/>
-            <Route exact path="/patients" element={<App/>}/>
+            <Route exact path="/patients" element={<ListingPatients/>}/>
           </Routes>
         </BrowserRouter>
       </CookiesProvider>

@@ -8,7 +8,7 @@ function FichePatientsDetails(props){
     return (
         <div>
             {props.fichePatient ? (
-                <h1>{props.fichePatient.age}</h1>
+                <h1 className='nom_patient'>{props.fichePatient.age}</h1>
             ) : null}
         </div>
     )
