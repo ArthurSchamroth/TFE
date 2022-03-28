@@ -3,6 +3,8 @@ import './listing.css';
 import FichePatientsList from './fichePatient-list';
 import FichePatientsDetails from './fichePatients-details';
 import 'bootstrap/dist/css/bootstrap.min.css';
+import Navbar from '../navbar/navbar';
+
 function ListingPatients() {
 
     const [fichePatients, setFichePatients] = useState([]);
@@ -27,15 +29,19 @@ function ListingPatients() {
     }
 
     return (
-        <div className="App">
-        <header className="App-header">
-            <h1 className='titre_liste'>Liste des patients</h1>
-        </header>
-        <div className="layout">
-            <FichePatientsList fichePatients={fichePatients} fichePatientClicked={fichePatientClicked}/>
-            <FichePatientsDetails fichePatient={selectedFichePatients}/>
-        </div>
-        </div>
+        <>
+            <Navbar/>
+            <div className="App">
+                <header className="App-header">
+                    <h1 className='titre_liste'>Liste des patients</h1>
+                </header>
+                <div className="layout">
+                    <FichePatientsList fichePatients={fichePatients} fichePatientClicked={fichePatientClicked}/>
+                    <FichePatientsDetails fichePatient={selectedFichePatients}/>
+                </div>
+            </div>
+        </>
+        
     );
 }
 

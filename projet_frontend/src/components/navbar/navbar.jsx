@@ -3,9 +3,11 @@ import {FaWalking} from 'react-icons/fa';
 import {GiHamburgerMenu} from 'react-icons/gi';
 import {GrClose} from 'react-icons/gr';
 import './navbar.css';
+import {useCookies} from 'react-cookie';
 
 function Navbar(){
     const [menu_mobile, setmenu_mobile] = useState(false)
+    const [token, setToken] = useCookies([('mr-token')]);
     return(
         <>
         <nav>
@@ -15,7 +17,11 @@ function Navbar(){
                 <a href="/login"><li className="links">A propos</li></a>
                 <a href="/login"><li className="links">Spécialisations</li></a>
                 <a href="/login"><li className="links">A propos</li></a>
+                {token['mr-token'] ? 
+                <a href="/login"><li className="links_login">Profil de </li></a> :
                 <a href="/login"><li className="links_login">Connexion</li></a>
+                }
+                
             </ul>
         </nav>
         <nav>

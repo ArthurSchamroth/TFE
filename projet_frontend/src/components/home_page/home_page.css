@@ -1,0 +1,28 @@
+.App{
+    padding-top: 3%;
+}
+
+.container{
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+}
+
+h1{
+    border-bottom: 5px solid;
+}
+
+.contactContainer{
+    display: flex;
+    flex-direction: column;
+    border: solid 5px #CFC486;
+}
+
+.tableau_contact{
+    display: flex;
+}
+
+.contacts, .email_section{
+    flex: 50%;
+    text-align: center;
+}

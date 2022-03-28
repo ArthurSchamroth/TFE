@@ -3,8 +3,8 @@ import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
 import ListingPatients from './components/listing_patients/listing';
-import Auth from './components/auth';
-import HomePage from './components/home_page';
+import Auth from './components/auth/auth';
+import HomePage from './components/home_page/home_page';
 import reportWebVitals from './reportWebVitals';
 import {Route, BrowserRouter, Routes} from 'react-router-dom';
 

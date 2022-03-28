@@ -8,7 +8,11 @@ function FichePatientsDetails(props){
     return (
         <div>
             {props.fichePatient ? (
-                <h1 className='nom_patient'>{props.fichePatient.age}</h1>
+                <>
+                    <h2 className='nom_patient'>Fiche Santé de {props.fichePatient.prenom} {props.fichePatient.nom}</h2>
+                    
+                </>
+                
             ) : null}
         </div>
     )
