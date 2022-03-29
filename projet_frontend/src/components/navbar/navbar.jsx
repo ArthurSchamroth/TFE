@@ -2,6 +2,7 @@ import React, {useState} from "react";
 import {FaWalking} from 'react-icons/fa';
 import {GiHamburgerMenu} from 'react-icons/gi';
 import {GrClose} from 'react-icons/gr';
+import {CgProfile} from 'react-icons/cg';
 import './navbar.css';
 import {useCookies} from 'react-cookie';
 
@@ -13,12 +14,12 @@ function Navbar(){
         <nav>
             <ul className="links_container">
                 <a href="#" className="hamburger_menu"><GiHamburgerMenu/></a>
-                <a href="/login"><li className="links_logo">Thomas <FaWalking/></li></a>
-                <a href="/login"><li className="links">A propos</li></a>
-                <a href="/login"><li className="links">Spécialisations</li></a>
-                <a href="/login"><li className="links">A propos</li></a>
+                <a href="/"><li className="links_logo">Thomas Penning<FaWalking/></li></a>
+                <a href="/"><li className="links">A propos</li></a>
+                <a href="/"><li className="links">Spécialisations</li></a>
+                <a href="/"><li className="links">A propos</li></a>
                 {token['mr-token'] ? 
-                <a href="/login"><li className="links_login">Profil de </li></a> :
+                <a href="/espace_prive" className="profile_button"><CgProfile/>        Arthur Schamroth</a> : 
                 <a href="/login"><li className="links_login">Connexion</li></a>
                 }
                 
@@ -28,11 +29,14 @@ function Navbar(){
             <ul className="links_container_mobile">
                 {menu_mobile ? 
                 <>
-                <a href="/login"><li className="links_logo">Thomas <FaWalking/></li></a>
-                <a href="/login"><li className="links">A propos</li></a>
-                <a href="/login"><li className="links">Spécialisations</li></a>
-                <a href="/login"><li className="links">A propos</li></a>
+                <a href="/"><li className="links_logo">Thomas <FaWalking/></li></a>
+                <a href="/"><li className="links">A propos</li></a>
+                <a href="/"><li className="links">Spécialisations</li></a>
+                <a href="/"><li className="links">A propos</li></a>
+                {token['mr-token'] ? 
+                <a href="/espace_prive" className="profile_button"><CgProfile/>        Arthur Schamroth</a> : 
                 <a href="/login"><li className="links_login">Connexion</li></a>
+                }
                 <GrClose onClick={()=>setmenu_mobile(!menu_mobile)} className="hamburger_menu"/>
                 </> : 
                 <>

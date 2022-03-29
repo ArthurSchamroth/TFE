@@ -1,0 +1,42 @@
+.profil_container{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    text-align: center;
+    height: 40%;
+    border-radius: 5px;
+}
+
+.profil_button_container{
+    align-items: center;
+    width: 36rem;
+    margin: 15px;
+    border: 3px solid #CFC486;
+    border-radius: 5px;
+    padding: 10px;
+}
+
+.profil_button_container h1{
+    border: none;
+}
+
+.profil_button_container p{
+    margin-left: 15px;
+    margin-right: 15px;
+}
+
+.profil_redirection{
+    margin-bottom: 15px;
+    background-color: #1F2020;
+    border-radius: 10px;
+    width: 12rem;
+    color: #CFC486;
+}
+
+.profil_redirection:hover{
+    margin-bottom: 15px;
+    background-color: #CFC486;
+    border-radius: 10px;
+    width: 12rem;
+    color: #1F2020;
+}

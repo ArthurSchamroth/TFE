@@ -12,6 +12,7 @@ function FichePatientsList(props){
                 return(
                     <div key={fichePatient.id} className="fiche-item">
                         <h2 onClick={fichePatientClicked(fichePatient)}>{fichePatient.prenom + " " + fichePatient.nom}</h2>
+                        
                     </div> 
                 )
             })}

@@ -32,14 +32,13 @@ function ListingPatients() {
         <>
             <Navbar/>
             <div className="App">
-                <header className="App-header">
-                    <h1 className='titre_liste'>Liste des patients</h1>
-                </header>
-                <div className="layout">
-                    <FichePatientsList fichePatients={fichePatients} fichePatientClicked={fichePatientClicked}/>
-                    <FichePatientsDetails fichePatient={selectedFichePatients}/>
+                <h1 className='titre_liste'>Liste des patients</h1>
+                        <div className="layout">
+                            <div className='listing_patients'><FichePatientsList fichePatients={fichePatients} fichePatientClicked={fichePatientClicked}/></div>
+                            <div className="details_listing_patients"><FichePatientsDetails fichePatient={selectedFichePatients}/></div>
+                        </div>
                 </div>
-            </div>
+                
         </>
         
     );

@@ -1,6 +1,7 @@
 .App{
     display: flex;
     padding-top: 50px;
+    align-items: center;
 }
 
 h1{
@@ -9,7 +10,7 @@ h1{
 
 .login-container{
     height: 50%;
-    width: 150%;
+    width: 75%;
     border: 3px solid #CFC486;
     padding: 10%;
     border-radius: 5px;

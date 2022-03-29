@@ -67,6 +67,16 @@ nav{
     display: none;
 }
 
+.profile_button{
+    color: #7C4C53;
+    font-size: 24px;
+}
+
+.profile_button:hover{
+    color: #af7981;
+    font-size: 24px;
+}
+
 @media only screen and (max-width:840px){
 
     .hamburger_menu{

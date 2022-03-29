@@ -1,10 +1,10 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
-import App from './App';
 import ListingPatients from './components/listing_patients/listing';
 import Auth from './components/auth/auth';
 import HomePage from './components/home_page/home_page';
+import Profil_Kine from './components/profil_page/profil_page';
 import reportWebVitals from './reportWebVitals';
 import {Route, BrowserRouter, Routes} from 'react-router-dom';
 
@@ -20,6 +20,7 @@ function Router(){
             <Route exact path="/" element={<HomePage/>}/>
             <Route exact path="/login" element={<Auth/>}/>
             <Route exact path="/patients" element={<ListingPatients/>}/>
+            <Route exact path="/espace_prive" element={<Profil_Kine/>}/>
           </Routes>
         </BrowserRouter>
       </CookiesProvider>

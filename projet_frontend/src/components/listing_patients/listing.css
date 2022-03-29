@@ -88,6 +88,7 @@ h1 .fa-film {
   border-bottom: solid 3px #CFC486;
   border-top: solid 3px #CFC486;
   padding: 12px;
+  margin-bottom: 24px;
 }
 
 .fiche-item{
@@ -107,3 +108,5 @@ h1 .fa-film {
   text-align: center;
   background: green;
 }
+
+
