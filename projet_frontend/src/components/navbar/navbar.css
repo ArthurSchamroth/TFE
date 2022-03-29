@@ -52,9 +52,9 @@ nav{
 }
 
 .links_login:hover{
-    border: solid hsl(180, 1%, 28%);
+    border: solid #1F2020;
     background-color: #CFC486;
-    color: #474949;
+    color: #1F2020;
     text-align: center;
     border-radius: 4px;
 }

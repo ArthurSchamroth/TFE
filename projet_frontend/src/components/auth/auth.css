@@ -9,9 +9,33 @@ h1{
 }
 
 .login-container{
+    display: flex;
+    flex-direction: column;
     height: 50%;
     width: 75%;
     border: 3px solid #CFC486;
-    padding: 10%;
+    padding: 5% 10% 5% 10%;
     border-radius: 5px;
+}
+
+label{
+    padding-top: 10px;
+    height: 20px;
+}
+
+input{
+    border-radius: 5px;
+}
+
+.btn_co_re{
+    margin-top: 10px;
+    margin-bottom: 15px;
+    color: #CFC486;
+    background-color: #1F2020;
+    border-radius: 5px;
+}
+
+.btn_co_re:hover{
+    color: #1F2020;
+    background-color: #CFC486;
 }

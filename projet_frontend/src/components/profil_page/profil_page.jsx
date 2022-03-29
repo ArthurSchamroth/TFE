@@ -2,9 +2,16 @@ import React from 'react';
 import {useCookies} from 'react-cookie';
 import Navbar from '../navbar/navbar';
 import "./profil_page.css";
+import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
+import {faRightFromBracket} from '@fortawesome/free-solid-svg-icons'
 
 function Profil_Kine(){
-    const [token, setToken] = useCookies([('mr-token')]);
+    const [token, setToken, deleteToken] = useCookies([('mr-token')]);
+
+    const logoutUser = () => {
+        deleteToken(["mr-token"]);
+        window.location.href = "/login"
+    }
 
     return(
         <>
@@ -40,6 +47,13 @@ function Profil_Kine(){
                         <p>Gérez les commentaires laissés par vos différents patients sur votre site.</p>
                         <a href="/patients"><button className='profil_redirection'>Commentaires</button></a>
                     </div>
+
+                    <div className="profil_button_container_deco">
+                        <h1 id="test">Déconnexion</h1>
+                        <p>Gérez les commentaires laissés par vos différents patients sur votre site.</p>
+                        <a onClick={logoutUser} id="deco_btn"><FontAwesomeIcon icon={faRightFromBracket}/>Déconnexion</a>
+                    </div>
+
                 </div>
             </div>
         </>

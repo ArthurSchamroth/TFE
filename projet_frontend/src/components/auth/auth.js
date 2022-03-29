@@ -99,11 +99,11 @@ function Auth(){
                     <br/>
                 </>}
                 {isLoginView ? 
-                <button onClick={loginClicked}>Login</button> : 
-                <button onClick={registerClicked}>Register</button>}
+                <button className='btn_co_re' onClick={loginClicked}>Login</button> : 
+                <button className='btn_co_re' onClick={registerClicked}>Register</button>}
                 {isLoginView ? 
-                <p className="redirection_log-reg" onClick={()=>setIsLoginView(false)}>You don't have an account ? Click here!</p> :
-                <p className="redirection_log-reg" onClick={()=>setIsLoginView(true)}>Already an account ? Login here!</p>}
+                <p className="redirection_log-reg" onClick={()=>setIsLoginView(false)}>You don't have an account ? <u>Click here!</u></p> :
+                <p className="redirection_log-reg" onClick={()=>setIsLoginView(true)}>Already an account ? <u>Login here!</u> </p>}
             </div>
         </div>
     )
