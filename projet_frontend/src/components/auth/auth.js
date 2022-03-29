@@ -10,14 +10,34 @@ function Auth(){
     const [repeated_password, setRepeated_password] = useState("");
     const [token, setToken] = useCookies([('mr-token')]);
     const [isLoginView, setIsLoginView] = useState(true);
+    const [listeToken, setListeToken] = useState([])
 
-    useEffect(()=>{
-        if(token['mr-token']) window.location.href = "/";
-    }, [token])
+    useEffect( async () => {
+        const tokens = await API.listingTokens()
+        setListeToken(tokens)
+        console.log(listeToken)
+    }, []);
 
-    const loginClicked = () => {
+    const onLoading = async () =>{
+        console.log("testtestest")
+        const tokens = await API.listingTokens()
+        setListeToken(tokens)
+        console.log(listeToken)
+        return listeToken
+    }
+
+    const loginClicked = async () => {
         API.loginUser({username, password})
-            .then(resp => setToken('mr-token', resp.token))
+            .then(response => {
+                console.log(response.token)
+                for(let i of listeToken){
+                    if(response.token === (i['key'])){
+                        setToken('mr-token', response.token)
+                        window.location.href = '/'
+                    }
+                }
+            })
+            //.then(resp => setToken(, resp.token))
             .catch(error => console.log(error))
     }
 
@@ -82,25 +102,27 @@ function Auth(){
 
     return(
         <div className='App'>
-            <div className="login-container">
+            <div className="login-container" onLoad={onLoading}>
                 {isLoginView ? <h1>Connexion</h1> : <h1>Inscription</h1>}
-                <label htmlFor="username">Username</label><br/>
-                <input id='username' type="text" placeholder='username' value={username}
-                onChange={evt => setUsername(evt.target.value)}/><br/>
-                <label htmlFor="password">Password</label><br/>
-                <input id="password" type="password" placeholder='password'value={password}
-                onChange={evt=>setPassword(evt.target.value)}/><br/>
-                {isLoginView ? 
-                null : 
-                <>
-                    <label htmlFor="repeat_password">Répéter mot de passe</label><br/>
-                    <input id="repeat_password" type="password" placeholder='password' value={repeated_password} 
-                    onChange={evt=>setRepeated_password(evt.target.value)}/>
-                    <br/>
-                </>}
-                {isLoginView ? 
-                <button className='btn_co_re' onClick={loginClicked}>Login</button> : 
-                <button className='btn_co_re' onClick={registerClicked}>Register</button>}
+                
+                    <label htmlFor="username">Username</label><br/>
+                    <input id='username' type="text" placeholder='username' value={username}
+                    onChange={evt => setUsername(evt.target.value)}/><br/>
+                    <label htmlFor="password">Password</label><br/>
+                    <input id="password" type="password" placeholder='password'value={password}
+                    onChange={evt=>setPassword(evt.target.value)}/><br/>
+                    {isLoginView ? 
+                    null : 
+                    <>
+                        <label htmlFor="repeat_password">Répéter mot de passe</label><br/>
+                        <input id="repeat_password" type="password" placeholder='password' value={repeated_password} 
+                        onChange={evt=>setRepeated_password(evt.target.value)}/>
+                        <br/>
+                    </>}
+                    {isLoginView ? 
+                    <button className='btn_co_re' onClick={loginClicked}>Login</button> : 
+                    <button className='btn_co_re' onClick={registerClicked}>Register</button>}
+                
                 {isLoginView ? 
                 <p className="redirection_log-reg" onClick={()=>setIsLoginView(false)}>You don't have an account ? <u>Click here!</u></p> :
                 <p className="redirection_log-reg" onClick={()=>setIsLoginView(true)}>Already an account ? <u>Login here!</u> </p>}

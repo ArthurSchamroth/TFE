@@ -20,13 +20,16 @@ export class API{
             body: JSON.stringify(body)
         })
         .then(resp=>resp.json())
-        .then(res => {
-            if(res.status == 400){
-                console.log("error")
-            }else{
-                console.log(res)
-            }
+    }
+
+    static async listingTokens(){
+        const data = await fetch('http://127.0.0.1:8000/api/tokens/',{
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json'
+            },
         })
+        return(data.json())
     }
 
     static listingUser(body){

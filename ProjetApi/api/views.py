@@ -4,15 +4,22 @@ from rest_framework.response import Response
 from rest_framework.decorators import action
 from django.contrib.auth.models import User
 from .models import FichePatient
-from .serializers import FichePatientSerializer, UserSerializer
+from .serializers import FichePatientSerializer, UserSerializer, TokenSerializer
 from rest_framework.authentication import TokenAuthentication
 from rest_framework.permissions import IsAuthenticated, AllowAny
+from rest_framework.authtoken.models import Token
 
 
 # Create your views here.
 class UserViewSet(viewsets.ModelViewSet):
     queryset = User.objects.all()
     serializer_class = UserSerializer
+    permission_classes = (AllowAny,)
+
+
+class TokenViewSet(viewsets.ModelViewSet):
+    queryset = Token.objects.all()
+    serializer_class = TokenSerializer
     permission_classes = (AllowAny,)
 
 

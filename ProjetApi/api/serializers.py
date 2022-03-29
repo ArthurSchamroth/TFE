@@ -20,3 +20,10 @@ class FichePatientSerializer(serializers.ModelSerializer):
     class Meta:
         model = FichePatient
         fields = ('id', 'user', "nom", "prenom", "age", "adresse_mail", "description_probleme", "adresse")
+
+
+class TokenSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Token
+        fields = ("key", "user", "created")
+
