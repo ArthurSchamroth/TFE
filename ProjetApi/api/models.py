@@ -4,7 +4,8 @@ from django.contrib.auth.models import User
 
 # Create your models here.
 class FichePatient(models.Model):
-    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    list_display = ('email', 'nom', 'prenom')
+    user = models.OneToOneField(User, null=True, on_delete=models.CASCADE)
     nom = models.CharField(max_length=32)
     prenom = models.CharField(max_length=64)
     age = models.DateField()

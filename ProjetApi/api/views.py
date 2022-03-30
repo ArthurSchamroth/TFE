@@ -20,7 +20,27 @@ class UserViewSet(viewsets.ModelViewSet):
 class TokenViewSet(viewsets.ModelViewSet):
     queryset = Token.objects.all()
     serializer_class = TokenSerializer
+    authentication_classes = (TokenAuthentication,)
     permission_classes = (AllowAny,)
+
+    @action(detail=False, methods=['POST'])
+    def getSpecificToken(self, request, token=None):
+        if 'token' in request.data:
+            try:
+                user = request.user
+                token = request.data['token']
+                patient_wth_token = Token.objects.get(key=token)
+                user = patient_wth_token.user.username
+                email = patient_wth_token.user.email
+                response = {'username': user, 'email': email}
+                return Response(response, status=status.HTTP_200_OK)
+
+            except:
+                print("token inconnu")
+
+        else:
+            response = {'message': 'NOOOOO'}
+            return Response(response, status=status.HTTP_200_OK)
 
 
 class FichePatientViewSet(viewsets.ModelViewSet):
@@ -40,7 +60,6 @@ class FichePatientViewSet(viewsets.ModelViewSet):
                 prenom = request.data['prenom']
                 patient = FichePatient.objects.get(prenom=prenom)
                 print("requete faite par", user)
-                print(patient.prenom, "a", patient.description_probleme)
             except:
                 print("pas de nom")
             response = {'message': 'it s working'}

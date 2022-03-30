@@ -15,11 +15,9 @@ function Auth(){
     useEffect( async () => {
         const tokens = await API.listingTokens()
         setListeToken(tokens)
-        console.log(listeToken)
     }, []);
 
     const onLoading = async () =>{
-        console.log("testtestest")
         const tokens = await API.listingTokens()
         setListeToken(tokens)
         console.log(listeToken)
@@ -29,7 +27,6 @@ function Auth(){
     const loginClicked = async () => {
         API.loginUser({username, password})
             .then(response => {
-                console.log(response.token)
                 for(let i of listeToken){
                     if(response.token === (i['key'])){
                         setToken('mr-token', response.token)

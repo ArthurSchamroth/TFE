@@ -1,22 +1,35 @@
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import {useCookies} from 'react-cookie';
 import Navbar from '../navbar/navbar';
 import "./profil_page.css";
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
 import {faRightFromBracket} from '@fortawesome/free-solid-svg-icons'
+import {API} from '../../api-service';
 
 function Profil_Kine(){
     const [token, setToken, deleteToken] = useCookies([('mr-token')]);
+    const [pseudo, setPseudo] = useState('')
 
     const logoutUser = () => {
         deleteToken(["mr-token"]);
         window.location.href = "/login"
     }
 
+    useEffect(()=>{
+        API.gettingDataFromToken({'token': token['mr-token']})
+        .then(function(resp){
+            return resp.json()
+        }).then(function(resp){
+            const a = (resp["email"])
+            setPseudo(a)
+        })
+    }, []);
+
     return(
         <>
             <Navbar/>
             <div className="App">
+                <div className="salutation_profil">Bonjour {pseudo}</div> 
                 <div className="profil_container">
                     <div className="profil_button_container">
                         <h1>Listing Patients</h1>

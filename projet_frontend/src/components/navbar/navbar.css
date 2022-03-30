@@ -28,8 +28,8 @@ nav{
 }
 
 .links:hover{
-    border-bottom: solid 3px;
-    transition: width 0.2s;
+    border-bottom: solid 2px;
+    transition: all 0.2s ease-in-out;
 }
 
 
@@ -39,7 +39,7 @@ nav{
 }
 
 .links_logo:hover{
-    color: #CfC486;
+    color: #d3cca7;
 }
 
 .links_login{
@@ -87,6 +87,12 @@ nav{
         justify-content: space-between;
         font-size: 48px;
         color: #CfC486;
+        transition: all 0.5s ease;
+    }
+
+    .hamburger_menu:hover{
+        cursor: pointer;
+        color: #d8d1ac;
     }
 
     .links_container{
