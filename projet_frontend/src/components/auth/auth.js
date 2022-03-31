@@ -7,6 +7,9 @@ function Auth(){
 
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
+    const [first_name, setFirst_name] = useState('');
+    const [last_name, setLast_name] = useState('');
+    const [email, setEmail] = useState('');
     const [repeated_password, setRepeated_password] = useState("");
     const [token, setToken] = useCookies([('mr-token')]);
     const [isLoginView, setIsLoginView] = useState(true);
@@ -88,7 +91,7 @@ function Auth(){
                         
                     }
                     else{
-                        API.registerUser({username, password})
+                        API.registerUser({username, password, first_name, last_name, email})
                             alert("Utilisateur créé !")
                             setIsLoginView(true)
                     }
@@ -110,7 +113,19 @@ function Auth(){
                     onChange={evt=>setPassword(evt.target.value)}/><br/>
                     {isLoginView ? 
                     null : 
-                    <>
+                    <>  
+                        <label htmlFor="first_name">Prénom</label><br/>
+                        <input id="first_name_input" placeholder='Prénom' value={first_name} 
+                        onChange={evt=>setFirst_name(evt.target.value)}/>
+                        <br/>
+                        <label htmlFor="last_name">Nom</label><br/>
+                        <input id="last_name_input" placeholder='Nom' value={last_name} 
+                        onChange={evt=>setLast_name(evt.target.value)}/>
+                        <br/>
+                        <label htmlFor="first_name">Prénom</label><br/>
+                        <input id="email_input" placeholder='Email' value={email} 
+                        onChange={evt=>setEmail(evt.target.value)}/>
+                        <br/>
                         <label htmlFor="repeat_password">Répéter mot de passe</label><br/>
                         <input id="repeat_password" type="password" placeholder='password' value={repeated_password} 
                         onChange={evt=>setRepeated_password(evt.target.value)}/>

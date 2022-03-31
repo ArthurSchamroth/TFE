@@ -27,12 +27,15 @@ class TokenViewSet(viewsets.ModelViewSet):
     def getSpecificToken(self, request, token=None):
         if 'token' in request.data:
             try:
+                print(request.data)
                 user = request.user
                 token = request.data['token']
                 patient_wth_token = Token.objects.get(key=token)
                 user = patient_wth_token.user.username
                 email = patient_wth_token.user.email
-                response = {'username': user, 'email': email}
+                prenom = patient_wth_token.user.first_name
+                nom = patient_wth_token.user.last_name
+                response = {'username': user, 'email': email, 'prenom': prenom, 'nom':nom}
                 return Response(response, status=status.HTTP_200_OK)
 
             except:
@@ -48,22 +51,29 @@ class FichePatientViewSet(viewsets.ModelViewSet):
     serializer_class = FichePatientSerializer
     authentication_classes = (TokenAuthentication, )
     permission_classes = (IsAuthenticated,)
-    # Getting the specific PatientFiche here it's based on only the surname after i'll make my request with name +
-    # surname
+    # Getting the specific PatientFiche here it's based the username
 
     @action(detail=False, methods=["POST"])
-    def getSpecificFiche(self, request, prenom=None):
-        patient = None
-        if 'prenom' in request.data:
+    def getSpecificFiche(self, request, user=None):
+        if 'username' in request.data:
             try:
-                user = request.user
-                prenom = request.data['prenom']
-                patient = FichePatient.objects.get(prenom=prenom)
-                print("requete faite par", user)
+                username = request.data['username']
+                patient = FichePatient.objects.get(prenom=username)
+                nom = patient.nom
+                prenom = patient.prenom
+                naissance = patient.age
+                adresse = patient.adresse
+                adresse_mail = patient.adresse_mail
+                description_prob = patient.description_probleme
+                response = {'nom': nom, 'prenom': prenom, 'naissance': naissance,
+                            'adresse': adresse, 'adresse_mail': adresse_mail,
+                            'description_prob': description_prob}
+                return Response(response, status=status.HTTP_200_OK)
+
             except:
                 print("pas de nom")
-            response = {'message': 'it s working'}
-            return Response(response, status=status.HTTP_200_OK)
+                response = {'message': 'it s not working'}
+                return Response(response, status=status.HTTP_200_OK)
         else:
             response = {'message': 'NOOOOO'}
             return Response(response, status=status.HTTP_200_OK)

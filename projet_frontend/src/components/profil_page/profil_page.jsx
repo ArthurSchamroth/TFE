@@ -20,7 +20,8 @@ function Profil_Kine(){
         .then(function(resp){
             return resp.json()
         }).then(function(resp){
-            const a = (resp["email"])
+            console.log(resp)
+            const a = (resp["nom"] + " " + resp["prenom"])
             setPseudo(a)
         })
     }, []);
