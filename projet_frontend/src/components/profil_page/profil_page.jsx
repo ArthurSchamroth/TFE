@@ -20,8 +20,7 @@ function Profil_Kine(){
         .then(function(resp){
             return resp.json()
         }).then(function(resp){
-            console.log(resp)
-            const a = (resp["nom"] + " " + resp["prenom"])
+            const a = (resp["prenom"] + " " + resp["nom"])
             setPseudo(a)
         })
     }, []);
@@ -31,6 +30,7 @@ function Profil_Kine(){
             <Navbar/>
             <div className="App">
                 <div className="salutation_profil">Bonjour {pseudo}</div> 
+                {pseudo == "Arthur Schamroth" ? <>Oui</> : <>Non</>}
                 <div className="profil_container">
                     <div className="profil_button_container">
                         <h1>Listing Patients</h1>

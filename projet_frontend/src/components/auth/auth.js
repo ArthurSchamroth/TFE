@@ -8,12 +8,10 @@ function Auth(){
     const [password, setPassword] = useState('');
     const [first_name, setFirst_name] = useState('');
     const [last_name, setLast_name] = useState('');
-    const [email, setEmail] = useState('');
-    const [repeated_password, setRepeated_password] = useState("");
     const [token, setToken] = useCookies([('mr-token')]);
-    const [isLoginView, setIsLoginView] = useState(true);
     const [listeToken, setListeToken] = useState([]);
-    const [username, setUsername] = useState(first_name + last_name);
+    const [username, setUsername] = useState("");
+    const [username_login, setUsername_login] = useState("");
     const test = []
 
     useEffect( async () => {
@@ -44,6 +42,7 @@ function Auth(){
     }
 
     const loginClicked = async () => {
+        console.log(username)
         API.loginUser({username, password})
             .then(response => {
                 for(let i of listeToken){
@@ -57,72 +56,21 @@ function Auth(){
             .catch(error => console.log(error))
     }
 
-    const registerClicked = () => {
-        var passw=  /^[A-Za-z]\w{7,14}$/;
-        // User vide
-        const pseudo = first_name.concat(last_name)
-        setUsername(pseudo)
-        if(password.match(passw)){
-            // je ne sais pas pourquoi ici ca fonctionne dans le sens inverse que ce a quoi je m'attendais
-            if(test.includes(username)){
-                console.log('ca passe')
-                API.registerUser({username, password, first_name, last_name, email})
-                alert("Utilisateur créé !")
-                setIsLoginView(true)
-            }else{
-                console.log('pseudo déjà pris')
-            }
-            
-        }else{
-            console.log("pas ok ok")
-        }
 
-        
-}
 
     return(
         <div className='App'>
             <div className="login-container" onLoad={onLoading}>
-                {isLoginView ? <h1>Connexion</h1> : <h1>Inscription</h1>}
-                
-                
-                    {isLoginView ? 
-                    <>
-                        <label htmlFor="username">Username</label><br/>
-                        <input id='username' type="text" placeholder='username' value={first_name}
-                        onChange={evt => setUsername(evt.target.value)}/><br/>
-                        <label htmlFor="password">Password</label><br/>
-                        <input id="password" type="password" placeholder='password'value={password}
-                        onChange={evt=>setPassword(evt.target.value)}/><br/>
-                    </> : 
-                    <>  
-                        <label htmlFor="password">Password</label><br/>
-                        <input id="password" type="password" placeholder='password'value={password}
-                        onChange={evt=>setPassword(evt.target.value)}/><br/>
-                        <label htmlFor="first_name">Prénom</label><br/>
-                        <input id="first_name_input" placeholder='Prénom' value={first_name} 
-                        onChange={evt=>setFirst_name(evt.target.value)}/>
-                        <br/>
-                        <label htmlFor="last_name">Nom</label><br/>
-                        <input id="last_name_input" placeholder='Nom' value={last_name} 
-                        onChange={evt=>setLast_name(evt.target.value)}/>
-                        <br/>
-                        <label htmlFor="first_name">Prénom</label><br/>
-                        <input id="email_input" placeholder='Email' value={email} 
-                        onChange={evt=>setEmail(evt.target.value)}/>
-                        <br/>
-                        <label htmlFor="repeat_password">Répéter mot de passe</label><br/>
-                        <input id="repeat_password" type="password" placeholder='password' value={repeated_password} 
-                        onChange={evt=>setRepeated_password(evt.target.value)}/>
-                        <br/>
-                    </>}
-                    {isLoginView ? 
-                    <button className='btn_co_re' onClick={loginClicked}>Login</button> : 
-                    <button className='btn_co_re' onClick={registerClicked}>Register</button>}
-                
-                {isLoginView ? 
-                <p className="redirection_log-reg" onClick={()=>setIsLoginView(false)}>You don't have an account ? <u>Click here!</u></p> :
-                <p className="redirection_log-reg" onClick={()=>setIsLoginView(true)}>Already an account ? <u>Login here!</u> </p>}
+                <h1>Connexion</h1>
+                    <label htmlFor="username">Username</label><br/>
+                    <input id='username' type="text" placeholder='username' value={username}
+                    onChange={evt => setUsername(evt.target.value)}/><br/>
+                    <label htmlFor="password">Password</label><br/>
+                    <input id="password" type="password" placeholder='password'value={password}
+                    onChange={evt=>setPassword(evt.target.value)}/><br/>
+                    <button className='btn_co_re' onClick={loginClicked}>Login</button>
+
+                <p className="redirection_log-reg" onClick={()=>window.location.href = '/inscription'}>You don't have an account ? <u>Click here!</u></p>
             </div>
         </div>
     )

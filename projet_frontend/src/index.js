@@ -1,6 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
+import Register from './components/auth/registration';
 import ListingPatients from './components/listing_patients/listing';
 import Auth from './components/auth/auth';
 import HomePage from './components/home_page/home_page';
@@ -21,6 +22,7 @@ function Router(){
             <Route exact path="/login" element={<Auth/>}/>
             <Route exact path="/patients" element={<ListingPatients/>}/>
             <Route exact path="/espace_prive" element={<Profil_Kine/>}/>
+            <Route exact path="/inscription" element={<Register/>}/>
           </Routes>
         </BrowserRouter>
       </CookiesProvider>
