@@ -5,7 +5,6 @@ import './auth.css'
 
 function Auth(){
 
-    
     const [password, setPassword] = useState('');
     const [first_name, setFirst_name] = useState('');
     const [last_name, setLast_name] = useState('');
@@ -15,10 +14,22 @@ function Auth(){
     const [isLoginView, setIsLoginView] = useState(true);
     const [listeToken, setListeToken] = useState([]);
     const [username, setUsername] = useState(first_name + last_name);
+    const test = []
 
     useEffect( async () => {
         const tokens = await API.listingTokens()
         setListeToken(tokens)
+        API.listingUser()
+        .then(function(resp){
+            return resp.json()
+        }).then(function (resp){
+            const liste = resp
+            for(const i of liste){
+                test.push(i["username"])
+            }
+            console.log(test)
+        })
+        
     }, []);
 
     useEffect(()=>{
@@ -29,7 +40,6 @@ function Auth(){
     const onLoading = async () =>{
         const tokens = await API.listingTokens()
         setListeToken(tokens)
-        console.log(listeToken)
         return listeToken
     }
 
@@ -52,10 +62,22 @@ function Auth(){
         // User vide
         const pseudo = first_name.concat(last_name)
         setUsername(pseudo)
-        console.log(username)
-        API.registerUser({username, password, first_name, last_name, email})
-            alert("Utilisateur créé !")
-            setIsLoginView(true)
+        if(password.match(passw)){
+            // je ne sais pas pourquoi ici ca fonctionne dans le sens inverse que ce a quoi je m'attendais
+            if(test.includes(username)){
+                console.log('ca passe')
+                API.registerUser({username, password, first_name, last_name, email})
+                alert("Utilisateur créé !")
+                setIsLoginView(true)
+            }else{
+                console.log('pseudo déjà pris')
+            }
+            
+        }else{
+            console.log("pas ok ok")
+        }
+
+        
 }
 
     return(
