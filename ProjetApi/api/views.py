@@ -27,7 +27,6 @@ class TokenViewSet(viewsets.ModelViewSet):
     def getSpecificToken(self, request, token=None):
         if 'token' in request.data:
             try:
-                print(request.data)
                 user = request.user
                 token = request.data['token']
                 patient_wth_token = Token.objects.get(key=token)
