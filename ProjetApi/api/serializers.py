@@ -13,13 +13,14 @@ class UserSerializer(serializers.ModelSerializer):
     def create(self, validated_data):
         user = User.objects.create_user(**validated_data)
         Token.objects.create(user=user)
+        FichePatient.objects.Create(user=user)
         return user
 
 
 class FichePatientSerializer(serializers.ModelSerializer):
     class Meta:
         model = FichePatient
-        fields = ('id', 'user', "nom", "prenom", "age", "adresse_mail", "description_probleme", "adresse")
+        fields = ('id', 'user', "nom", "prenom", "age", "adresse_mail", 'type_kine', "description_probleme", "adresse")
 
 
 class TokenSerializer(serializers.ModelSerializer):

@@ -23,7 +23,7 @@ function HomePage(){
                             Situé sur Bruxelles, je peux, pour certaines circonstances, me rendre à domicile pour une première entrevue avec les patients.
                         </p>
                         <div>
-                            <img src="https://scontent.fbru5-1.fna.fbcdn.net/v/t39.30808-6/255918807_2862100080754684_5695316897273823915_n.jpg?_nc_cat=111&ccb=1-5&_nc_sid=09cbfe&_nc_ohc=xGUnjQz0B3IAX_fwG8s&_nc_ht=scontent.fbru5-1.fna&oh=00_AT_nHQ9dnvhN43EyD_Ba-r35YStWtnZl71yOlwWN_0hkCw&oe=6247BBCD"
+                            <img src="https://scontent.fbru2-1.fna.fbcdn.net/v/t39.30808-6/255918807_2862100080754684_5695316897273823915_n.jpg?_nc_cat=111&ccb=1-5&_nc_sid=09cbfe&_nc_ohc=bRd-CIvThfEAX9eTY_g&_nc_ht=scontent.fbru2-1.fna&oh=00_AT8x3nJFGzHfuyQ4q088YKY-VTmV8EqRzOA3s8hLm-hCLg&oe=624FA4CD"
                             className="photo_presentation" alt="photo_de_presentation"/>
                         </div>
                     </div>

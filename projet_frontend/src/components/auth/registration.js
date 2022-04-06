@@ -1,6 +1,5 @@
 import React, {useState, useEffect} from 'react';
 import {API} from '../../api-service';
-import {useCookies} from 'react-cookie';
 import './auth.css'
 
 function Register(){
@@ -10,8 +9,6 @@ function Register(){
     const [last_name, setLast_name] = useState('');
     const [email, setEmail] = useState('');
     const [repeated_password, setRepeated_password] = useState("");
-    const [token, setToken] = useCookies([('mr-token')]);
-    const [isLoginView, setIsLoginView] = useState(true);
     const [listeToken, setListeToken] = useState([]);
     const [username, setUsername] = useState(first_name + last_name);
     const [listeInscrits, setListeInscrits] = useState([]);
@@ -20,6 +17,7 @@ function Register(){
     useEffect( async () => {
         const tokens = await API.listingTokens()
         setListeToken(tokens)
+        console.log(tokens)
         API.listingUser()
         .then(function(resp){
             return resp.json()
@@ -60,7 +58,7 @@ function Register(){
                 console.log('ca passe')
                 API.registerUser({username, password, first_name, last_name, email})
                 alert("Utilisateur créé !")
-                // window.location.href = '/login'
+                window.location.href = '/login'
             }
             
         }else{

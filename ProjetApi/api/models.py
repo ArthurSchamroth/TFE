@@ -4,15 +4,24 @@ from django.contrib.auth.models import User
 
 # Create your models here.
 class FichePatient(models.Model):
+    type_kine = (
+        ('K', 'Kinésithérapie'),
+        ('OS', 'Osthéopatie'),
+        ('KR', 'Kinésithérapie Respiratoire'),
+        ('P', 'Pédiatrie')
+    )
     user = models.OneToOneField(User, null=True, on_delete=models.CASCADE)
     nom = models.CharField(max_length=32)
     prenom = models.CharField(max_length=64)
-    age = models.DateField()
+    age = models.DateField(blank=True)
     adresse_mail = models.EmailField(max_length=256, unique=True)
-    description_probleme = models.TextField(max_length=1024)
-    adresse = models.CharField(max_length=64)
+    type_kine = models.CharField(max_length=2, choices=type_kine, blank=True)
+    description_probleme = models.TextField(max_length=1024, blank=True)
+    adresse = models.CharField(max_length=64, blank=True)
 
     class Meta:
         unique_together = (('nom', 'prenom'),)
         index_together = (('nom', 'prenom'),)
+
+
 

@@ -49,6 +49,7 @@ nav{
     border-radius: 4px;
     padding: 4px;
     font-size: 24px;
+    transition: all 0.2s ease-in-out;
 }
 
 .links_login:hover{

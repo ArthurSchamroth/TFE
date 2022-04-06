@@ -30,11 +30,12 @@ class TokenViewSet(viewsets.ModelViewSet):
                 user = request.user
                 token = request.data['token']
                 patient_wth_token = Token.objects.get(key=token)
+                id = patient_wth_token.user_id
                 user = patient_wth_token.user.username
                 email = patient_wth_token.user.email
                 prenom = patient_wth_token.user.first_name
                 nom = patient_wth_token.user.last_name
-                response = {'username': user, 'email': email, 'prenom': prenom, 'nom':nom}
+                response = {'id': id, 'username': user, 'email': email, 'prenom': prenom, 'nom': nom}
                 return Response(response, status=status.HTTP_200_OK)
 
             except:
@@ -48,29 +49,47 @@ class TokenViewSet(viewsets.ModelViewSet):
 class FichePatientViewSet(viewsets.ModelViewSet):
     queryset = FichePatient.objects.all()
     serializer_class = FichePatientSerializer
-    authentication_classes = (TokenAuthentication, )
+    authentication_classes = (TokenAuthentication,)
     permission_classes = (IsAuthenticated,)
+
     # Getting the specific PatientFiche here it's based the username
+
+    @action(detail=False, methods=['POST'])
+    def update_fiche(self, request, user=None):
+        if 'user' in request.data:
+            user_id = request.data['user']
+            fiche = FichePatient.objects.get(user=user_id)
+            fiche.type_kine = request.data['type_kine']
+            fiche.description_probleme = request.data['description_probleme']
+            fiche.adresse = request.data['adresse']
+            fiche.save()
+
+            response = {'user': 'ok'}
+            return Response(response)
+        else:
+            response = {'user': 'pas ok'}
+            return Response(response)
 
     @action(detail=False, methods=["POST"])
     def getSpecificFiche(self, request, user=None):
         if 'username' in request.data:
             try:
                 username = request.data['username']
-                patient = FichePatient.objects.get(prenom=username)
-                nom = patient.nom
-                prenom = patient.prenom
-                naissance = patient.age
-                adresse = patient.adresse
-                adresse_mail = patient.adresse_mail
-                description_prob = patient.description_probleme
-                response = {'nom': nom, 'prenom': prenom, 'naissance': naissance,
+                patient = User.objects.get(username=username)
+                id = patient.id
+                nom = patient.fichepatient.nom
+                prenom = patient.fichepatient.prenom
+                naissance = patient.fichepatient.age
+                adresse = patient.fichepatient.adresse
+                adresse_mail = patient.fichepatient.adresse_mail
+                description_prob = patient.fichepatient.description_probleme
+                type_besoin = patient.fichepatient.type_kine
+                response = {'id': id, 'nom': nom, 'prenom': prenom, 'naissance': naissance,
                             'adresse': adresse, 'adresse_mail': adresse_mail,
-                            'description_prob': description_prob}
+                            'description_prob': description_prob, 'type_kine': type_besoin}
                 return Response(response, status=status.HTTP_200_OK)
 
             except:
-                print("pas de nom")
                 response = {'message': 'it s not working'}
                 return Response(response, status=status.HTTP_200_OK)
         else:

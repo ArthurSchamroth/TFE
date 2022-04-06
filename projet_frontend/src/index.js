@@ -6,6 +6,7 @@ import ListingPatients from './components/listing_patients/listing';
 import Auth from './components/auth/auth';
 import HomePage from './components/home_page/home_page';
 import Profil_Kine from './components/profil_page/profil_page';
+import Fiche_Sante from './components/fiche_sante/fiche_sante';
 import reportWebVitals from './reportWebVitals';
 import {Route, BrowserRouter, Routes} from 'react-router-dom';
 
@@ -22,6 +23,7 @@ function Router(){
             <Route exact path="/login" element={<Auth/>}/>
             <Route exact path="/patients" element={<ListingPatients/>}/>
             <Route exact path="/espace_prive" element={<Profil_Kine/>}/>
+            <Route exact path="/espace_prive/fiche_sante" element={<Fiche_Sante/>}/>
             <Route exact path="/inscription" element={<Register/>}/>
           </Routes>
         </BrowserRouter>

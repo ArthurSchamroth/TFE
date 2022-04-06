@@ -53,4 +53,49 @@ export class API{
             body: JSON.stringify(body)
         })
     }
+
+    static async gettingEveryFiche(){
+        const data = await fetch("http://127.0.0.1:8000/api/fichePatient/",{
+            method:'GET',
+            headers: {
+                'Content-Type': 'application/json',
+                'authorization' : `Token ${TOKEN}`
+            }
+        })
+        return data;
+    }
+
+    static creatingFiche(body){
+        return fetch('http://127.0.0.1:8000/api/fichePatient/',{
+            method:'POST',
+            headers: {
+                'Content-Type':'application/json', 
+                'authorization' : `Token ${TOKEN}`
+            },
+            body: JSON.stringify(body)
+        })
+    }
+
+    static updatingFiche(body){
+        return fetch('http://127.0.0.1:8000/api/fichePatient/update_fiche/',{
+            method:'POST',
+            headers: {
+                'Content-Type':'application/json', 
+                'authorization' : `Token ${TOKEN}`
+            },
+            body: JSON.stringify(body)
+        })
+    }
+
+    static gettingDataFromFiche(body){
+        return fetch('http://127.0.0.1:8000/api/fichePatient/getSpecificFiche/',{
+            method:'POST',
+            headers: {
+                'Content-Type':'application/json', 
+                'authorization' : `Token ${TOKEN}`
+            },
+            body: JSON.stringify(body)
+        })
+    }
+
 }

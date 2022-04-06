@@ -30,14 +30,21 @@ function Profil_Kine(){
             <Navbar/>
             <div className="App">
                 <div className="salutation_profil">Bonjour {pseudo}</div> 
-                {pseudo == "Arthur Schamroth" ? <>Oui</> : <>Non</>}
                 <div className="profil_container">
+                    {pseudo == "Arthur Schamroth" ? 
                     <div className="profil_button_container">
                         <h1>Listing Patients</h1>
                         <p>Retrouvez ici tous vos patients avec leurs informations personnelles. Vos rendez-vous déjà effectués avec eux, ...</p>
                         <a href="/patients"><button className='profil_redirection'>Listing</button></a>
                     </div>
-
+                    : <>
+                        <div className="profil_button_container">
+                            <h1>Fiche Santé</h1>
+                            <p>Voici votre fiche santé, informations auxquelles M.Penning a accès.</p>
+                            <a href="/espace_prive/fiche_sante"><button className='profil_redirection'>Fiche Santé</button></a>
+                        </div>
+                    </>}
+                    
                     <div className="profil_button_container">
                         <h1>Messagerie</h1>
                         <p>Envoyez vos messages à vos patients, leurs vidéos d'exercices, ...</p>

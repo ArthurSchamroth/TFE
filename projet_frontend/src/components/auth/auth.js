@@ -25,7 +25,6 @@ function Auth(){
             for(const i of liste){
                 test.push(i["username"])
             }
-            console.log(test)
         })
         
     }, []);
@@ -42,7 +41,6 @@ function Auth(){
     }
 
     const loginClicked = async () => {
-        console.log(username)
         API.loginUser({username, password})
             .then(response => {
                 for(let i of listeToken){
@@ -62,13 +60,13 @@ function Auth(){
         <div className='App'>
             <div className="login-container" onLoad={onLoading}>
                 <h1>Connexion</h1>
-                    <label htmlFor="username">Username</label><br/>
-                    <input id='username' type="text" placeholder='username' value={username}
+                    <label htmlFor="username">Pseudo</label><br/>
+                    <input id='username' type="text" placeholder="Votre pseudo a été créé lors de votre. Il s'agit de votre PrénomNom." value={username}
                     onChange={evt => setUsername(evt.target.value)}/><br/>
-                    <label htmlFor="password">Password</label><br/>
-                    <input id="password" type="password" placeholder='password'value={password}
+                    <label htmlFor="password">Mot de Passe</label><br/>
+                    <input id="password" type="password" placeholder='MotDePasse123'value={password}
                     onChange={evt=>setPassword(evt.target.value)}/><br/>
-                    <button className='btn_co_re' onClick={loginClicked}>Login</button>
+                    <button className='btn_co_re' onClick={loginClicked}>Connexion</button>
 
                 <p className="redirection_log-reg" onClick={()=>window.location.href = '/inscription'}>You don't have an account ? <u>Click here!</u></p>
             </div>
