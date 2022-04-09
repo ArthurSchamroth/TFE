@@ -24,4 +24,11 @@ class FichePatient(models.Model):
         index_together = (('nom', 'prenom'),)
 
 
+class Commentaire(models.Model):
+    user = models.OneToOneField(User, null=True, on_delete=models.CASCADE)
+    auteur_nom = models.CharField(max_length=32)
+    auteur_prenom = models.CharField(max_length=32)
+    commentaire = models.TextField(max_length=1024)
+    date_heure = models.DateTimeField(auto_now_add=True)
+
 

@@ -109,4 +109,10 @@ h1 .fa-film {
   background: green;
 }
 
+.redirection_maps_button:hover{
+  cursor: pointer;  
+}
 
+.redirection_mail_button a{
+  color: white;
+}

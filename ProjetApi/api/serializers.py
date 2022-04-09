@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from .models import FichePatient
+from .models import FichePatient, Commentaire
 from django.contrib.auth.models import User
 from rest_framework.authtoken.models import Token
 
@@ -15,6 +15,12 @@ class UserSerializer(serializers.ModelSerializer):
         Token.objects.create(user=user)
         FichePatient.objects.Create(user=user)
         return user
+
+
+class CommentaireSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Commentaire
+        fields = ('id', 'user', 'auteur_nom', 'auteur_prenom', 'commentaire', 'date_heure')
 
 
 class FichePatientSerializer(serializers.ModelSerializer):

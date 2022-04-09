@@ -1,10 +1,11 @@
 from django.shortcuts import render
+from datetime import datetime
 from rest_framework import viewsets, status
 from rest_framework.response import Response
 from rest_framework.decorators import action
 from django.contrib.auth.models import User
-from .models import FichePatient
-from .serializers import FichePatientSerializer, UserSerializer, TokenSerializer
+from .models import FichePatient, Commentaire
+from .serializers import FichePatientSerializer, UserSerializer, TokenSerializer, CommentaireSerializer
 from rest_framework.authentication import TokenAuthentication
 from rest_framework.permissions import IsAuthenticated, AllowAny
 from rest_framework.authtoken.models import Token
@@ -44,6 +45,28 @@ class TokenViewSet(viewsets.ModelViewSet):
         else:
             response = {'message': 'NOOOOO'}
             return Response(response, status=status.HTTP_200_OK)
+
+
+class CommentaireViewSet(viewsets.ModelViewSet):
+    queryset = Commentaire.objects.all()
+    serializer_class = CommentaireSerializer
+    permission_classes = (AllowAny,)
+
+    @action(detail=False, methods=['POST'])
+    def update_commentaire(self, request, user=None):
+        if 'user' in request.data:
+            user_id = request.data['user']
+            comm = Commentaire.objects.get(user=user_id)
+            comm.auteur_nom = request.data['auteur_nom']
+            comm.auteur_prenom = request.data['auteur_prenom']
+            comm.commentaire = request.data['commentaire']
+            comm.date_heure = datetime.now()
+            comm.save()
+            response = {'user': 'ok'}
+            return Response(response)
+        else:
+            response = {'user': 'pas ok'}
+            return Response(response)
 
 
 class FichePatientViewSet(viewsets.ModelViewSet):
