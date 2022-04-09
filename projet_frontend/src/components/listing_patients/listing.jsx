@@ -21,6 +21,7 @@ function ListingPatients() {
         .then(resp => resp.json())
         // Permet de remplir le tableau fichePatients
         .then(resp => setFichePatients(resp))
+        .then(resp => console.lgo(fichePatients))
         .catch(error => console.log(error))
     }, [])
 

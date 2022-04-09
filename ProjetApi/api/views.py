@@ -60,7 +60,8 @@ class CommentaireViewSet(viewsets.ModelViewSet):
             comm.auteur_nom = request.data['auteur_nom']
             comm.auteur_prenom = request.data['auteur_prenom']
             comm.commentaire = request.data['commentaire']
-            comm.date_heure = datetime.now()
+            now = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
+            comm.date_heure = now
             comm.save()
             response = {'user': 'ok'}
             return Response(response)

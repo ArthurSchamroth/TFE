@@ -30,7 +30,7 @@ function Navbar(){
                 <a href="/"><li className="links_logo">Thomas Penning<FaWalking/></li></a>
                 <a href="/"><li className="links">A propos</li></a>
                 <a href="/"><li className="links">Spécialisations</li></a>
-                <a href="/"><li className="links">A propos</li></a>
+                <a href="/commentaires"><li className="links">Avis</li></a>
                 {token['mr-token'] ? 
                 <a href="/espace_prive" className="profile_button"><CgProfile/>        {pseudo}</a> : 
                 <a href="/login"><li className="links_login">Connexion</li></a>

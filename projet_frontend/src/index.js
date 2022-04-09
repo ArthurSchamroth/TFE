@@ -5,6 +5,7 @@ import Register from './components/auth/registration';
 import ListingPatients from './components/listing_patients/listing';
 import Auth from './components/auth/auth';
 import HomePage from './components/home_page/home_page';
+import Commentaire from './components/commentaires/commentaires';
 import Profil_Kine from './components/profil_page/profil_page';
 import Fiche_Sante from './components/fiche_sante/fiche_sante';
 import PageError404 from './components/404Error/404_page_error';
@@ -26,6 +27,7 @@ function Router(){
             <Route exact path="/espace_prive" element={<Profil_Kine/>}/>
             <Route exact path="/espace_prive/fiche_sante" element={<Fiche_Sante/>}/>
             <Route exact path="/inscription" element={<Register/>}/>
+            <Route exact path="/commentaires" element={<Commentaire/>}/>
             <Route exact path="*" element={<PageError404/>}/>
           </Routes>
         </BrowserRouter>

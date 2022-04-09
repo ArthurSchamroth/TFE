@@ -32,6 +32,17 @@ export class API{
         return(data.json())
     }
 
+    static sendingAvis(body){
+        return fetch('http://127.0.0.1:8000/api/commentaires/', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'authorization': `TOKEN ${TOKEN}`
+            },
+            body: JSON.stringify(body)
+        })
+    }
+
     static listingUser(body){
         return fetch('http://127.0.0.1:8000/api/users/',{
             method: 'GET',

@@ -98,7 +98,7 @@ function Fiche_Sante(){
                     </select><br/>
                     <label htmlFor='adresse'>Adresse</label>
                     <input  type="text" name='adresse' value={adresse}
-                    onChange={evt=>setAdresse(evt.target.value)} placeholder='test'/>
+                    onChange={evt=>setAdresse(evt.target.value)}/>
                     <label htmlFor='description_prob'>Détail problème</label>
                     <input type="text" name='description_prob' value={description_probleme}
                     onChange={evt=>setDetail_prob(evt.target.value)}/>
