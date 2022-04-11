@@ -78,7 +78,6 @@ function Fiche_Sante(){
                     </p>                
                 }
                 <div className='formulaireFicheContainer'>
-                    <h2>Fiche</h2>
                     <label htmlFor='nom'>Nom</label>
                     <input className='not_modifiable_input' type="text" name='nom' disabled value={nom}/>
                     <label htmlFor='prenom'>Prénom</label>

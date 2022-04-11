@@ -1,5 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import User
+from datetime import datetime
 
 
 # Create your models here.
@@ -31,4 +32,15 @@ class Commentaire(models.Model):
     commentaire = models.TextField(max_length=1024)
     date_heure = models.DateTimeField(auto_now_add=True)
 
+
+class RendezVous(models.Model):
+    type_rdv = (
+        ('D', 'Domicile'),
+        ('C', 'Cabinet')
+    )
+    user = models.ForeignKey(FichePatient, on_delete=models.CASCADE)
+    date = models.DateField(default=datetime.now)
+    heure = models.TimeField(default=datetime.now)
+    type_rdv = models.CharField(max_length=1, choices=type_rdv)
+    description = models.TextField(max_length=320, null=True)
 

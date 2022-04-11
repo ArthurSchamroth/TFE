@@ -83,7 +83,6 @@ function Nouvelle_Fiche_Sante(){
                     Vous aurez encore la possibilité de modifier ces informations.
                 </p>  
                 <div className='formulaireFicheContainer'>
-                <h2>Fiche</h2>
                 <label htmlFor='nom'>Nom</label>
                 <input className='not_modifiable_input' type="text" name='nom' disabled value=''/>
                 <label htmlFor='prenom'>Prénom</label>
@@ -109,7 +108,7 @@ function Nouvelle_Fiche_Sante(){
                 onChange={evt=>setDetail_prob(evt.target.value)}/>
                 
                 {!listingFiche_id.includes(user) ? 
-                <button className='validation_fiche_button' onClick={envoyer_fiche}>Inscription</button>:
+                <button className='validation_fiche_button' onClick={envoyer_fiche}>Envoyer Fiche</button>:
                 <button className='validation_fiche_button' onClick={modifier_fiche}>Modifier</button>
                 }
                 </div>

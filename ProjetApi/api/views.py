@@ -4,12 +4,14 @@ from rest_framework import viewsets, status
 from rest_framework.response import Response
 from rest_framework.decorators import action
 from django.contrib.auth.models import User
-from .models import FichePatient, Commentaire
-from .serializers import FichePatientSerializer, UserSerializer, TokenSerializer, CommentaireSerializer
+from .models import FichePatient, Commentaire, RendezVous
+from .serializers import FichePatientSerializer, UserSerializer,\
+    TokenSerializer, CommentaireSerializer, RendezVousSerializer
 from rest_framework.authentication import TokenAuthentication
 from rest_framework.permissions import IsAuthenticated, AllowAny
 from rest_framework.authtoken.models import Token
-
+from django.forms.models import model_to_dict
+import json
 
 # Create your views here.
 class UserViewSet(viewsets.ModelViewSet):
@@ -111,6 +113,61 @@ class FichePatientViewSet(viewsets.ModelViewSet):
                 response = {'id': id, 'nom': nom, 'prenom': prenom, 'naissance': naissance,
                             'adresse': adresse, 'adresse_mail': adresse_mail,
                             'description_prob': description_prob, 'type_kine': type_besoin}
+                return Response(response, status=status.HTTP_200_OK)
+
+            except:
+                response = {'message': 'it s not working'}
+                return Response(response, status=status.HTTP_200_OK)
+        else:
+            response = {'message': 'NOOOOO'}
+            return Response(response, status=status.HTTP_200_OK)
+
+
+class RendezVousViewSet(viewsets.ModelViewSet):
+    queryset = RendezVous.objects.all()
+    serializer_class = RendezVousSerializer
+    authentication_classes = (TokenAuthentication,)
+    permission_classes = (IsAuthenticated,)
+
+    @action(detail=False, methods=["POST"])
+    def getListSpecificRdv(self, request):
+        if 'user' in request.data:
+            try:
+                tableau_response = []
+                username = request.data['user']
+                rdvs = RendezVous.objects.filter(user=username)
+                for i in rdvs:
+                    object = {'nom': i.user.nom, 'prenom': i.user.prenom, 'type_kine': i.user.type_kine,
+                              'adresse': i.user.adresse, 'date': i.date, 'heure': i.heure, 'type_rdv': i.type_rdv,
+                              'description': i.description}
+                    tableau_response.append(object)
+
+                response = {'result': tableau_response}
+                return Response(response, status=status.HTTP_200_OK)
+
+            except:
+                response = {'message': 'it s not working'}
+                return Response(response, status=status.HTTP_200_OK)
+        else:
+            response = {'message': 'NOOOOO'}
+            return Response(response, status=status.HTTP_200_OK)
+
+    @action(detail=False, methods=["POST"])
+    def getSpecificRdv(self, request):
+        if 'commentaire' in request.data:
+            try:
+                commentaire = request.data['commentaire']
+                rdv = RendezVous.objects.get(id=commentaire)
+                id = rdv.id
+                nom = rdv.user.nom
+                prenom = rdv.user.prenom
+                adresse = rdv.user.adresse
+                type_kine = rdv.user.type_kine
+                date = rdv.date
+                heure = rdv.heure
+                description = rdv.description
+                response = {'id': id, 'nom': nom, 'prenom': prenom, 'adresse': adresse, 'type_kine': type_kine,
+                            'date': date, 'heure': heure, 'description': description}
                 return Response(response, status=status.HTTP_200_OK)
 
             except:

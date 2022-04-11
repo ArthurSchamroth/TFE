@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from .models import FichePatient, Commentaire
+from .models import FichePatient, Commentaire, RendezVous
 from django.contrib.auth.models import User
 from rest_framework.authtoken.models import Token
 
@@ -33,4 +33,10 @@ class TokenSerializer(serializers.ModelSerializer):
     class Meta:
         model = Token
         fields = ("key", "user", "created")
+
+
+class RendezVousSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = RendezVous
+        fields = ('id', 'user', 'date', 'heure', 'type_rdv', 'description')
 
