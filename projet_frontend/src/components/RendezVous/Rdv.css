@@ -1,0 +1,27 @@
+.container_link_rdv{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    text-align: center;
+}
+
+
+.redirection_rdv_btn{
+    color: #fff;
+    background-color: #7C4C53;
+    border: 2px solid #7C4C53;
+    border-radius: 5px;
+    transition: all 0.5s ease;
+    padding: 10px;
+    margin-bottom: 3%;
+}
+
+.redirection_rdv_btn:hover{
+    color: #fff;
+    background-color: #AF7981;
+    border: 2px solid #7C4C53;
+    border-radius: 5px;
+    transition: all 0.5s ease;
+    padding: 10px;
+    margin-bottom: 3%;
+}

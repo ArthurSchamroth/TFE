@@ -38,7 +38,8 @@ class TokenViewSet(viewsets.ModelViewSet):
                 email = patient_wth_token.user.email
                 prenom = patient_wth_token.user.first_name
                 nom = patient_wth_token.user.last_name
-                response = {'id': id, 'username': user, 'email': email, 'prenom': prenom, 'nom': nom}
+                ficheId = patient_wth_token.user.fichepatient.id
+                response = {'id': id, 'username': user, 'email': email, 'prenom': prenom, 'nom': nom, 'fiche': ficheId}
                 return Response(response, status=status.HTTP_200_OK)
 
             except:
@@ -131,10 +132,12 @@ class RendezVousViewSet(viewsets.ModelViewSet):
 
     @action(detail=False, methods=["POST"])
     def getListSpecificRdv(self, request):
-        if 'user' in request.data:
+        if 'fiche' in request.data:
             try:
+
                 tableau_response = []
-                username = request.data['user']
+                username = request.data['fiche']
+                print(username)
                 rdvs = RendezVous.objects.filter(user=username)
                 for i in rdvs:
                     object = {'nom': i.user.nom, 'prenom': i.user.prenom, 'type_kine': i.user.type_kine,

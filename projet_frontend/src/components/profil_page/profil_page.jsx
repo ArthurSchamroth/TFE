@@ -54,7 +54,7 @@ function Profil_Kine(){
                     <div className="profil_button_container">
                         <h1>Rendez-vous</h1>
                         <p>Visualisez vos futurs rendez-vous et vos disponibilités.</p>
-                        <a href="/patients"><button className='profil_redirection'>RDV</button></a>
+                        <a href="/rendez_vous"><button className='profil_redirection'>RDV</button></a>
                     </div>
 
                     <div className="profil_button_container">
