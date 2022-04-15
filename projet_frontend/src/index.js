@@ -10,6 +10,8 @@ import Profil_Kine from './components/profil_page/profil_page';
 import Fiche_Sante from './components/fiche_sante/fiche_sante';
 import AccueilRdv from './components/RendezVous/AccueilRdv';
 import AncienRdv from './components/RendezVous/AncienRdv';
+import FuturRdv from './components/RendezVous/FuturRdv';
+import ProgrammerRdv from './components/RendezVous/ProgrammerRdv';
 import PageError404 from './components/404Error/404_page_error';
 import reportWebVitals from './reportWebVitals';
 import {Route, BrowserRouter, Routes} from 'react-router-dom';
@@ -52,9 +54,12 @@ function Router(){
             <Route exact path="/commentaires" element={<Commentaire/>}/>
             <Route exact path="/rendez_vous" element={<AccueilRdv/>}/>
             {!token ? null : 
+            <>
               <Route exact path="/rendez_vous/anciens" element={<AncienRdv fiche={ficheId.length != 0 ? ficheId : null}/>}/>
+              <Route exact path="/rendez_vous/futurs" element={<FuturRdv fiche={ficheId.length != 0 ? ficheId : null}/>}/>
+            </>
             }
-            
+            <Route exact path="/rendez_vous/programmer" element={<ProgrammerRdv/>}/>
             <Route exact path="*" element={<PageError404/>}/>
           </Routes>
         </BrowserRouter>

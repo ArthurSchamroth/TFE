@@ -43,4 +43,5 @@ class RendezVous(models.Model):
     heure = models.TimeField(default=datetime.now)
     type_rdv = models.CharField(max_length=1, choices=type_rdv)
     description = models.TextField(max_length=320, null=True)
+    type_soin = models.TextField(max_length=1024, blank=True)
 

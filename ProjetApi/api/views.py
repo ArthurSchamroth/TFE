@@ -140,7 +140,7 @@ class RendezVousViewSet(viewsets.ModelViewSet):
                 print(username)
                 rdvs = RendezVous.objects.filter(user=username)
                 for i in rdvs:
-                    object = {'nom': i.user.nom, 'prenom': i.user.prenom, 'type_kine': i.user.type_kine,
+                    object = {'id': i.id, 'nom': i.user.nom, 'prenom': i.user.prenom, 'type_kine': i.type_soin,
                               'adresse': i.user.adresse, 'date': i.date, 'heure': i.heure, 'type_rdv': i.type_rdv,
                               'description': i.description}
                     tableau_response.append(object)

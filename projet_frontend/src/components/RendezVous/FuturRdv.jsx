@@ -5,7 +5,7 @@ import "./Rdv.css";
 import {API} from '../../api-service';
 
 
-function AncienRdv(props){
+function FuturRdv(props){
     
     const [listeRdv, setListeRdv] = useState([]);
     const [loading, setLoading] = useState(false);
@@ -68,4 +68,4 @@ function AncienRdv(props){
     )
 }
 
-export default AncienRdv;
+export default FuturRdv;

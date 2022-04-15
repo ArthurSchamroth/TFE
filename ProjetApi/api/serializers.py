@@ -38,5 +38,5 @@ class TokenSerializer(serializers.ModelSerializer):
 class RendezVousSerializer(serializers.ModelSerializer):
     class Meta:
         model = RendezVous
-        fields = ('id', 'user', 'date', 'heure', 'type_rdv', 'description')
+        fields = ('id', 'user', 'date', 'heure', 'type_rdv', 'description', 'type_soin')
 

@@ -35,9 +35,9 @@ function AccueilRdv(){
                 <div className='container_link_rdv'>
                     <h1>Bienvenue dans la section consacrée aux rendez-vous !</h1>
                     <h2>Que voulez-vous faire ?</h2>
-                    <a className='redirect_link_rdv' href="/rendez_vous/anciens"><button className='redirection_rdv_btn'>Voir mes futurs rendez-vous</button></a>
-                    <a className='redirect_link_rdv' href="/rendez-vous/anciens"><button className='redirection_rdv_btn'>Voir mes précédents rendez-vous</button></a>
-                    <a className='redirect_link_rdv' href="/rendez-vous/anciens"><button className='redirection_rdv_btn'>Organiser un nouveau rendez-vous</button></a>
+                    <a className='redirect_link_rdv' href="/rendez_vous/futurs"><button className='redirection_rdv_btn'>Voir mes futurs rendez-vous</button></a>
+                    <a className='redirect_link_rdv' href="/rendez_vous/anciens"><button className='redirection_rdv_btn'>Voir mes précédents rendez-vous</button></a>
+                    <a className='redirect_link_rdv' href="/rendez_vous/programmer"><button className='redirection_rdv_btn'>Organiser un nouveau rendez-vous</button></a>
                 </div>
             </div>
         </>

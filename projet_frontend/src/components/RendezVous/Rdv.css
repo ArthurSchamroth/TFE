@@ -25,3 +25,13 @@
     padding: 10px;
     margin-bottom: 3%;
 }
+
+.titre_rdv_tableau{
+    border: 2px solid;
+    text-align: center;
+    padding: 1% 2%;
+}
+
+#tableau_rdv_precedents{
+    margin-top: 5%;
+}
