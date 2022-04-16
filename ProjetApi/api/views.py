@@ -39,7 +39,9 @@ class TokenViewSet(viewsets.ModelViewSet):
                 prenom = patient_wth_token.user.first_name
                 nom = patient_wth_token.user.last_name
                 ficheId = patient_wth_token.user.fichepatient.id
-                response = {'id': id, 'username': user, 'email': email, 'prenom': prenom, 'nom': nom, 'fiche': ficheId}
+                ficheTypeKine = patient_wth_token.user.fichepatient.type_kine
+                response = {'id': id, 'username': user, 'email': email, 'prenom': prenom,
+                            'nom': nom, 'fiche': ficheId, "type_kine": ficheTypeKine}
                 return Response(response, status=status.HTTP_200_OK)
 
             except:

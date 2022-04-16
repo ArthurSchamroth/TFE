@@ -24,6 +24,7 @@ function Router(){
   const [token, setToken, deleteToken] = useCookies([('mr-token')]);
   const [ficheId, setFicheId] = useState('');
   const [loading, setLoading] = useState(false);
+  const [typeKine, setTypeKine] = useState('');
 
   useEffect(()=>{
     if(token['mr-token']){
@@ -34,10 +35,10 @@ function Router(){
         }).then(function(resp){
             console.log(resp);
             setFicheId(resp['fiche'])
+            setTypeKine(resp['type_kine'])
         })
     setLoading(false)
     }
-    
     }, [])
 
   return (
@@ -59,7 +60,7 @@ function Router(){
               <Route exact path="/rendez_vous/futurs" element={<FuturRdv fiche={ficheId.length != 0 ? ficheId : null}/>}/>
             </>
             }
-            <Route exact path="/rendez_vous/programmer" element={<ProgrammerRdv/>}/>
+            <Route exact path="/rendez_vous/programmer" element={<ProgrammerRdv type_kine={typeKine} fiche={ficheId.length != 0 ? ficheId : null}/>}/>
             <Route exact path="*" element={<PageError404/>}/>
           </Routes>
         </BrowserRouter>
