@@ -12,6 +12,7 @@ function AncienRdv(props){
 
     useEffect(()=>{
         setLoading(true)
+        console.log(props.fiche)
         if(props.fiche){
             API.gettingRdvsFromSpecificUser({'fiche': props.fiche})
                 .then(function(resp){
@@ -33,6 +34,7 @@ function AncienRdv(props){
             <Navbar/>
             <div className="App">
                 <h1>Voici vos précédents rendez-vous.</h1>
+                {props.fiche}
                 <table id='tableau_rdv_precedents'>
                     <thead>
                         <tr>
@@ -54,7 +56,8 @@ function AncienRdv(props){
                                 <td>{rdv.date}</td>
                                 <td>{rdv.heure}</td>
                                 {rdv.type_rdv == "D" ? <td>Domicile</td> : <td>Cabinet</td>}
-                                {rdv.type_kine == "KR" ? <td>Kinésithérapie respiratoire</td> : rdv.type_kine == "K" ? <td>Kinésithérapie</td> :
+                                {rdv.type_kine == "KR" ? <td>Kinésithérapie respiratoire</td> : 
+                                rdv.type_kine == "K" ? <td>Kinésithérapie</td> :
                                 rdv.type_kine == "OS" ? <td>Osthéopatie</td> : rdv.type_kine == "P" ? <td>Pédiatrie</td> : <td></td>}
                                 <td>{rdv.adresse}</td>
                             </tr>

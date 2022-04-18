@@ -12,6 +12,7 @@ function Register(){
     const [listeToken, setListeToken] = useState([]);
     const [username, setUsername] = useState(first_name + last_name);
     const [listeInscrits, setListeInscrits] = useState([]);
+
     let test = []
 
     useEffect( async () => {
@@ -50,14 +51,14 @@ function Register(){
         console.log(listeInscrits)
         setUsername(pseudo)
         if(password.match(passw)){
-            // je ne sais pas pourquoi ici ca fonctionne dans le sens inverse que ce a quoi je m'attendais
+            
             console.log(test)
             if(listeInscrits.includes(pseudo)){
                 console.log('pseudo déjà pris')
             }else{
                 console.log('ca passe')
                 API.registerUser({username, password, first_name, last_name, email})
-                alert("Utilisateur créé !")
+                alert(`${username} créé !` )
                 window.location.href = '/login'
             }
             

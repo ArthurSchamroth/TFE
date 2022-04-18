@@ -44,7 +44,7 @@ function ProgrammerRdv(props){
                     <label htmlFor="description">Description</label><br/>
                     <input id='description' type="text" value={description}
                     onChange={evt => setDescription(evt.target.value)}/><br/>
-                    
+
                     <button className='btn_co_re' onClick={envoyerRdv}>Envoyer Rdv</button>
                 </div>
             </div>

@@ -14,7 +14,7 @@ class FichePatient(models.Model):
     user = models.OneToOneField(User, null=True, on_delete=models.CASCADE)
     nom = models.CharField(max_length=32)
     prenom = models.CharField(max_length=64)
-    age = models.DateField(blank=True)
+    age = models.DateField(null=True)
     adresse_mail = models.EmailField(max_length=256, unique=True)
     type_kine = models.CharField(max_length=2, choices=type_kine, blank=True)
     description_probleme = models.TextField(max_length=1024, blank=True)

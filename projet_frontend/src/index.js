@@ -25,6 +25,7 @@ function Router(){
   const [ficheId, setFicheId] = useState('');
   const [loading, setLoading] = useState(false);
   const [typeKine, setTypeKine] = useState('');
+  const [username, setUsername] = useState('');
 
   useEffect(()=>{
     if(token['mr-token']){
@@ -33,9 +34,9 @@ function Router(){
         .then(function(resp){
             return resp.json()
         }).then(function(resp){
-            console.log(resp);
-            setFicheId(resp['fiche'])
             setTypeKine(resp['type_kine'])
+            setUsername(resp['username'])
+            setFicheId(resp['fiche'])
         })
     setLoading(false)
     }
@@ -54,13 +55,16 @@ function Router(){
             <Route exact path="/inscription" element={<Register/>}/>
             <Route exact path="/commentaires" element={<Commentaire/>}/>
             <Route exact path="/rendez_vous" element={<AccueilRdv/>}/>
-            {!token ? null : 
+            {!token && !ficheId != ""? null : 
             <>
-              <Route exact path="/rendez_vous/anciens" element={<AncienRdv fiche={ficheId.length != 0 ? ficheId : null}/>}/>
-              <Route exact path="/rendez_vous/futurs" element={<FuturRdv fiche={ficheId.length != 0 ? ficheId : null}/>}/>
+              <Route exact path="/rendez_vous/anciens" element={<AncienRdv fiche={ficheId != "" ? ficheId : null}/>}/>
+              <Route exact path="/rendez_vous/futurs" element={<FuturRdv fiche={ficheId != "" ? ficheId : null}/>}/>
             </>
             }
-            <Route exact path="/rendez_vous/programmer" element={<ProgrammerRdv type_kine={typeKine} fiche={ficheId.length != 0 ? ficheId : null}/>}/>
+            {!token && !ficheId? null : 
+            <Route exact path="/rendez_vous/programmer" element={<ProgrammerRdv type_kine={typeKine} fiche={ficheId != "" ? ficheId : null}/>}/>
+            }
+            
             <Route exact path="*" element={<PageError404/>}/>
           </Routes>
         </BrowserRouter>
