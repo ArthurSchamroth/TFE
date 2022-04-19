@@ -39,3 +39,25 @@
 .form_rdv_envoi_container{
     width: 50%;
 }
+
+.heure_dispo{
+    margin: 3%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.heure_dispo:hover{
+    background-position: 10%;
+    background-color:dimgray;
+}
+
+.heure_dispo label{
+    padding-top: 0;
+    width: 15%;
+    margin-left: -15%;
+}
+
+
+.heure_radio{
+    width: 50%;
+}

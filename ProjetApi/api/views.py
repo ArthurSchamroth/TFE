@@ -138,12 +138,34 @@ class RendezVousViewSet(viewsets.ModelViewSet):
 
     @action(detail=False, methods=["POST"])
     def getListSpecificRdv(self, request):
-        print("hello")
         if 'fiche' in request.data:
             try:
                 tableau_response = []
                 username = request.data['fiche']
                 rdvs = RendezVous.objects.filter(user=username)
+                for i in rdvs:
+                    object = {'id': i.id, 'nom': i.user.nom, 'prenom': i.user.prenom, 'type_kine': i.type_soin,
+                              'adresse': i.user.adresse, 'date': i.date, 'heure': i.heure, 'type_rdv': i.type_rdv,
+                              'description': i.description}
+                    tableau_response.append(object)
+
+                response = {'result': tableau_response}
+                return Response(response, status=status.HTTP_200_OK)
+
+            except:
+                response = {'message': 'it s not working'}
+                return Response(response, status=status.HTTP_200_OK)
+        else:
+            response = {'message': 'NOOOOO'}
+            return Response(response, status=status.HTTP_200_OK)
+
+    @action(detail=False, methods=["POST"])
+    def getRdvByDate(self, request):
+        if 'date' in request.data:
+            try:
+                tableau_response = []
+                date = request.data['date']
+                rdvs = RendezVous.objects.filter(date=date)
                 for i in rdvs:
                     object = {'id': i.id, 'nom': i.user.nom, 'prenom': i.user.prenom, 'type_kine': i.type_soin,
                               'adresse': i.user.adresse, 'date': i.date, 'heure': i.heure, 'type_rdv': i.type_rdv,
