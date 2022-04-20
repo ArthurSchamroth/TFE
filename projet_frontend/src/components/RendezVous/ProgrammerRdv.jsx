@@ -22,6 +22,7 @@ function ProgrammerRdv(props){
     const envoyerRdv = () => {API.addingRdv({'user': props.fiche, 'date': date, 'heure': heure, 
                     'type_rdv': typeRdv, 'description': description,
                     'type_soin': props.type_kine})
+                    window.location.href = "/rendez_vous/programmer"
     } 
 
     useEffect(()=>{
@@ -92,3 +93,4 @@ function ProgrammerRdv(props){
 }
 
 export default ProgrammerRdv;
+

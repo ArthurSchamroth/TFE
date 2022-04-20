@@ -5,7 +5,7 @@ import './home_page.css';
 import {SiGmail} from 'react-icons/si';
 import {AiFillPhone} from 'react-icons/ai';
 import {BsTwitter} from 'react-icons/bs';
-import MapContainer from '../Map/Map';
+import MapGH from '../Map/Map';
 
 function HomePage(){
     const [token, setToken] = useCookies([('mr-token')]);
@@ -66,7 +66,6 @@ function HomePage(){
                         <h1>Façon de travailler</h1>
                     </div>
 
-
                     <div className="contactContainer">
                         <h1>CONTACTS</h1>
                         <div className="tableau_contact">
@@ -80,7 +79,7 @@ function HomePage(){
                             </div>
                             <div className="email_section">
                                 <h2>Email</h2>
-                                
+                                <MapGH/>
                             </div>
                         </div>
                     </div>
