@@ -4,9 +4,9 @@ from rest_framework import viewsets, status
 from rest_framework.response import Response
 from rest_framework.decorators import action
 from django.contrib.auth.models import User
-from .models import FichePatient, Commentaire, RendezVous
+from .models import FichePatient, Commentaire, RendezVous, Message
 from .serializers import FichePatientSerializer, UserSerializer,\
-    TokenSerializer, CommentaireSerializer, RendezVousSerializer
+    TokenSerializer, CommentaireSerializer, RendezVousSerializer, MessageSerializer
 from rest_framework.authentication import TokenAuthentication
 from rest_framework.permissions import IsAuthenticated, AllowAny
 from rest_framework.authtoken.models import Token
@@ -206,3 +206,33 @@ class RendezVousViewSet(viewsets.ModelViewSet):
         else:
             response = {'message': 'NOOOOO'}
             return Response(response, status=status.HTTP_200_OK)
+
+
+class MessageViewSet(viewsets.ModelViewSet):
+    queryset = Message.objects.all()
+    serializer_class = MessageSerializer
+    authentication_classes = (TokenAuthentication,)
+    permission_classes = (IsAuthenticated,)
+
+    @action(detail=False, methods=["POST"])
+    def getMessagesFromSpecificUser(self, request):
+        if 'dest' in request.data:
+            try:
+                tableau_response = []
+                username = request.data['dest']
+                messages = Message.objects.filter(dest=username)
+                for i in messages:
+                    object = {'id': i.id, 'date': i.date, 'heure': i.heure, 'dest' : i.dest,
+                              'contenu': i.contenu}
+                    tableau_response.append(object)
+
+                response = {'result': tableau_response}
+                return Response(response, status=status.HTTP_200_OK)
+
+            except:
+                response = {'message': 'it s not working'}
+                return Response(response, status=status.HTTP_200_OK)
+        else:
+            response = {'message': 'NOOOOO'}
+            return Response(response, status=status.HTTP_200_OK)
+

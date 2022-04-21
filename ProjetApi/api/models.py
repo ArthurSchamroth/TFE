@@ -45,3 +45,10 @@ class RendezVous(models.Model):
     description = models.TextField(max_length=320, null=True)
     type_soin = models.TextField(max_length=1024, blank=True)
 
+
+class Message(models.Model):
+    user = models.ForeignKey(FichePatient, on_delete=models.CASCADE)
+    date = models.DateField(default=datetime.now)
+    heure = models.TimeField(default=datetime.now)
+    dest = models.CharField(max_length=32)
+    contenu = models.TextField(max_length=1024)
