@@ -14,6 +14,7 @@ import FuturRdv from './components/RendezVous/FuturRdv';
 import ProgrammerRdv from './components/RendezVous/ProgrammerRdv';
 import MessageAccueil from './components/message/message_accueil';
 import MessageAccueilCorrect from './components/message/message_accueil_correcte';
+import Messagerie from './components/message/messageBoite';
 import PageError404 from './components/404Error/404_page_error';
 import reportWebVitals from './reportWebVitals';
 import {Route, BrowserRouter, Routes} from 'react-router-dom';
@@ -69,6 +70,7 @@ function Router(){
             {username != '' && ficheId != "" ? 
             <>
               <Route exact path="/messagerie" element={<MessageAccueilCorrect fiche={ficheId} username={username}/>}/>
+              <Route exact path="/messagerie/boite" element={<Messagerie fiche={ficheId} username={username}/>}/>
               <Route exact path="/messagerie/envoyer" element={<MessageAccueil fiche={ficheId} username={username}/>}/>
             </> : null
             }
