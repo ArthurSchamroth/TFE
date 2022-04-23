@@ -143,4 +143,16 @@ export class API{
         })
     }
 
+    static async sendingMessage(body){
+        console.log(body)
+        return fetch('http://127.0.0.1:8000/api/message/',{
+            method:'POST',
+            headers: {
+                'Content-Type':'application/json',
+                'authorization': `Token ${TOKEN}`
+            },
+            body: JSON.stringify(body)
+        })
+    }
+
 }

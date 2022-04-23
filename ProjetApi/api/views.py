@@ -222,7 +222,7 @@ class MessageViewSet(viewsets.ModelViewSet):
                 username = request.data['dest']
                 messages = Message.objects.filter(dest=username)
                 for i in messages:
-                    object = {'id': i.id, 'date': i.date, 'heure': i.heure, 'dest' : i.dest,
+                    object = {'id': i.id, 'date': i.date, 'heure': i.heure, 'dest': i.dest,
                               'contenu': i.contenu}
                     tableau_response.append(object)
 

@@ -48,7 +48,7 @@ function Profil_Kine(){
                     <div className="profil_button_container">
                         <h1>Messagerie</h1>
                         <p>Envoyez vos messages à vos patients, leurs vidéos d'exercices, ...</p>
-                        <a href="/"><button className='profil_redirection'>Messagerie</button></a>
+                        <a href="/messagerie"><button className='profil_redirection'>Messagerie</button></a>
                     </div>
 
                     <div className="profil_button_container">

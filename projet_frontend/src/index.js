@@ -12,6 +12,8 @@ import AccueilRdv from './components/RendezVous/AccueilRdv';
 import AncienRdv from './components/RendezVous/AncienRdv';
 import FuturRdv from './components/RendezVous/FuturRdv';
 import ProgrammerRdv from './components/RendezVous/ProgrammerRdv';
+import MessageAccueil from './components/message/message_accueil';
+import MessageAccueilCorrect from './components/message/message_accueil_correcte';
 import PageError404 from './components/404Error/404_page_error';
 import reportWebVitals from './reportWebVitals';
 import {Route, BrowserRouter, Routes} from 'react-router-dom';
@@ -63,6 +65,12 @@ function Router(){
             }
             {!token && !ficheId? null : 
             <Route exact path="/rendez_vous/programmer" element={<ProgrammerRdv type_kine={typeKine} fiche={ficheId != "" ? ficheId : null}/>}/>
+            }
+            {username != '' && ficheId != "" ? 
+            <>
+              <Route exact path="/messagerie" element={<MessageAccueilCorrect fiche={ficheId} username={username}/>}/>
+              <Route exact path="/messagerie/envoyer" element={<MessageAccueil fiche={ficheId} username={username}/>}/>
+            </> : null
             }
             
             <Route exact path="*" element={<PageError404/>}/>
