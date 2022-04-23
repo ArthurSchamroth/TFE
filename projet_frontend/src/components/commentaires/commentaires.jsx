@@ -61,7 +61,6 @@ function Commentaire(){
             <div className="App">
                 <h1>Bienvenue dans la section Avis !</h1>
                 <h2>N'hésitez pas à laisser un avis respectueux sur votre expérience avec Mr Penning.</h2>
-                <p>Salut {user}</p>
                 {listeCommentaires.map(elem => {
                     liste_id.push(elem.user)
                 })}

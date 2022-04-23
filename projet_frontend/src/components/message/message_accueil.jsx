@@ -1,6 +1,6 @@
 import React, {useState, useEffect} from 'react';
-import {useCookies} from 'react-cookie';
 import Navbar from '../navbar/navbar';
+import Select from 'react-select';
 import './message_accueil.css';
 import {API} from '../../api-service';
 
@@ -8,18 +8,61 @@ function MessageAccueil(props){
     const [auteur, setAuteur] = useState('');
     const [destinataire, setDestinataire] = useState('');
     const [contenuMessage, setContenuMessage] = useState('');
+    const [destPossibles, setDestPossibles] = useState([]);
+    const [destPossibleValues, setDestPossiblesValues] = useState([]);
+    const [test, setTest] = useState('');
+
+    useEffect(()=>{
+        const liste = []
+        const liste_value = []
+        API.gettingEveryFiche()
+            .then(function(resp){
+                return resp.json()
+            }).then(function(resp){
+                for(const i of resp){
+                    const username = i['prenom']+i['nom']
+                    liste.push(username)
+                    if(username != "ArthurSchamroth" || username != "ThomasPenning"){
+                        liste_value.push({value: username, label: username})
+                    }
+                }
+                setDestPossibles(liste)
+                setDestPossiblesValues(liste_value)
+            })
+    }, [])
+
+    useEffect(()=>{
+        if(destinataire != {}){
+            console.log(destinataire)
+            setTest(destinataire)
+        }
+    }, [destinataire])
 
     const envoyerMessage = () => {
-        if(props.username != "ArthurSchamroth"){
+        if(props.username != "ThomasPenning"){
             var user = props.fiche
-            var destinataire = 'ArthurSchamroth'
+            var destinataire = 'ThomasPenning'
             var today = new Date();
             var date = today.getFullYear()  + "-" + today.getMonth() + "-" + today.getDate()
             var time = today.getHours() + ':' + today.getMinutes() + ':' + today.getSeconds()
             API.sendingMessage({
                 'user': user, 'date': date,'heure': time,  
-                'contenu': contenuMessage, 'dest': destinataire
+                'contenu': contenuMessage, 'dest': test
             })
+        }
+        else{
+            
+                console.log("oui")
+                var user = props.fiche
+                var today = new Date();
+                var dest = destinataire
+                var date = today.getFullYear()  + "-" + today.getMonth() + "-" + today.getDate()
+                var time = today.getHours() + ':' + today.getMinutes() + ':' + today.getSeconds()
+                console.log("oui", user, destinataire, date, time, contenuMessage)
+                API.sendingMessage({
+                    'user': user, 'date': date,'heure': time,  
+                    'contenu': contenuMessage, 'dest': dest
+                })
         }
     }
 
@@ -27,12 +70,24 @@ function MessageAccueil(props){
         <>
             <Navbar/>
             <div className='App'>
+                {test != "" ? console.log(test) : console.log('NOOOOOOOOPE')}
                 <h1>{props.username}, Vous pouvez ici envoyer vos messages.</h1>
                 <div className="messageContainer">
-                    {props.username == "ArthurSchamroth" ? 
+                    {props.username == "ArthurSchamroth" || props.username == "ThomasPenning"? 
                         <>  
                             <label htmlFor="destinataire">Destinataire</label>
-                            <input type="text" id="destinataire" onChange={evt => setDestinataire(evt.target.value)}/>
+                            {destPossibleValues != [] ? 
+                                <>
+                                    <select name="destinataire" id="destinataire" onChange={evt => setDestinataire(evt.target.value)}>
+                                        {destPossibleValues.map(dest => {
+                                            return(
+                                                <option value={dest.value}>{dest.label}</option>
+                                            )
+                                        })}
+                                    </select>
+                                </>
+                                : console.log('pas ok')
+                            }
                         </>: 
                         <>
                             <label htmlFor="destinaire">Destinataire</label>
