@@ -47,7 +47,7 @@ function MessageAccueil(props){
             var time = today.getHours() + ':' + today.getMinutes() + ':' + today.getSeconds()
             API.sendingMessage({
                 'user': user, 'date': date,'heure': time,  
-                'contenu': contenuMessage, 'dest': test
+                'contenu': contenuMessage, 'dest': destinataire
             })
         }
         else{

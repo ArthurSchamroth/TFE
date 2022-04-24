@@ -11,7 +11,7 @@ function ListingPatients() {
     const [selectedFichePatients, setSelectedFichePatients] = useState(null)
 
     useEffect(() => {
-        fetch("http://127.0.0.1:8000/api/fichePatient/", {
+        fetch("http://192.168.1.21/api/fichePatient/", {
         method: 'GET',
         headers: {
             'Content-Type': 'application/json',
@@ -21,7 +21,6 @@ function ListingPatients() {
         .then(resp => resp.json())
         // Permet de remplir le tableau fichePatients
         .then(resp => setFichePatients(resp))
-        .then(resp => console.lgo(fichePatients))
         .catch(error => console.log(error))
     }, [])
 

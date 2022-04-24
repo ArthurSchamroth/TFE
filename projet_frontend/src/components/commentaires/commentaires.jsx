@@ -18,7 +18,7 @@ function Commentaire(){
 
     useEffect(() => {
         
-        fetch("http://127.0.0.1:8000/api/commentaires/", {
+        fetch("http://192.168.1.21:8000/api/commentaires/", {
         method: 'GET',
         headers: {
             'Content-Type': 'application/json',

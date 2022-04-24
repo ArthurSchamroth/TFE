@@ -2,7 +2,7 @@ const TOKEN = '32fd88f63f1e9f169ea9c09d9dd19d46ae7a2f4f';
 
 export class API{
     static loginUser(body){
-        return fetch('http://127.0.0.1:8000/auth/',{
+        return fetch('http://192.168.1.21:8000/auth/',{
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
@@ -12,7 +12,7 @@ export class API{
     }
 
     static registerUser(body){
-        return fetch('http://127.0.0.1:8000/api/users/',{
+        return fetch('http://192.168.1.21:8000/api/users/',{
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
@@ -23,7 +23,7 @@ export class API{
     }
 
     static async listingTokens(){
-        const data = await fetch('http://127.0.0.1:8000/api/tokens/',{
+        const data = await fetch('http://192.168.1.21:8000/api/tokens/',{
             method: 'GET',
             headers: {
                 'Content-Type': 'application/json'
@@ -33,7 +33,7 @@ export class API{
     }
 
     static sendingAvis(body){
-        return fetch('http://127.0.0.1:8000/api/commentaires/', {
+        return fetch('http://192.168.1.21:8000/api/commentaires/', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -44,7 +44,7 @@ export class API{
     }
 
     static listingUser(body){
-        return fetch('http://127.0.0.1:8000/api/users/',{
+        return fetch('http://192.168.1.21:8000/api/users/',{
             method: 'GET',
             headers: {
                 'Content-Type': 'application/json',
@@ -55,7 +55,7 @@ export class API{
     }
 
     static gettingDataFromToken(body){
-        return fetch('http://127.0.0.1:8000/api/tokens/getSpecificToken/',{
+        return fetch('http://192.168.1.21:8000/api/tokens/getSpecificToken/',{
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -66,7 +66,7 @@ export class API{
     }
 
     static async gettingEveryFiche(){
-        const data = await fetch("http://127.0.0.1:8000/api/fichePatient/",{
+        const data = await fetch("http://192.168.1.21:8000/api/fichePatient/",{
             method:'GET',
             headers: {
                 'Content-Type': 'application/json',
@@ -77,7 +77,7 @@ export class API{
     }
 
     static creatingFiche(body){
-        return fetch('http://127.0.0.1:8000/api/fichePatient/',{
+        return fetch('http://192.168.1.21:8000/api/fichePatient/',{
             method:'POST',
             headers: {
                 'Content-Type':'application/json', 
@@ -88,7 +88,7 @@ export class API{
     }
 
     static updatingFiche(body){
-        return fetch('http://127.0.0.1:8000/api/fichePatient/update_fiche/',{
+        return fetch('http://192.168.1.21:8000/api/fichePatient/update_fiche/',{
             method:'POST',
             headers: {
                 'Content-Type':'application/json', 
@@ -99,7 +99,7 @@ export class API{
     }
 
     static gettingDataFromFiche(body){
-        return fetch('http://127.0.0.1:8000/api/fichePatient/getSpecificFiche/',{
+        return fetch('http://192.168.1.21:8000/api/fichePatient/getSpecificFiche/',{
             method:'POST',
             headers: {
                 'Content-Type':'application/json', 
@@ -110,7 +110,7 @@ export class API{
     }
 
     static async gettingRdvsFromSpecificUser(body){
-        const data = await fetch('http://127.0.0.1:8000/api/rendezVous/getListSpecificRdv/',{
+        const data = await fetch('http://192.168.1.21:8000/api/rendezVous/getListSpecificRdv/',{
             method:'POST',
             headers: {
                 'Content-Type':'application/json', 
@@ -122,7 +122,7 @@ export class API{
     }
 
     static async addingRdv(body){
-        return fetch('http://127.0.0.1:8000/api/rendezVous/',{
+        return fetch('http://192.168.1.21:8000/api/rendezVous/',{
             method:'POST',
             headers: {
                 'Content-Type':'application/json',
@@ -133,7 +133,7 @@ export class API{
     }
 
     static async gettingRdvsFromSpecificDate(body){
-        return fetch('http://127.0.0.1:8000/api/rendezVous/getRdvByDate/', {
+        return fetch('http://192.168.1.21:8000/api/rendezVous/getRdvByDate/', {
             method:'POST',
             headers: {
                 'Content-Type':'application/json',
@@ -144,7 +144,7 @@ export class API{
     }
 
     static async sendingMessage(body){
-        return fetch('http://127.0.0.1:8000/api/message/',{
+        return fetch('http://192.168.1.21:8000/api/message/',{
             method:'POST',
             headers: {
                 'Content-Type':'application/json',
@@ -155,7 +155,7 @@ export class API{
     }
 
     static async gettingMessageSpecific(body){
-        return fetch('http://127.0.0.1:8000/api/message/getMessagesFromSpecificUser/',{
+        return fetch('http://192.168.1.21:8000/api/message/getMessagesFromSpecificUser/',{
             method:'POST',
             headers: {
                 'Content-Type':'application/json',
