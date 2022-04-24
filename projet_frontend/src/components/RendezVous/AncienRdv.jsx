@@ -12,14 +12,11 @@ function AncienRdv(props){
 
     useEffect(()=>{
         setLoading(true)
-        console.log(props.fiche)
         if(props.fiche){
             API.gettingRdvsFromSpecificUser({'fiche': props.fiche})
                 .then(function(resp){
-                    console.log(resp)
                     return resp.json()
                 }).then(function(resp){
-                    console.log(resp['result'])
                     setListeRdv(resp['result'])
                     
                     return listeRdv

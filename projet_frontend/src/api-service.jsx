@@ -55,7 +55,6 @@ export class API{
     }
 
     static deletingAvis(body){
-        console.log(body)
         return fetch('http://192.168.1.21:8000/api/commentaires/del_commentaire/', {
             method: 'DELETE',
             headers: {

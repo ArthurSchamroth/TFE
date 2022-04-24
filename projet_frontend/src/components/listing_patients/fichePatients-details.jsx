@@ -9,7 +9,6 @@ function FichePatientsDetails(props){
     useEffect(() => {
         if(props.fichePatient){
         setStr_mail("mailto:" + props.fichePatient.adresse_mail)
-        console.log(str_mail)
     } 
     }, [props])
     

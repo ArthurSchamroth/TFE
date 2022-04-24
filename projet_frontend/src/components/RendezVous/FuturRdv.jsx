@@ -15,10 +15,8 @@ function FuturRdv(props){
         if(props.fiche){
             API.gettingRdvsFromSpecificUser({'fiche': props.fiche})
                 .then(function(resp){
-                    console.log(resp)
                     return resp.json()
                 }).then(function(resp){
-                    console.log(resp['result'])
                     setListeRdv(resp['result'])
                     
                     return listeRdv

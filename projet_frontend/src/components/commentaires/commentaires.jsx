@@ -49,7 +49,6 @@ function Commentaire(props){
     }, []);
 
     const envoyerAvis = async() => {
-        console.log(listeCommentaires)
         for(const i of listeCommentaires){
             if(i['auteur_prenom']+i['auteur_nom'] == props.username){
                 alert("Vous avez déjà écrit votre commentaire, vous pouvez toujours modifier celui-ci.")
@@ -59,7 +58,6 @@ function Commentaire(props){
                 API.sendingAvis({user, auteur_nom, auteur_prenom, commentaire})
                 window.location.href = '/commentaires'
             }
-            console.log(i['auteur_prenom']+i['auteur_nom'])
         }
     }
 

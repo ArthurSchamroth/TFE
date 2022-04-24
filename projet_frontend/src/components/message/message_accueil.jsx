@@ -33,7 +33,6 @@ function MessageAccueil(props){
 
     useEffect(()=>{
         if(destinataire != {}){
-            console.log(destinataire)
             setTest(destinataire)
         }
     }, [destinataire])
@@ -51,14 +50,11 @@ function MessageAccueil(props){
             })
         }
         else{
-            
-                console.log("oui")
                 var user = props.fiche
                 var today = new Date();
                 var dest = destinataire
                 var date = today.getFullYear()  + "-" + today.getMonth() + "-" + today.getDate()
                 var time = today.getHours() + ':' + today.getMinutes() + ':' + today.getSeconds()
-                console.log("oui", user, destinataire, date, time, contenuMessage)
                 API.sendingMessage({
                     'user': user, 'date': date,'heure': time,  
                     'contenu': contenuMessage, 'dest': dest
@@ -70,7 +66,6 @@ function MessageAccueil(props){
         <>
             <Navbar/>
             <div className='App'>
-                {test != "" ? console.log(test) : console.log('NOOOOOOOOPE')}
                 <h1>{props.username}, Vous pouvez ici envoyer vos messages.</h1>
                 <div className="messageContainer">
                     {props.username == "ArthurSchamroth" || props.username == "ThomasPenning"? 

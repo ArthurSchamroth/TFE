@@ -13,7 +13,6 @@ function Messagerie(props){
                 return resp.json()
             }).then(function(resp){
                 setMessages(resp['result'])
-                console.log(resp)
             })
     }, [])
 

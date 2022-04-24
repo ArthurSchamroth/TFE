@@ -18,7 +18,6 @@ function Register(){
     useEffect( async () => {
         const tokens = await API.listingTokens()
         setListeToken(tokens)
-        console.log(tokens)
         API.listingUser()
         .then(function(resp){
             return resp.json()
@@ -28,8 +27,7 @@ function Register(){
                 test.push(i["username"])
             }
         }).then(setListeInscrits(test))
-    
-        console.log(listeInscrits)
+
         
     }, []);
 
@@ -48,15 +46,13 @@ function Register(){
         var passw=  /^[A-Za-z]\w{7,14}$/;
         // User vide
         const pseudo = first_name.concat(last_name)
-        console.log(listeInscrits)
         setUsername(pseudo)
         if(password.match(passw)){
             
-            console.log(test)
             if(listeInscrits.includes(pseudo)){
-                console.log('pseudo déjà pris')
+                alert(`${pseudo} déjà pris !`)
+                window.location.href = '/inscription'
             }else{
-                console.log('ca passe')
                 API.registerUser({username, password, first_name, last_name, email})
                 alert(`${username} créé !` )
                 window.location.href = '/login'

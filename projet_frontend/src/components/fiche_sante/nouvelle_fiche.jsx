@@ -63,7 +63,7 @@ function Nouvelle_Fiche_Sante(){
             })
         }
     }, [])
-    console.log(listingFiche_id)
+    
 
     var today = new Date();
     var date = today.getFullYear()+'-'+(today.getMonth()+1)+'-'+today.getDate();
@@ -103,7 +103,7 @@ function Nouvelle_Fiche_Sante(){
                 <label htmlFor='adresse'>Adresse</label>
                 <input  type="text" name='adresse' value=''
                 onChange={(evt=>setAdresse(evt.target.value))}/>
-                <label htmlFor='description_prob'>Détail problèmee</label>
+                <label htmlFor='description_prob'>Détail problème</label>
                 <input type="text" name='description_prob' value={description_probleme}
                 onChange={evt=>setDetail_prob(evt.target.value)}/>
                 

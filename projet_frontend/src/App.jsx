@@ -5,10 +5,6 @@ import Navbar from './components/navbar/navbar';
 function App(){
     const [token, setToken] = useCookies([('mr-token')]);
 
-    if(token["mr-token"]){
-        console.log("oui")
-    }
-
     return(
         <>
             <Navbar/>
