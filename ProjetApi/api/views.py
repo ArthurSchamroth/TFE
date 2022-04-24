@@ -78,6 +78,22 @@ class CommentaireViewSet(viewsets.ModelViewSet):
             response = {'user': 'pas ok'}
             return Response(response)
 
+    @action(detail=False, methods=['DELETE'])
+    def del_commentaire(self, request):
+        if 'id' in request.data:
+            try:
+                comm_id = request.data['id']
+                comm = Commentaire.objects.get(id=comm_id)
+                comm.delete()
+                response = {'result': 'ok'}
+                return Response(response)
+            except:
+                response = {'result': 'pas ok'}
+                return Response(response)
+        else:
+            response = {'result': "pas d'id"}
+            return Response(response)
+
 
 class FichePatientViewSet(viewsets.ModelViewSet):
     queryset = FichePatient.objects.all()

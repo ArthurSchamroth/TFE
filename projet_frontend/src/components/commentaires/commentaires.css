@@ -1,6 +1,6 @@
 .listeCommentairesContainer{
+    padding: 10% 20%;
     border: 3px solid #7C4C53;
-    padding: 5% 25%;
     border-radius: 5px;
 }
 
@@ -13,6 +13,8 @@ h2{
 .commentaire_contenu{
     background-color: green;
     margin: 3% 0%;
+    width: 100%;
+    padding: 10%;
     display: flex;
     flex-direction: column;
 }

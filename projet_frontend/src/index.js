@@ -56,7 +56,7 @@ function Router(){
             <Route exact path="/espace_prive" element={<Profil_Kine/>}/>
             <Route exact path="/espace_prive/fiche_sante" element={<Fiche_Sante/>}/>
             <Route exact path="/inscription" element={<Register/>}/>
-            <Route exact path="/commentaires" element={<Commentaire/>}/>
+            <Route exact path="/commentaires" element={<Commentaire username={username!=''?username:null}/>}/>
             <Route exact path="/rendez_vous" element={<AccueilRdv/>}/>
             {!token && !ficheId != ""? null : 
             <>

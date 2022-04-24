@@ -43,6 +43,29 @@ export class API{
         })
     }
 
+    static updatingAvis(body){
+        return fetch('http://192.168.1.21:8000/api/commentaires/update_commentaire/', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'authorization': `TOKEN ${TOKEN}`
+            },
+            body: JSON.stringify(body)
+        })
+    }
+
+    static deletingAvis(body){
+        console.log(body)
+        return fetch('http://192.168.1.21:8000/api/commentaires/del_commentaire/', {
+            method: 'DELETE',
+            headers: {
+                'Content-Type': 'application/json',
+                'authorization': `TOKEN ${TOKEN}`
+            },
+            body: JSON.stringify(body)
+        })
+    }
+
     static listingUser(body){
         return fetch('http://192.168.1.21:8000/api/users/',{
             method: 'GET',
