@@ -15,13 +15,16 @@ function Fiche_Sante(props){
     const [user, setUser] = useState('');
     const [listingFiches, setListingFiches] = useState([]);
     const [listingFiche_id, setListingFiche_id ] = useState([])
-    const [age, setAge] = useState('');
+    const [age, setAge] = useState('2000-07-28');
     const [type_kine, setType_besoin] = useState('');
     const [adresse, setAdresse] = useState('');
     const [description_probleme, setDetail_prob] = useState('');
 
+    const dateMax = new Date().toISOString().split('T')[0];
+
     useEffect(()=>{
         if(props.fiche && props.username){
+            console.log("test")
             API.gettingDataFromFiche({'username': props.username})
                 .then(function(resp){
                     return resp.json()
@@ -35,7 +38,7 @@ function Fiche_Sante(props){
                     setType_besoin(resp['type_kine'])
                 })
         }
-    })
+    }, [])
 
     useEffect(()=>{
         if(!props.fiche && !props.username){
@@ -51,11 +54,6 @@ function Fiche_Sante(props){
             })
         }
     }, []);
-
-    useEffect(()=>{
-        console.log(age)
-        setAge(age)
-    }, [age])
 
     useEffect(()=>{
         const liste = []
@@ -77,21 +75,22 @@ function Fiche_Sante(props){
     var date = today.getFullYear()+'-'+(today.getMonth()+1)+'-'+today.getDate();
 
     const envoyer_fiche = () => {
+        console.log(user, nom, prenom, age, adresse_mail, type_kine, description_probleme, adresse)
         API.creatingFiche({user, nom, prenom, age, adresse_mail, type_kine, description_probleme, adresse})
-        window.location.href = "/espace_prive/fiche_sante"
+        //window.location.href = "/espace_prive/fiche_sante"
     }
 
     const modifier_fiche = () => {
         console.log(age)
-        /*API.updatingFiche({user, nom, prenom, age, adresse_mail, type_kine, description_probleme, adresse})
-        window.location.href = "/espace_prive/fiche_sante"*/
+        API.updatingFiche({user, nom, prenom, age, adresse_mail, type_kine, description_probleme, adresse})
+        window.location.href = "/espace_prive/fiche_sante"
     }
 
     return(
         <>
             <Navbar/>
             <div className="App">
-                <h1>Bienvenue sur votre Fiche Santé! </h1>
+                <h1>Bienvenue sur votre Fiche Santé!</h1>
                 {listingFiche_id.includes(user) ? 
                     null :
                     <p id='message_accueil'>
@@ -107,22 +106,67 @@ function Fiche_Sante(props){
                     <label htmlFor='adresse_mail'>Email</label>
                     <input className='not_modifiable_input' type="text" name='adresse_mail' disabled defaultValue={adresse_mail}/>
                     <label htmlFor='naissance'>Date de naissance</label>
-                    <input type="date" name='naissance' defaultValue={age} max={date} min='1910-12-31'
-                    onChange={evt=>setAge(evt.target.value)}/>
+                    {props.age ? 
+                        <input className='not_modifiable_input' type="date" name='naissance' defaultValue={props.age} max={date} min='1910-12-31'
+                        onChange={evt=>setAge(evt.target.value)} disabled/>:
+                        <input type="date" name='naissance' defaultValue={'2000-07-28'} max={dateMax} min='1910-12-31'
+                        onChange={evt=>setAge(evt.target.value)}/>
+                    }
+                    
                     <label htmlFor='type_kine'>Type besoin</label><br/>
-                    <select name="type_kine" id="typeKine"onChange={evt=>setType_besoin(evt.target.value)} defaultValue={type_kine}>
-                        <option value=''>Type de kiné.</option>
-                        <option value="K">Kinésithérapie</option>
-                        <option value="OS">Osthéopatie</option>
-                        <option value="KR">Kinésithérapie Respiratoire</option>
-                        <option value="P">Pédiatrie</option>
+                    <select name="type_kine" id="typeKine"onChange={evt=>setType_besoin(evt.target.value)} defaultValue={props.type_kine}>
+                        {props.type_kine == "OS" ? 
+                            <>
+                                <option value=''>Type de kiné.</option>
+                                <option value="K">Kinésithérapie</option>
+                                <option value="OS" selected>Osthéopatie</option>
+                                <option value="KR">Kinésithérapie Respiratoire</option>
+                                <option value="P">Pédiatrie</option>
+                            </>: props.type_kine == "K" ? 
+                                <>
+                                    <option value=''>Type de kiné.</option>
+                                    <option value="K" selected>Kinésithérapie</option>
+                                    <option value="OS">Osthéopatie</option>
+                                    <option value="KR">Kinésithérapie Respiratoire</option>
+                                    <option value="P">Pédiatrie</option>
+                                </> : props.type_kine == "KR" ? 
+                                    <>
+                                        <option value=''>Type de kiné.</option>
+                                        <option value="K">Kinésithérapie</option>
+                                        <option value="OS">Osthéopatie</option>
+                                        <option value="KR" selected>Kinésithérapie Respiratoire</option>
+                                        <option value="P">Pédiatrie</option>
+                                    </> : props.type_kine == "P" ?
+                                        <>
+                                            <option value=''>Type de kiné.</option>
+                                            <option value="K">Kinésithérapie</option>
+                                            <option value="OS">Osthéopatie</option>
+                                            <option value="KR">Kinésithérapie Respiratoire</option>
+                                            <option value="P" selected>Pédiatrie</option>
+                                        </> :
+                                            <>
+                                                <option value='' selected>Type de kiné.</option>
+                                                <option value="K">Kinésithérapie</option>
+                                                <option value="OS">Osthéopatie</option>
+                                                <option value="KR">Kinésithérapie Respiratoire</option>
+                                                <option value="P">Pédiatrie</option>
+                                            </>
+                        }
+                        
                     </select><br/>
                     <label htmlFor='adresse'>Adresse</label>
-                    <input  type="text" name='adresse' defaultValue={adresse}
+                    <input  type="text" name='adresse' defaultValue={props.adresse}
                     onChange={evt=>setAdresse(evt.target.value)}/>
                     <label htmlFor='description_prob'>Détail problème</label>
-                    <input type="text" name='description_prob' defaultValue={description_probleme}
-                    onChange={evt=>setDetail_prob(evt.target.value)}/>
+                    {props.descriptProb ? 
+                    <textarea name="description_prob" id="contenuMessage" cols="30" rows="5" 
+                    onChange={evt=>setDetail_prob(evt.target.value)} 
+                    defaultValue={props.descriptProb}/>:
+                    <textarea name="description_prob" id="contenuMessage" cols="30" rows="5" 
+                    onChange={evt=>setDetail_prob(evt.target.value)} 
+                    placeholder="Décrivez brièvement la raison de votre présence chez Monsieur Penning"></textarea>
+                    }
+                    
                     
                     {!listingFiche_id.includes(user) ? 
                     <button className='validation_fiche_button' onClick={envoyer_fiche}>Inscription</button>:

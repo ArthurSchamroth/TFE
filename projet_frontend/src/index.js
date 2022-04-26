@@ -29,6 +29,9 @@ function Router(){
   const [loading, setLoading] = useState(false);
   const [typeKine, setTypeKine] = useState('');
   const [username, setUsername] = useState('');
+  const [age, setAge] = useState('');
+  const [adresse, setAdresse] = useState('');
+  const [descriptProb, setDescriptProb] = useState('');
 
   useEffect(()=>{
     if(token['mr-token']){
@@ -40,6 +43,9 @@ function Router(){
             setTypeKine(resp['type_kine'])
             setUsername(resp['username'])
             setFicheId(resp['fiche'])
+            setAge(resp['age'])
+            setAdresse(resp['adresse'])
+            setDescriptProb(resp['probleme'])
         })
     setLoading(false)
     }
@@ -54,7 +60,8 @@ function Router(){
             <Route exact path="/login" element={<Auth/>}/>
             <Route exact path="/patients" element={<ListingPatients/>}/>
             <Route exact path="/espace_prive" element={<Profil_Kine/>}/>
-            <Route exact path="/espace_prive/fiche_sante" element={<Fiche_Sante username={username != "" ? username : null} fiche={ficheId != "" ? ficheId : null}/>}/>
+            <Route exact path="/espace_prive/fiche_sante" element={<Fiche_Sante username={username != "" ? username : null} fiche={ficheId != "" ? ficheId : null} type_kine = {typeKine != "" ? typeKine : null}
+            age={age != "" ? age : null} adresse={adresse != "" ? adresse : null} descriptProb = {descriptProb != "" ? descriptProb : null}/>}/>
             <Route exact path="/inscription" element={<Register/>}/>
             <Route exact path="/commentaires" element={<Commentaire username={username!=''?username:null}/>}/>
             <Route exact path="/rendez_vous" element={<AccueilRdv/>}/>
