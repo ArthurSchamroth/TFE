@@ -11,7 +11,7 @@ function ListingPatients() {
     const [selectedFichePatients, setSelectedFichePatients] = useState(null)
 
     useEffect(() => {
-        fetch("http://192.168.1.21/api/fichePatient/", {
+        fetch("http://192.168.1.21:8000/api/fichePatient/", {
         method: 'GET',
         headers: {
             'Content-Type': 'application/json',

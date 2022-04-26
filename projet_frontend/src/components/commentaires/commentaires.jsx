@@ -49,21 +49,29 @@ function Commentaire(props){
     }, []);
 
     const envoyerAvis = async() => {
-        for(const i of listeCommentaires){
-            if(i['auteur_prenom']+i['auteur_nom'] == props.username){
-                alert("Vous avez déjà écrit votre commentaire, vous pouvez toujours modifier celui-ci.")
-                window.location.href = '/commentaires'
-                break;
-            }else{
-                API.sendingAvis({user, auteur_nom, auteur_prenom, commentaire})
-                window.location.href = '/commentaires'
+        if (listeCommentaires != []){
+            for(const i of listeCommentaires){
+                if(i['auteur_prenom']+i['auteur_nom'] == props.username){
+                    alert("Vous avez déjà écrit votre commentaire, vous pouvez toujours modifier celui-ci.")
+                    window.location.href = '/commentaires'
+                    break;
+                }else{
+                    console.log(user, auteur_nom, auteur_prenom, commentaire)
+                    API.sendingAvis({user, auteur_nom, auteur_prenom, commentaire})
+                    window.location.href = '/commentaires'
+                }
             }
+        }else{
+            console.log('pas ok')
+            API.sendingAvis({user, auteur_nom, auteur_prenom, commentaire})
+            window.location.href = '/commentaires'
         }
+        
     }
 
     const delClicked = comment => {
         API.deletingAvis({"id": comment.id})
-        alert(`Commentaire de ${props.username} supprimé !`)
+        alert(`Commentaire de ${comment.auteur_prenom} ${comment.auteur_nom} supprimé !`)
         window.location.href = '/commentaires'
     }
 
@@ -79,6 +87,7 @@ function Commentaire(props){
         }else{
                 API.updatingAvis({'user':selectedComment.user, 'auteur_nom': selectedComment.auteur_nom,
                                 'auteur_prenom': selectedComment.auteur_prenom, 'commentaire': commentaire})
+                window.location.href = "/commentaires"
         }
         setIsModification(false)
     }
@@ -99,35 +108,44 @@ function Commentaire(props){
                                 <div>
                                     <div>{commentaire.auteur_prenom} {commentaire.auteur_nom}</div>  <div>{commentaire.date_heure.split('T')[0]} ({commentaire.date_heure.split('T')[1].split('.')[0].split('+')[0]})</div>
                                 </div>
-                                {commentaire.auteur_prenom+commentaire.auteur_nom == props.username ?
+                                {props.username == "ArthurSchamroth" || props.username == "ThomasPenning" ?
                                     <>
-                                    {!isModification ? 
-                                        <>
                                         <div className="texte_commentaire/">{commentaire.commentaire}</div>
                                         <div className='comment_modifiable'>
-                                            <FontAwesomeIcon icon={faPenToSquare} onClick={() => editClicked(commentaire)}/>
-                                            <Popup trigger={<button><FontAwesomeIcon icon={faCircleMinus}/></button>} position='bottom center'>
+                                            <Popup trigger={<button className='del_comm_btn'><FontAwesomeIcon icon={faCircleMinus}/></button>} position='bottom center'>
                                                 <div>Êtes-vous sûr de vouloir supprimer ce commentaire ?</div>
                                                 <button onClick={() => delClicked(commentaire)}>Supprimer</button>
                                             </Popup>
                                         </div>
-                                        </>
-                                        :
+                                    </>:
+                                    commentaire.auteur_prenom+commentaire.auteur_nom == props.username ?
                                         <>
-                                            <label htmlFor="username">Modifier votre commentaire</label><br/>
-                                            <input className='contenu_commentaire' type="text" placeholder="Quel est votre avis par rapport à votre expérience ?" defaultValue={commentaire.commentaire}
-                                            onChange={evt => setAvis(evt.target.value)}/><br/>
-                                            <Popup trigger={<button>Modifier avis</button>} position='bottom center'>
-                                                <div>Êtes-vous sûr de votre nouveau commentaire ?</div>
-                                                <button onClick={modifierAvis}>Modifier avis</button>
-                                            </Popup>
-                                        </>
+                                        {!isModification ? 
+                                            <>
+                                            <div className="texte_commentaire/">{commentaire.commentaire}</div>
+                                            <div className='comment_modifiable'>
+                                                <FontAwesomeIcon className='modif_comm_btn' icon={faPenToSquare} onClick={() => editClicked(commentaire)}/>
+                                                <Popup trigger={<button className='del_comm_btn'><FontAwesomeIcon icon={faCircleMinus}/></button>} position='bottom center'>
+                                                    <div>Êtes-vous sûr de vouloir supprimer ce commentaire ?</div>
+                                                    <button  onClick={() => delClicked(commentaire)}>Supprimer</button>
+                                                </Popup>
+                                            </div>
+                                            </>
+                                            :
+                                            <>
+                                                <label htmlFor="username">Modifier votre commentaire</label><br/>
+                                                <input className='contenu_commentaire' type="text" placeholder="Quel est votre avis par rapport à votre expérience ?" defaultValue={commentaire.commentaire}
+                                                onChange={evt => setAvis(evt.target.value)}/><br/>
+                                                <Popup trigger={<button>Modifier avis</button>} position='bottom center'>
+                                                    <div>Êtes-vous sûr de votre nouveau commentaire ?</div>
+                                                    <button onClick={modifierAvis}>Modifier avis</button>
+                                                </Popup>
+                                            </>
+                                        }
+                                        </> 
+                                        : 
+                                        <div className="texte_commentaire/">{commentaire.commentaire}</div>
                                     }
-                                    
-                                    </> 
-                                    : 
-                                    <div className="texte_commentaire/">{commentaire.commentaire}</div>
-                                }   
                                 
                                 </div>
                         )
@@ -138,8 +156,9 @@ function Commentaire(props){
                         {!auteurConnu ? 
                             <div className='ajouter_commentaire'>
                                 <label htmlFor="username">Ajouter avis</label><br/>
-                                <input className='contenu_commentaire' type="text" placeholder="Quel est votre avis par rapport à votre expérience ?" value={commentaire}
-                                onChange={evt => setAvis(evt.target.value)}/><br/>
+                                <textarea name="contenu_commentaire" id="contenu_commentaire" cols="31" rows="4" placeholder="Quel est votre avis par rapport à votre expérience ?"
+                                onChange={evt => setAvis(evt.target.value)}
+                                />
                                 <button onClick={envoyerAvis}>Envoyer avis</button>
                             </div>:
                             null

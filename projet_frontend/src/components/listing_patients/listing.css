@@ -13,7 +13,7 @@
 }
 
 .layout{
-  display: grid;
+  display: flex;
   grid-template-columns: 1fr 1fr;
   grid-gap: 20px;
 }
@@ -54,6 +54,7 @@ button:disabled {
   cursor: pointer;
 }
 .fiche-item {
+  width: 25rem;
   display: grid;
   grid-template-columns: 1fr auto auto;
 }
@@ -106,7 +107,7 @@ h1 .fa-film {
 
 .nom_patient{
   text-align: center;
-  background: green;
+  text-decoration: underline;
 }
 
 .redirection_maps_button:hover{
@@ -115,4 +116,40 @@ h1 .fa-film {
 
 .redirection_mail_button a{
   color: white;
+}
+
+.button_del_fiche{
+  font-size: 36px;
+  color: white;
+}
+
+.button_del_fiche:hover{
+  color: red;
+  transition: all 0.2s ease-in-out;
+}
+
+.button_edit_fiche{
+  margin-left: 5%;
+  font-size: 36px;
+}
+
+.button_edit_fiche:hover{
+  color: #a5a275;
+  transition: all 0.2s ease-in-out;
+}
+
+.button_edit_fiche:hover, .button_del_fiche:hover{
+  cursor: pointer;
+}
+
+.details_fiche{
+  width: 25rem;
+  padding: 5%;
+  border: 2px solid #1F2020;
+  border-radius: 5%;
+}
+
+.del_btn_user{
+  background: transparent;
+  border: transparent;
 }

@@ -19,6 +19,23 @@ class UserViewSet(viewsets.ModelViewSet):
     serializer_class = UserSerializer
     permission_classes = (AllowAny,)
 
+    @action(detail=False, methods=['DELETE'])
+    def del_user(self, request):
+        if 'id' in request.data:
+            try:
+                user_id = request.data['id']
+                user = User.objects.get(id=user_id)
+                user.delete()
+                response = {'result': 'ok'}
+                return Response(response)
+            except:
+                response = {'result': 'pas ok'}
+                return Response(response)
+        else:
+            response = {'result': "pas d'id"}
+            return Response(response)
+
+
 
 class TokenViewSet(viewsets.ModelViewSet):
     queryset = Token.objects.all()
@@ -115,7 +132,14 @@ class FichePatientViewSet(viewsets.ModelViewSet):
             fiche.type_kine = request.data['type_kine']
             fiche.description_probleme = request.data['description_probleme']
             fiche.adresse = request.data['adresse']
-            fiche.save()
+            try:
+                fiche.nom = request.data['nom']
+                fiche.prenom = request.data['prenom']
+                fiche.adresse_mail = request.data['adresse_mail']
+                fiche.age = request.data['age']
+                fiche.save()
+            except:
+                fiche.save()
 
             response = {'user': 'ok'}
             return Response(response)

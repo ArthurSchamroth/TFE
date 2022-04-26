@@ -77,7 +77,7 @@ function Fiche_Sante(props){
     const envoyer_fiche = () => {
         console.log(user, nom, prenom, age, adresse_mail, type_kine, description_probleme, adresse)
         API.creatingFiche({user, nom, prenom, age, adresse_mail, type_kine, description_probleme, adresse})
-        //window.location.href = "/espace_prive/fiche_sante"
+        window.location.href = "/espace_prive/fiche_sante"
     }
 
     const modifier_fiche = () => {

@@ -120,6 +120,17 @@ export class API{
         })
     }
 
+    static deletingFiche(body){
+        return fetch('http://192.168.1.21:8000/api/users/del_user/',{
+            method:'DELETE',
+            headers: {
+                'Content-Type':'application/json', 
+                'authorization' : `Token ${TOKEN}`
+            },
+            body: JSON.stringify(body)
+        })
+    }
+
     static gettingDataFromFiche(body){
         return fetch('http://192.168.1.21:8000/api/fichePatient/getSpecificFiche/',{
             method:'POST',
