@@ -49,6 +49,7 @@ function FichePatientsDetails(props){
         API.updatingFiche({
             'user': user, 'nom': nom, 'prenom': prenom, 'adresse_mail': adresseMail, 'description_probleme': descriptionProb, 'type_kine': typeSoin, 'adresse': adresse
         })
+        window.location.href = "/patients"
     }
     
     return (

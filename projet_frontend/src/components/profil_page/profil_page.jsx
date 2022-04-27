@@ -20,7 +20,8 @@ function Profil_Kine(){
         .then(function(resp){
             return resp.json()
         }).then(function(resp){
-            const a = (resp["prenom"] + " " + resp["nom"])
+            console.log(resp)
+            const a = (resp["username"])
             setPseudo(a)
         })
     }, []);
@@ -31,7 +32,7 @@ function Profil_Kine(){
             <div className="App">
                 <div className="salutation_profil">Bonjour {pseudo}</div> 
                 <div className="profil_container">
-                    {pseudo == "Arthur Schamroth" ? 
+                    {pseudo == "ArthurSchamroth" || pseudo == "ThomasPenning" ? 
                     <div className="profil_button_container">
                         <h1>Listing Patients</h1>
                         <p>Retrouvez ici tous vos patients avec leurs informations personnelles. Vos rendez-vous déjà effectués avec eux, ...</p>

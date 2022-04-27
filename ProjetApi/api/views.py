@@ -122,8 +122,6 @@ class FichePatientViewSet(viewsets.ModelViewSet):
     authentication_classes = (TokenAuthentication,)
     permission_classes = (IsAuthenticated,)
 
-    # Getting the specific PatientFiche here it's based the username
-
     @action(detail=False, methods=['POST'])
     def update_fiche(self, request, user=None):
         if 'user' in request.data:
@@ -156,6 +154,7 @@ class FichePatientViewSet(viewsets.ModelViewSet):
                 id = patient.id
                 nom = patient.fichepatient.nom
                 prenom = patient.fichepatient.prenom
+                username = patient.username
                 naissance = patient.fichepatient.age
                 adresse = patient.fichepatient.adresse
                 adresse_mail = patient.fichepatient.adresse_mail
@@ -163,7 +162,7 @@ class FichePatientViewSet(viewsets.ModelViewSet):
                 type_besoin = patient.fichepatient.type_kine
                 response = {'id': id, 'nom': nom, 'prenom': prenom, 'naissance': naissance,
                             'adresse': adresse, 'adresse_mail': adresse_mail,
-                            'description_prob': description_prob, 'type_kine': type_besoin}
+                            'description_prob': description_prob, 'type_kine': type_besoin, 'username': username}
                 return Response(response, status=status.HTTP_200_OK)
 
             except:

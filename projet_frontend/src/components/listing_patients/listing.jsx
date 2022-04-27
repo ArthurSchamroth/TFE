@@ -5,7 +5,7 @@ import FichePatientsDetails from './fichePatients-details';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import Navbar from '../navbar/navbar';
 
-function ListingPatients() {
+function ListingPatients(props) {
 
     const [fichePatients, setFichePatients] = useState([]);
     const [selectedFichePatients, setSelectedFichePatients] = useState(null)
