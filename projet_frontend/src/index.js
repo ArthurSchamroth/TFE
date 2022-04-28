@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom';
 import './index.css';
 import Register from './components/auth/registration';
 import ListingPatients from './components/listing_patients/listing';
+import GestionRoutine from './components/listing_patients/gestionRoutine';
 import Auth from './components/auth/auth';
 import HomePage from './components/home_page/home_page';
 import Commentaire from './components/commentaires/commentaires';
@@ -59,7 +60,10 @@ function Router(){
             <Route exact path="/" element={<HomePage/>}/>
             <Route exact path="/login" element={<Auth/>}/>
             {username=="ArthurSchamroth" || username=="ThomasPenning" ? 
-              <Route exact path="/patients" element={<ListingPatients/>}/> : null
+              <>
+                <Route exact path="/patients" element={<ListingPatients/>}/> 
+                <Route exact path="/gestion_routine" element={<GestionRoutine/>}/>
+              </>: null
             }
             <Route exact path="/espace_prive" element={<Profil_Kine/>}/>
             <Route exact path="/espace_prive/fiche_sante" element={<Fiche_Sante username={username != "" ? username : null} fiche={ficheId != "" ? ficheId : null} type_kine = {typeKine != "" ? typeKine : null}

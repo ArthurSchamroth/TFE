@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from .models import FichePatient, Commentaire, RendezVous, Message
+from .models import FichePatient, Commentaire, RendezVous, Message, VideoTuto, Routine
 from django.contrib.auth.models import User
 from rest_framework.authtoken.models import Token
 
@@ -46,3 +46,14 @@ class MessageSerializer(serializers.ModelSerializer):
         model = Message
         fields = ('id', 'user', 'date', 'heure', 'dest', 'contenu')
 
+
+class VideoSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = VideoTuto
+        fields = ('id', 'titre', 'url')
+
+
+class RoutineSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Routine
+        fields = ('id', 'user', 'description_detaillee', 'videos')

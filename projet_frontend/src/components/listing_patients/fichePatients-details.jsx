@@ -22,6 +22,8 @@ function FichePatientsDetails(props){
 
     const dateMax = new Date().toISOString().split('T')[0];
 
+    const type = {'P': 'Pédiatrie', 'K': 'Kinésithérapie', 'KR': 'Kinésithérapie Respiratoire', 'OS': 'Osthéopatie'}
+
     useEffect(() => {
         if(props.fichePatient){
             setStr_mail("mailto:" + props.fichePatient.adresse_mail);
@@ -65,7 +67,7 @@ function FichePatientsDetails(props){
                     <div className="details_fiche">
                         <h2 className='nom_patient'>Fiche Santé de {props.fichePatient.prenom} {props.fichePatient.nom}</h2>
                         {!isModification ? 
-                            <>
+                            <>  
                                 <p>Nom : {props.fichePatient.nom}</p> 
                                 <p>Prénom : {props.fichePatient.prenom}</p>
                                 <p>Date de naissance : {props.fichePatient.age}</p>
@@ -73,13 +75,14 @@ function FichePatientsDetails(props){
                                 <p className='redirection_maps_button' onClick={()=>{
                                     window.open('https://maps.google.com?q='+props.fichePatient.adresse)
                                 }}>Adresse : {props.fichePatient.adresse}</p>
-                                <p>Description Problème : {props.fichePatient.description_probleme}</p><br/>
+                                <p>Description Problème : {props.fichePatient.description_probleme}</p>
+                                <p>Description de soin demandé : {type[props.fichePatient.type_kine]}</p><br/>
                                 <div className='container_btn_profil'>
-                                    <Popup trigger={<button className='del_btn_user'><FontAwesomeIcon className='button_del_fiche' icon={faTrashCan}/></button>} position='bottom center'>
+                                    <Popup trigger={<button title="Supprimer l'utilisateur" className='del_btn_user'><FontAwesomeIcon className='button_del_fiche' icon={faTrashCan}/></button>} position='bottom center'>
                                     <div>Voulez-vous supprimer ce patient ? (Toutes les informations le concernant seront supprimées !)</div>
                                     <button onClick={deleteClicked}>Modifier avis</button>
                                     </Popup>
-                                    <FontAwesomeIcon className='button_edit_fiche' icon={faPencil} onClick={modificationClicked}/>
+                                    <FontAwesomeIcon title="Modifier l'utilisateur" className='button_edit_fiche' icon={faPencil} onClick={modificationClicked}/>
                                     <button className="gestion_medical_patient_btn" onClick={modifierSuivi}>Vers suivi médical</button>
                                 </div>
                                 

@@ -4,9 +4,9 @@ from rest_framework import viewsets, status
 from rest_framework.response import Response
 from rest_framework.decorators import action
 from django.contrib.auth.models import User
-from .models import FichePatient, Commentaire, RendezVous, Message
+from .models import FichePatient, Commentaire, RendezVous, Message, VideoTuto, Routine
 from .serializers import FichePatientSerializer, UserSerializer, \
-    TokenSerializer, CommentaireSerializer, RendezVousSerializer, MessageSerializer
+    TokenSerializer, CommentaireSerializer, RendezVousSerializer, MessageSerializer, VideoSerializer, RoutineSerializer
 from rest_framework.authentication import TokenAuthentication
 from rest_framework.permissions import IsAuthenticated, AllowAny
 from rest_framework.authtoken.models import Token
@@ -309,3 +309,17 @@ class MessageViewSet(viewsets.ModelViewSet):
         else:
             response = {'message': 'NOOOOO'}
             return Response(response, status=status.HTTP_200_OK)
+
+
+class VideoViewSet(viewsets.ModelViewSet):
+    queryset = VideoTuto.objects.all()
+    serializer_class = VideoSerializer
+    authentication_classes = (TokenAuthentication,)
+    permission_classes = (IsAuthenticated,)
+
+
+class RoutineViewSet(viewsets.ModelViewSet):
+    queryset = Routine.objects.all()
+    serializer_class = RoutineSerializer
+    authentication_classes = (TokenAuthentication,)
+    permission_classes = (IsAuthenticated,)

@@ -209,4 +209,15 @@ export class API{
         })
     }
 
+    static async envoyerVideo(body){
+        return fetch('http://192.168.1.21:8000/api/video/', {
+            method:'POST',
+            headers: {
+                'Content-Type':'application/json',
+                'authorization': `Token ${TOKEN}`
+            },
+            body: JSON.stringify(body)
+        })
+    }
+
 }

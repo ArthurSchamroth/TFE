@@ -5,6 +5,8 @@ import FichePatientsDetails from './fichePatients-details';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import Navbar from '../navbar/navbar';
 import {API} from '../../api-service';
+import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
+import { faPlus } from '@fortawesome/free-solid-svg-icons';
 
 function ListingPatients(props) {
 
@@ -13,6 +15,7 @@ function ListingPatients(props) {
     const [isSuiviMedical, setIsSuiviMedical] = useState(false);
     const [listeRdvPatient, setListeRdvPatient] = useState([]);
     const [isRdv, setIsRdv] = useState(false);
+    const [isRoutine, setIsRoutine] = useState(false);
 
     useEffect(() => {
         fetch("http://192.168.1.21:8000/api/fichePatient/", {
@@ -58,6 +61,16 @@ function ListingPatients(props) {
         setSelectedFichePatients(fichePatient);
     }
 
+    const activerRdv = () => {
+        setIsRdv(!isRdv);
+        setIsRoutine(false);
+    }
+
+    const activerRoutine = () => {
+        setIsRoutine(!isRoutine);
+        setIsRdv(false);
+    }
+
     return (
         <>
             <Navbar/>
@@ -74,8 +87,8 @@ function ListingPatients(props) {
                                 <h3 className='titre_suivi_container'>Ceci est le suivi du patient : {selectedFichePatients.prenom} {selectedFichePatients.nom}<br/>
                                 Que souhaitez-vous faire ?</h3>
                                 <div className='container_btn_suivi'>
-                                    <button className='redirection_btn_suivi' onClick={()=>setIsRdv(!isRdv)}>Voir les rendez-vous</button>
-                                    <button className='redirection_btn_suivi'>Voir routines</button>
+                                    <button className='redirection_btn_suivi' onClick={()=>activerRdv()}>Voir les rendez-vous</button>
+                                    <button className='redirection_btn_suivi' onClick={()=>activerRoutine()}>Voir routines</button>
                                 </div>
                                 <div className='section_suivi'>
                                     {isRdv ? 
@@ -91,7 +104,15 @@ function ListingPatients(props) {
                                                 })
                                             : null}
                                         </div>
-                                        :null
+                                        :
+                                        isRoutine ? 
+                                        <>
+                                            <div className="titre_gestion_routine_patient">
+                                                <h4>Voici la routine de ce patient</h4>
+                                                <a href="/gestion_routine" id='add_routine_btn'><FontAwesomeIcon title='Ajouter routine' icon={faPlus}/></a>
+                                            </div>
+                                        </>
+                                        : null
                                     }
                                 </div>
                             </div> 

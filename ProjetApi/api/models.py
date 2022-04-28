@@ -1,7 +1,7 @@
 from django.db import models
 from django.contrib.auth.models import User
 from datetime import datetime
-
+from django.contrib.postgres.fields import ArrayField
 
 # Create your models here.
 class FichePatient(models.Model):
@@ -52,3 +52,15 @@ class Message(models.Model):
     heure = models.TimeField(default=datetime.now)
     dest = models.CharField(max_length=32)
     contenu = models.TextField(max_length=1024)
+
+
+class VideoTuto(models.Model):
+    titre = models.CharField(max_length=1024)
+    url = models.URLField(max_length=1024)
+
+
+class Routine(models.Model):
+    user = models.ForeignKey(FichePatient, on_delete=models.CASCADE)
+    description_detaillee = models.TextField(max_length=5096)
+    videos = models.ManyToManyField(VideoTuto)
+
