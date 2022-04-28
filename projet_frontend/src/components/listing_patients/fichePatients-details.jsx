@@ -18,6 +18,7 @@ function FichePatientsDetails(props){
     const [typeSoin, setTypeSoin] = useState('');
     const [descriptionProb, setDescriptionProb] = useState('');
     const [isModification, setIsModification] = useState(false);
+    const [isSuivi, setIsSuivi] = useState(false);
 
     const dateMax = new Date().toISOString().split('T')[0];
 
@@ -51,6 +52,11 @@ function FichePatientsDetails(props){
         })
         window.location.href = "/patients"
     }
+
+    const modifierSuivi = () => {
+        setIsSuivi(!isSuivi);
+        props.onChange(isSuivi);
+    }
     
     return (
         <div>
@@ -68,11 +74,15 @@ function FichePatientsDetails(props){
                                     window.open('https://maps.google.com?q='+props.fichePatient.adresse)
                                 }}>Adresse : {props.fichePatient.adresse}</p>
                                 <p>Description Problème : {props.fichePatient.description_probleme}</p><br/>
-                                <Popup trigger={<button className='del_btn_user'><FontAwesomeIcon className='button_del_fiche' icon={faTrashCan}/></button>} position='bottom center'>
+                                <div className='container_btn_profil'>
+                                    <Popup trigger={<button className='del_btn_user'><FontAwesomeIcon className='button_del_fiche' icon={faTrashCan}/></button>} position='bottom center'>
                                     <div>Voulez-vous supprimer ce patient ? (Toutes les informations le concernant seront supprimées !)</div>
                                     <button onClick={deleteClicked}>Modifier avis</button>
-                                </Popup>
-                                <FontAwesomeIcon className='button_edit_fiche' icon={faPencil} onClick={modificationClicked}/>
+                                    </Popup>
+                                    <FontAwesomeIcon className='button_edit_fiche' icon={faPencil} onClick={modificationClicked}/>
+                                    <button className="gestion_medical_patient_btn" onClick={modifierSuivi}>Vers suivi médical</button>
+                                </div>
+                                
                             </> :
                             <>
                                 <h3>Modifier la fiche de {props.fichePatient.prenom} {props.fichePatient.nom} {props.fichePatient.id}</h3>
@@ -142,6 +152,7 @@ function FichePatientsDetails(props){
                                     <div>Les nouvelles informations entrées sont-elles correctes ?</div>
                                     <button onClick={() => envoyerModif()}>Modifier</button>
                                 </Popup>
+                                
                             </>
                         }
                         

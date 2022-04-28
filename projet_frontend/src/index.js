@@ -58,7 +58,9 @@ function Router(){
           <Routes>
             <Route exact path="/" element={<HomePage/>}/>
             <Route exact path="/login" element={<Auth/>}/>
-            <Route exact path="/patients" element={<ListingPatients/>}/>
+            {username=="ArthurSchamroth" || username=="ThomasPenning" ? 
+              <Route exact path="/patients" element={<ListingPatients/>}/> : null
+            }
             <Route exact path="/espace_prive" element={<Profil_Kine/>}/>
             <Route exact path="/espace_prive/fiche_sante" element={<Fiche_Sante username={username != "" ? username : null} fiche={ficheId != "" ? ficheId : null} type_kine = {typeKine != "" ? typeKine : null}
             age={age != "" ? age : null} adresse={adresse != "" ? adresse : null} descriptProb = {descriptProb != "" ? descriptProb : null}/>}/>

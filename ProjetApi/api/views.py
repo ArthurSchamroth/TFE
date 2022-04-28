@@ -5,13 +5,14 @@ from rest_framework.response import Response
 from rest_framework.decorators import action
 from django.contrib.auth.models import User
 from .models import FichePatient, Commentaire, RendezVous, Message
-from .serializers import FichePatientSerializer, UserSerializer,\
+from .serializers import FichePatientSerializer, UserSerializer, \
     TokenSerializer, CommentaireSerializer, RendezVousSerializer, MessageSerializer
 from rest_framework.authentication import TokenAuthentication
 from rest_framework.permissions import IsAuthenticated, AllowAny
 from rest_framework.authtoken.models import Token
 from django.forms.models import model_to_dict
 import json
+
 
 # Create your views here.
 class UserViewSet(viewsets.ModelViewSet):
@@ -34,7 +35,6 @@ class UserViewSet(viewsets.ModelViewSet):
         else:
             response = {'result': "pas d'id"}
             return Response(response)
-
 
 
 class TokenViewSet(viewsets.ModelViewSet):
@@ -227,10 +227,10 @@ class RendezVousViewSet(viewsets.ModelViewSet):
 
     @action(detail=False, methods=["POST"])
     def getSpecificRdv(self, request):
-        if 'commentaire' in request.data:
+        if 'id' in request.data:
             try:
-                commentaire = request.data['commentaire']
-                rdv = RendezVous.objects.get(id=commentaire)
+                numero_rdv = request.data['id']
+                rdv = RendezVous.objects.get(id=numero_rdv)
                 id = rdv.id
                 nom = rdv.user.nom
                 prenom = rdv.user.prenom
@@ -241,6 +241,37 @@ class RendezVousViewSet(viewsets.ModelViewSet):
                 description = rdv.description
                 response = {'id': id, 'nom': nom, 'prenom': prenom, 'adresse': adresse, 'type_kine': type_kine,
                             'date': date, 'heure': heure, 'description': description}
+                return Response(response, status=status.HTTP_200_OK)
+
+            except:
+                response = {'message': 'it s not working'}
+                return Response(response, status=status.HTTP_200_OK)
+        else:
+            response = {'message': 'NOOOOO'}
+            return Response(response, status=status.HTTP_200_OK)
+
+    @action(detail=False, methods=["POST"])
+    def getRdvSpecificPatient(self, request):
+        if 'patient' in request.data:
+            try:
+                patient = request.data['patient']
+                rdvs = RendezVous.objects.filter(user=patient)
+                result = []
+                for i in rdvs:
+                    id = i.id
+                    user = i.user.id
+                    prenom_patient = i.user.prenom
+                    nom_patient = i.user.nom
+                    date = i.date
+                    heure = i.heure
+                    type_rdv = i.type_rdv
+                    description = i.description
+                    type_soin = i.type_soin
+                    objet = {'id': id, 'user': user, 'date': date, 'heure': heure, 'type_rdv': type_rdv,
+                             'description': description, 'type_soin': type_soin, 'nom_patient': nom_patient,
+                             'prenom_patient': prenom_patient}
+                    result.append(objet)
+                response = {'result': result}
                 return Response(response, status=status.HTTP_200_OK)
 
             except:
@@ -278,4 +309,3 @@ class MessageViewSet(viewsets.ModelViewSet):
         else:
             response = {'message': 'NOOOOO'}
             return Response(response, status=status.HTTP_200_OK)
-

@@ -176,6 +176,17 @@ export class API{
         })
     }
 
+    static async gettingRdvsFromAUser(body){
+        return fetch('http://192.168.1.21:8000/api/rendezVous/getRdvSpecificPatient/', {
+            method:'POST',
+            headers: {
+                'Content-Type':'application/json',
+                'authorization': `Token ${TOKEN}`
+            },
+            body: JSON.stringify(body)
+        })
+    }
+
     static async sendingMessage(body){
         return fetch('http://192.168.1.21:8000/api/message/',{
             method:'POST',
