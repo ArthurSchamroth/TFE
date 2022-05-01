@@ -5,6 +5,7 @@ import Navbar from '../navbar/navbar';
 import {API} from '../../api-service';
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
 import { faPlus, faClapperboard, faCamera } from '@fortawesome/free-solid-svg-icons';
+import ReactPlayer from 'react-player';
 
 function GestionRoutine(props) {
 
@@ -14,11 +15,24 @@ function GestionRoutine(props) {
     const [titreVideo, setTitreVideo] = useState('');
     const [urlVideo, setUrlVideo] = useState('');
     const [listeVideos, setListeVideos] = useState([]);
+    const [titre, setTitre] = useState('');
+    const [listeVideosRoutine, setListeVideosRoutine] = useState([]);
+    const [description, setDescription] = useState('');
+
+    useEffect(() => {
+        console.log(listeVideosRoutine)
+    }, [listeVideosRoutine])
 
     const creationClicked = () => {
         setIsCreer(!isCreer);
         setIsAjouter(false);
         setIsLister(false);
+        API.listerVideos()
+        .then(function(resp){
+            return resp.json()
+        }).then(function (resp){
+            setListeVideos(resp)
+        })
     }
 
     const ajouterClicked = () => {
@@ -31,14 +45,33 @@ function GestionRoutine(props) {
         setIsLister(!isLister);
         setIsCreer(false);
         setIsAjouter(false);
-        
+        API.listerVideos()
+        .then(function(resp){
+            return resp.json()
+        }).then(function (resp){
+            setListeVideos(resp)
+        })
     }
+
+    const envoyerRoutine = () => {
+        API.envoyerRoutine({user: 1, titre: titre, description_detaillee: description, videos: [1]})
+    }
+
+    const valueHandle = (e) => {
+        const test = []
+        const getvalue = (e?test.push(e.target.value):[]);
+        console.log(test)
+    } 
 
     const envoyerVideo = () => {
         API.envoyerVideo({titre: titreVideo, url: urlVideo})
         alert("Vidéo ajoutée !")
         console.log(titreVideo, urlVideo)
     }
+
+    useEffect(()=>{
+        console.log(listeVideosRoutine)
+    }, [listeVideosRoutine])
 
     return (
         <>
@@ -54,8 +87,26 @@ function GestionRoutine(props) {
                 <div className='container_gestion_routine'>
                     {isCreer ?
                         <div className='ajouter_routin_container'>
+                            <label htmlFor="titre_routine">Titre routine</label>
+                            <input onChange={evt => setTitre(evt.target.value)} name="titre_routine" id="titre_routine" placeholder='Titre' type='text'></input>
                             <label htmlFor="description_routine">Description Complète</label>
-                            <textarea name="description_complete" id="description_routine" cols="30" rows="4" placeholder='Décrivez la routine (nombre de répétition par jour, nombre de semaine, ...'></textarea>
+                            <textarea onChange={evt => setDescription(evt.target.value)} name="description_complete" id="description_routine" cols="30" rows="4" placeholder='Décrivez la routine (nombre de répétition par jour, nombre de semaine, ...'></textarea>
+                            <label htmlFor="description_routine">Choix vidéos tuto (maintenez ctrl pour en sélectionner plusieurs)</label><br/>
+                            {listeVideos != [] ? 
+                                <><select onSelect={evt => setListeVideosRoutine(evt.target.value)} onChange={valueHandle} name="choice_video" id="choice_video_select" multiple>
+                                {listeVideos.map(video => {
+                                    return(
+                                        <option key={video.id} value={video.id}>{video.titre}</option>
+                                    )
+                                })}
+                                </select><br/>
+                                    <button id='envoyer_routine_btn' onClick={envoyerRoutine}>
+                                        Envoyer routine
+                                    </button>
+                                </>
+                                :null
+                            }
+                            
                         </div>
                         : isAjouter ? 
                             <div className='ajouter_video_container'>
@@ -66,9 +117,18 @@ function GestionRoutine(props) {
                                 <button onClick={envoyerVideo}>Envoyer</button>
                             </div>
                             : isLister ?
-                                <div>ok</div>
-                                
-                                : null
+                                listeVideos != [] ? 
+                                    listeVideos.map(video => {
+                                        return(
+                                            <div key={video.id} className='video_item_list'>
+                                                {video.url.split('?v=')[1] ? 
+                                                    <img height='25%' width='25%' src={`https://img.youtube.com/vi/${video.url.split('?v=')[1].split('&')[0]}/hqdefault.jpg`} alt="img_video" /> : 
+                                                    <img height='25%' width='25%' src={`https://img.youtube.com/vi/${video.url.split('?v=')[0].split('be/')[1].split('?t=')[0]}/hqdefault.jpg`} alt="img_video" /> 
+                                                }
+                                            <a href={video.url}>{video.titre}</a></div>
+                                        )
+                                    }) 
+                                : null : null
                     }
                 </div>
             </div>

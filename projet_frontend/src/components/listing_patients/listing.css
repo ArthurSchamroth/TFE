@@ -226,7 +226,37 @@ h1 .fa-film {
   margin: 5%;
 }
 
+.container_gestion_routine{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
 .btn_gestion_routine:hover{
   color: #7C4C53;
   transition: all 0.2s ease-in-out;
+}
+
+.video_item_list{
+  font-size: 18px;
+  text-decoration: underline;
+}
+
+#envoyer_routine_btn{
+  background-color: #7C4C53;
+  color: white;
+  padding: 2%;
+  border-radius: 10px;
+  margin-top: 1.5rem;
+}
+
+#envoyer_routine_btn:hover{
+  background: #be707c;
+  transition: all 0.2s ease-in-out;
+}
+
+.section_suivi{
+  display: flex;
+  flex-direction: column;
+  background-color: red;
 }

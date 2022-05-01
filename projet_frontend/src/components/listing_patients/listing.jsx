@@ -16,6 +16,7 @@ function ListingPatients(props) {
     const [listeRdvPatient, setListeRdvPatient] = useState([]);
     const [isRdv, setIsRdv] = useState(false);
     const [isRoutine, setIsRoutine] = useState(false);
+    const [routine, setRoutine] = useState([]);
 
     useEffect(() => {
         fetch("http://192.168.1.21:8000/api/fichePatient/", {
@@ -56,8 +57,24 @@ function ListingPatients(props) {
         }
     }, [isRdv])
 
+    useEffect(()=>{
+        if(selectedFichePatients){
+            API.getRoutineSpecificUser({user: selectedFichePatients['id']}).then(function(resp){
+                return resp.json()
+            }).then(function(resp){
+                setRoutine(resp['result'])
+            })
+        }
+        
+    }, [isRoutine])
+
+    useEffect(()=>{
+        console.log(routine)
+    }, [routine])
+
     const fichePatientClicked = fichePatient => {
         setIsRdv(false);
+        console.log(fichePatient)
         setSelectedFichePatients(fichePatient);
     }
 
@@ -109,7 +126,19 @@ function ListingPatients(props) {
                                         <>
                                             <div className="titre_gestion_routine_patient">
                                                 <h4>Voici la routine de ce patient</h4>
+                                                <br/>
                                                 <a href="/gestion_routine" id='add_routine_btn'><FontAwesomeIcon title='Ajouter routine' icon={faPlus}/></a>
+                                                <div className="routine_container">
+                                                {routine != [] ?
+                                                    routine.map(resp => {
+                                                        return(
+                                                            <div key={resp.id} className="ficheRoutine">
+                                                                {resp.titre_routine}<br/> {resp.description_detaillee} <br/> {resp.videos}
+                                                            </div>
+                                                        )
+                                                    })
+                                                : console.log("non")}
+                                                </div>
                                             </div>
                                         </>
                                         : null

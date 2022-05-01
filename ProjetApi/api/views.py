@@ -55,6 +55,7 @@ class TokenViewSet(viewsets.ModelViewSet):
                 email = patient_wth_token.user.email
                 prenom = patient_wth_token.user.first_name
                 nom = patient_wth_token.user.last_name
+                actif = patient_wth_token.user.is_active
                 try:
                     ficheId = patient_wth_token.user.fichepatient.id
                     ficheTypeKine = patient_wth_token.user.fichepatient.type_kine
@@ -66,7 +67,7 @@ class TokenViewSet(viewsets.ModelViewSet):
                                 'adresse': ficheAdresse, 'probleme': ficheProb}
                 except:
                     response = {'id': id, 'username': user, 'email': email, 'prenom': prenom,
-                                'nom': nom}
+                                'nom': nom, 'actif': actif}
                 return Response(response, status=status.HTTP_200_OK)
 
             except:
@@ -323,3 +324,28 @@ class RoutineViewSet(viewsets.ModelViewSet):
     serializer_class = RoutineSerializer
     authentication_classes = (TokenAuthentication,)
     permission_classes = (IsAuthenticated,)
+
+    @action(detail=False, methods=['POST'])
+    def getRoutineSpecificUser(self, request):
+        if 'user' in request.data:
+            try:
+                user = request.data['user']
+                tableau_response = []
+                routines = Routine.objects.filter(user=user)
+                for i in routines:
+                    urls = []
+                    for j in i.videos.all():
+                        urls.append(j.url)
+                    objet = {
+                        'id': i.id, 'user': i.user.id, 'titre_routine': i.titre_routine,
+                        'description_detaillee': i.description_detaillee, 'videos': urls
+                    }
+                    tableau_response.append(objet)
+                response = {'result': tableau_response}
+                return Response(response, status=status.HTTP_200_OK)
+            except:
+                response = {'result': 'Ce patient ne possède pas de routine dédiée.'}
+                return Response(response, status=status.HTTP_200_OK)
+        else:
+            response = {'result': 'pas de user'}
+            return Response(response, status=status.HTTP_200_OK)

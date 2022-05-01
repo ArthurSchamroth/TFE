@@ -56,4 +56,4 @@ class VideoSerializer(serializers.ModelSerializer):
 class RoutineSerializer(serializers.ModelSerializer):
     class Meta:
         model = Routine
-        fields = ('id', 'user', 'description_detaillee', 'videos')
+        fields = ('id', 'user', 'titre_routine', 'description_detaillee', 'videos')

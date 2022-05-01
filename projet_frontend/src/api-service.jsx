@@ -220,4 +220,36 @@ export class API{
         })
     }
 
+    static async listerVideos(){
+        return fetch('http://192.168.1.21:8000/api/video', {
+            method:'GET',
+            headers: {
+                'Content-Type':'application/json',
+                'authorization': `Token ${TOKEN}`
+            }
+        })
+    }
+
+    static envoyerRoutine(body){
+        return fetch('http://192.168.1.21:8000/api/routine/', {
+            method:'POST',
+            headers:{
+                'Content-Type':'application/json',
+                'authorization': `Token ${TOKEN}`
+            },
+            body: JSON.stringify(body)
+        })
+    }
+
+    static getRoutineSpecificUser(body){
+        return fetch('http://192.168.1.21:8000/api/routine/getRoutineSpecificUser/', {
+            method:'POST',
+            headers:{
+                'Content-Type':'application/json',
+                'authorization': `Token ${TOKEN}`
+            },
+            body: JSON.stringify(body)
+        })
+    }
+
 }
