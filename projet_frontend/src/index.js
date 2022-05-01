@@ -16,6 +16,7 @@ import ProgrammerRdv from './components/RendezVous/ProgrammerRdv';
 import MessageAccueil from './components/message/message_accueil';
 import MessageAccueilCorrect from './components/message/message_accueil_correcte';
 import Messagerie from './components/message/messageBoite';
+import Routine from './components/fiche_sante/routine';
 import PageError404 from './components/404Error/404_page_error';
 import reportWebVitals from './reportWebVitals';
 import {Route, BrowserRouter, Routes} from 'react-router-dom';
@@ -63,7 +64,8 @@ function Router(){
               <>
                 <Route exact path="/patients" element={<ListingPatients/>}/> 
                 <Route exact path="/gestion_routine" element={<GestionRoutine/>}/>
-              </>: null
+              </>: 
+                <Route exact path='/routines' element={<Routine username={username != "" ? username : null} fiche={ficheId != "" ? ficheId : null}/>}/>
             }
             <Route exact path="/espace_prive" element={<Profil_Kine/>}/>
             <Route exact path="/espace_prive/fiche_sante" element={<Fiche_Sante username={username != "" ? username : null} fiche={ficheId != "" ? ficheId : null} type_kine = {typeKine != "" ? typeKine : null}

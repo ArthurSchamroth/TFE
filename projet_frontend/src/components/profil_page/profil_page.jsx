@@ -57,18 +57,28 @@ function Profil_Kine(){
                         <p>Visualisez vos futurs rendez-vous et vos disponibilités.</p>
                         <a href="/rendez_vous"><button className='profil_redirection'>RDV</button></a>
                     </div>
+                    
+                    {pseudo == "ArthurSchamroth" || pseudo == "ThomasPenning" ?
+                    <>
+                        <div className="profil_button_container">
+                            <h1>Gestion des Comptes</h1>
+                            <p>Gérez les différents comptes inscrits sur votre site.</p>
+                            <a href="/patients"><button className='profil_redirection'>Comptes</button></a>
+                        </div>
 
-                    <div className="profil_button_container">
-                        <h1>Gestion des Comptes</h1>
-                        <p>Gérez les différents comptes inscrits sur votre site.</p>
-                        <a href="/patients"><button className='profil_redirection'>Comptes</button></a>
-                    </div>
-
-                    <div className="profil_button_container">
-                        <h1>Gestion des Commentaires</h1>
-                        <p>Gérez les commentaires laissés par vos différents patients sur votre site.</p>
-                        <a href="/patients"><button className='profil_redirection'>Commentaires</button></a>
-                    </div>
+                        <div className="profil_button_container">
+                            <h1>Gestion des Commentaires</h1>
+                            <p>Gérez les commentaires laissés par vos différents patients sur votre site.</p>
+                            <a href="/patients"><button className='profil_redirection'>Commentaires</button></a>
+                        </div>
+                    </> : 
+                        <div className="profil_button_container">
+                            <h1>Routine(s)</h1>
+                            <p>Visualiser vos routines.</p>
+                            <a href="/routines"><button className='profil_redirection'>Routines</button></a>
+                        </div>
+                    }
+                    
 
                     <div className="profil_button_container_deco">
                         <h1 id="test">Déconnexion</h1>
