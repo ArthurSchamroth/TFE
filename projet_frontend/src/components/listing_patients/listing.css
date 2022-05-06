@@ -257,6 +257,26 @@ h1 .fa-film {
 
 .section_suivi{
   display: flex;
+  width: 100%;
+}
+
+.routine_container{
+  margin-top: 35px;
+  display: flex;
   flex-direction: column;
-  background-color: red;
+}
+
+.titre_routine{
+  text-decoration: underline;
+  font-size: 26px;
+}
+
+.ficheRoutine{
+  border: 2px solid black;
+  padding: 25px;
+}
+
+.sous_titres_fiche{
+  text-decoration: underline;
+  font-size: 18px;
 }

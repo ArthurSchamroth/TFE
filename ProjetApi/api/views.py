@@ -331,14 +331,15 @@ class RoutineViewSet(viewsets.ModelViewSet):
             try:
                 user = request.data['user']
                 tableau_response = []
+                liste_videos = []
                 routines = Routine.objects.filter(user=user)
                 for i in routines:
-                    urls = []
                     for j in i.videos.all():
-                        urls.append(j.url)
+                        videos = {'titre': j.titre, 'url': j.url}
+                        liste_videos.append(videos)
                     objet = {
                         'id': i.id, 'user': i.user.id, 'titre_routine': i.titre_routine,
-                        'description_detaillee': i.description_detaillee, 'videos': urls
+                        'description_detaillee': i.description_detaillee, 'videos': liste_videos
                     }
                     tableau_response.append(objet)
                 response = {'result': tableau_response}

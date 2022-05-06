@@ -124,21 +124,24 @@ function ListingPatients(props) {
                                         :
                                         isRoutine ? 
                                         <>
-                                            <div className="titre_gestion_routine_patient">
-                                                <h4>Voici la routine de ce patient</h4>
-                                                <br/>
-                                                <a href="/gestion_routine" id='add_routine_btn'><FontAwesomeIcon title='Ajouter routine' icon={faPlus}/></a>
-                                                <div className="routine_container">
-                                                {routine != [] ?
-                                                    routine.map(resp => {
-                                                        return(
+                                            <br/>
+                                            <div className="routine_container">
+                                            {routine != [] ?
+                                                routine.map(resp => {
+                                                    return(
+                                                        <>
                                                             <div key={resp.id} className="ficheRoutine">
-                                                                {resp.titre_routine}<br/> {resp.description_detaillee} <br/> {resp.videos}
+                                                            <div className='titre_routine'>{resp.titre_routine}</div>
+                                                                <br/> 
+                                                                <div className="sous_titres_fiche">Description :</div>{resp.description_detaillee} 
+                                                                <br/> 
+                                                                <div className="sous_titres_fiche">Vidéos d'exercices :</div>{resp.videos}
+                                                                
                                                             </div>
-                                                        )
-                                                    })
-                                                : console.log("non")}
-                                                </div>
+                                                        </>
+                                                    )
+                                                })
+                                            : <a href="/gestion_routine" id='add_routine_btn'><FontAwesomeIcon title='Ajouter routine' icon={faPlus}/></a>}
                                             </div>
                                         </>
                                         : null

@@ -27,3 +27,7 @@
 .container_routine h2{
     text-decoration: underline;
 }
+
+.videos_container{
+    display: flex;
+}
