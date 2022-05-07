@@ -257,6 +257,7 @@ h1 .fa-film {
 
 .section_suivi{
   display: flex;
+  justify-content: center;
   width: 100%;
 }
 
@@ -272,11 +273,18 @@ h1 .fa-film {
 }
 
 .ficheRoutine{
+  width: 35rem;
   border: 2px solid black;
   padding: 25px;
+  margin-bottom: 15px;
 }
 
 .sous_titres_fiche{
   text-decoration: underline;
   font-size: 18px;
+}
+
+
+.icon_dev{
+  cursor: pointer;
 }

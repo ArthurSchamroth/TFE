@@ -350,3 +350,29 @@ class RoutineViewSet(viewsets.ModelViewSet):
         else:
             response = {'result': 'pas de user'}
             return Response(response, status=status.HTTP_200_OK)
+
+    @action(detail=False, methods=['POST'])
+    def getInfosSpecificRoutine(self, request):
+        if 'routine' in request.data:
+            try:
+                routine = request.data['routine']
+                tableau_response = []
+                liste_videos = []
+                routines = Routine.objects.filter(titre_routine=routine)
+                for i in routines:
+                    for j in i.videos.all():
+                        videos = {'titre': j.titre, 'url': j.url}
+                        liste_videos.append(videos)
+                    objet = {
+                        'id': i.id, 'user': i.user.id, 'titre_routine': i.titre_routine,
+                        'description_detaillee': i.description_detaillee, 'videos': liste_videos
+                    }
+                    tableau_response.append(objet)
+                response = {'result': tableau_response}
+                return Response(response, status=status.HTTP_200_OK)
+            except:
+                response = {'result': 'Ce patient ne possède pas de routine dédiée.'}
+                return Response(response, status=status.HTTP_200_OK)
+        else:
+            response = {'result': 'pas de user'}
+            return Response(response, status=status.HTTP_200_OK)

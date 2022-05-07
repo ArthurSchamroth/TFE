@@ -6,7 +6,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import Navbar from '../navbar/navbar';
 import {API} from '../../api-service';
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
-import { faPlus } from '@fortawesome/free-solid-svg-icons';
+import { faPlus, faCaretDown, faCaretRight, faPaperclip } from '@fortawesome/free-solid-svg-icons';
 
 function ListingPatients(props) {
 
@@ -16,7 +16,11 @@ function ListingPatients(props) {
     const [listeRdvPatient, setListeRdvPatient] = useState([]);
     const [isRdv, setIsRdv] = useState(false);
     const [isRoutine, setIsRoutine] = useState(false);
+    const [isRoutineOuverte, setIsRoutineOuverte] = useState(false);
+    const [listeRoutines, setListeRoutines] = useState([]);
     const [routine, setRoutine] = useState([]);
+    const [optionsRoutine, setOptionsRoutine] = useState([]);
+    const [isAttributionRoutine, setIsAttributionRoutine] = useState(false);
 
     useEffect(() => {
         fetch("http://192.168.1.21:8000/api/fichePatient/", {
@@ -69,12 +73,15 @@ function ListingPatients(props) {
     }, [isRoutine])
 
     useEffect(()=>{
-        console.log(routine)
-    }, [routine])
+        
+    }, [isRoutineOuverte])
+
+    useEffect(()=>{
+        setIsRoutine(false)
+    }, [selectedFichePatients])
 
     const fichePatientClicked = fichePatient => {
         setIsRdv(false);
-        console.log(fichePatient)
         setSelectedFichePatients(fichePatient);
     }
 
@@ -85,6 +92,7 @@ function ListingPatients(props) {
 
     const activerRoutine = () => {
         setIsRoutine(!isRoutine);
+        console.log(routine)
         setIsRdv(false);
     }
 
@@ -101,7 +109,7 @@ function ListingPatients(props) {
                             isSuiviMedical ? 
                             
                             <div className='container_suivi_patient'>
-                                <h3 className='titre_suivi_container'>Ceci est le suivi du patient : {selectedFichePatients.prenom} {selectedFichePatients.nom}<br/>
+                                <h3 className='titre_suivi_container'>Ceci est le suivi de {selectedFichePatients.prenom} {selectedFichePatients.nom}<br/>
                                 Que souhaitez-vous faire ?</h3>
                                 <div className='container_btn_suivi'>
                                     <button className='redirection_btn_suivi' onClick={()=>activerRdv()}>Voir les rendez-vous</button>
@@ -113,7 +121,7 @@ function ListingPatients(props) {
                                             {listeRdvPatient && listeRdvPatient != [] ? 
                                                 listeRdvPatient.map(rdv => {
                                                     return(
-                                                        <div className='rdv_item' key={rdv.id}>
+                                                        <div key={rdv.id} className='rdv_item'>
                                                             Date & Heure : {rdv.date} {rdv.heure}<br/>
                                                             Description RDV : {rdv.description}
                                                         </div>
@@ -126,25 +134,50 @@ function ListingPatients(props) {
                                         <>
                                             <br/>
                                             <div className="routine_container">
+                                            {console.log(routine)}
                                             {routine != [] ?
                                                 routine.map(resp => {
                                                     return(
-                                                        <>
-                                                            <div key={resp.id} className="ficheRoutine">
-                                                            <div className='titre_routine'>{resp.titre_routine}</div>
-                                                                <br/> 
-                                                                <div className="sous_titres_fiche">Description :</div>{resp.description_detaillee} 
-                                                                <br/> 
-                                                                <div className="sous_titres_fiche">Vidéos d'exercices :</div>{resp.videos}
-                                                                
-                                                            </div>
+                                                        <>  
+                                                            {isRoutineOuverte ? 
+                                                                <div key={resp.id}>
+                                                                    <div className="ficheRoutine">
+                                                                    <div className='titre_routine'>{resp.titre_routine} <FontAwesomeIcon className='icon_dev' icon={faCaretRight} onClick={()=>setIsRoutineOuverte(!isRoutineOuverte)}/></div>
+                                                                    </div>
+                                                                </div>
+                                                                : 
+                                                                <>
+                                                                <div key={resp.id} className="ficheRoutine">
+                                                                <div className='titre_routine'>{resp.titre_routine} <FontAwesomeIcon className='icon_dev' icon={faCaretDown} onClick={()=>setIsRoutineOuverte(!isRoutineOuverte)}/></div>
+                                                                    <br/> 
+                                                                    <div className="routine_developpee">
+                                                                    <div className="sous_titres_fiche">Description :</div>{resp.description_detaillee} 
+                                                                    <br/> 
+                                                                    <div className="sous_titres_fiche">Vidéos d'exercices :</div>
+                                                                        {resp.videos != [] ? 
+                                                                            resp.videos.map(video => {
+                                                                                return(
+                                                                                    <div id={video.id} className="video_container">
+                                                                                        Titre : {video.titre} <br/>
+                                                                                        <a href={video.url}>{video.titre}</a>
+                                                                                    </div>
+                                                                                )
+                                                                            })
+                                                                        : null}
+                                                                        
+                                                                    </div>
+                                                                </div>
+                                                                </>
+                                                                }
                                                         </>
                                                     )
                                                 })
-                                            : <a href="/gestion_routine" id='add_routine_btn'><FontAwesomeIcon title='Ajouter routine' icon={faPlus}/></a>}
+                                            : <p>ok</p>
+                                            }
                                             </div>
                                         </>
-                                        : null
+                                        : 
+                                        null
                                     }
                                 </div>
                             </div> 

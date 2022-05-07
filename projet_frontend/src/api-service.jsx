@@ -230,6 +230,16 @@ export class API{
         })
     }
 
+    static getRoutines(){
+        return fetch('http://192.168.1.21:8000/api/routine', {
+            method:'GET',
+            headers: {
+                'Content-Type':'application/json',
+                'authorization': `Token ${TOKEN}`
+            }
+        })
+    }
+
     static envoyerRoutine(body){
         return fetch('http://192.168.1.21:8000/api/routine/', {
             method:'POST',
