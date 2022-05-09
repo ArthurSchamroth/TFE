@@ -288,3 +288,7 @@ h1 .fa-film {
 .icon_dev{
   cursor: pointer;
 }
+
+.select_container{
+  width: 75%;
+}

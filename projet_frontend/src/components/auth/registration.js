@@ -1,6 +1,7 @@
 import React, {useState, useEffect} from 'react';
 import {API} from '../../api-service';
-import './auth.css'
+import './auth.css';
+import ReCAPTCHA from "react-google-recaptcha";
 
 function Register(){
 
@@ -12,6 +13,11 @@ function Register(){
     const [listeToken, setListeToken] = useState([]);
     const [username, setUsername] = useState(first_name + last_name);
     const [listeInscrits, setListeInscrits] = useState([]);
+    const [isVerified, setIsVerified] = useState(false);
+    const [isInputNull, setIsInputNull] = useState(false);
+    const [isUserKnowed, setIsUserKnowed] = useState(false);
+    const [isPasswordOk, setIsPasswordOk] = useState(false);
+    const [isCaptchaOk, setIsCaptchaOk] = useState(false);
 
     let test = []
 
@@ -43,32 +49,40 @@ function Register(){
     }
 
     const registerClicked = () => {
-        var passw=  /^[A-Za-z]\w{7,14}$/;
-        // User vide
-        const pseudo = first_name.concat(last_name)
-        setUsername(pseudo)
-        if(password.match(passw)){
-            
-            if(listeInscrits.includes(pseudo)){
-                alert(`${pseudo} déjà pris !`)
-                window.location.href = '/inscription'
-            }else{
-                API.registerUser({username, password, first_name, last_name, email})
-                alert(`${username} créé !` )
-                window.location.href = '/login'
+        if(isVerified){
+            var passw=  /^[A-Za-z0-9]\w{7,25}$/;
+            // User vide
+            const pseudo = first_name.concat(last_name)
+            setUsername(pseudo)
+            if(repeated_password == "" || password == "" || first_name == "" || last_name == "" || email == ""){
+                setIsInputNull(true)
             }
-            
-        }else{
-            console.log("pas ok ok")
-        }
+            if(password.match(passw) && password == repeated_password){
+                if(listeInscrits.includes(pseudo)){
+                    setIsUserKnowed(true)
+                }else{
+                    API.registerUser({username, password, first_name, last_name, email})
+                    alert(`${username} créé !` )
+                    window.location.href = '/login'
+                }
+            }
+            else{
+                setIsPasswordOk(true)
+            }
+            }else{
+                setIsCaptchaOk(true)
+            }
+    }
 
-        
-}
+    const verifyCallback = () => {
+        setIsVerified(true);
+    }
 
     return(
         <div className='App'>
             <div className="login-container" onLoad={onLoading}>
             <h1>Inscription</h1>
+            <form>
                         <label htmlFor="first_name">Prénom</label><br/>
                         <input id="first_name_input" placeholder='Prénom' value={first_name} 
                         onChange={evt=>setFirst_name(evt.target.value)}/>
@@ -82,14 +96,27 @@ function Register(){
                         onChange={evt=>setEmail(evt.target.value)}/>
                         <br/>
                         <label htmlFor="password">Mot de passe</label><br/>
-                        <input id="password" type="password" placeholder='MotdePasse123'value={password}
+                        <input id="password" type="password" placeholder='Entre 7 et 25 caractères alphanumériques'value={password}
                         onChange={evt=>setPassword(evt.target.value)}/><br/>
                         <label htmlFor="repeat_password">Répéter mot de passe</label><br/>
                         <input id="repeat_password" type="password" placeholder='MotdePasse123' value={repeated_password} 
                         onChange={evt=>setRepeated_password(evt.target.value)}/>
-                        <br/>
-                    <button className='btn_co_re' onClick={registerClicked}>Register</button>
-                
+                        <br/><br/>
+                        <ReCAPTCHA 
+                        sitekey='6LcdytYfAAAAACKQ-AY46FWkC-zfKBY12cEgzk-x'
+                        onChange={verifyCallback}
+                        />
+                        {isInputNull ?
+                            <p>Veuillez compléter tous les champs du formulaire.</p> :
+                            isUserKnowed ?
+                                <p>{first_name} + {last_name} est déjà inscrit</p> :
+                                isPasswordOk ?  
+                                    <p>Veuillez entrer deux fois un mot de passe identique composé de caractères alphanumériques (entre 7 et 25 caractères).</p> :
+                                    isCaptchaOk ?
+                                        <p>Veuillez compléter le captcha.</p> : null
+                        } 
+                    <button className='btn_co_re' onClick={registerClicked}>Inscription</button>
+                    </form>
                 <p className="redirection_log-reg" onClick={()=>window.location.href = '/login'}>Already an account ? <u>Login here!</u> </p>
             </div>
         </div>

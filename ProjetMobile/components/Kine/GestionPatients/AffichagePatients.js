@@ -1,29 +1,43 @@
 import React, {useState, useEffect} from 'react';
 import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View, Button } from 'react-native';
+import { StyleSheet, Text, View, FlatList } from 'react-native';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 
 export default function AffichagePatients(props) {
 
-    const [patients, setPatients] = useState([]);
+    const [listeFiches, setListeFiches] = useState([]);
 
-    useEffect(() => {
+    fetch(`http://192.168.1.21:8000/api/fichePatient`, {
+        method: 'GET',
+        headers: {
+            'Authorization': 'Token 32fd88f63f1e9f169ea9c09d9dd19d46ae7a2f4f'
+        }
+    })
+    .then(resp => resp.json())
+    .then(resp => setListeFiches(resp))
 
-        fetch("http://192.168.1.21:8000/api/fichePatient/", {
-            method: 'GET',
-            headers: {
-                Accept: 'application/json',
-                'authorization': 'Token 32fd88f63f1e9f169ea9c09d9dd19d46ae7a2f4f'
-            }
-        })
-        .then(jsonResponse => setPatients(jsonResponse))
-        .then(jsonResponse => console.log(jsonResponse))
-        .catch(error => console.log(error))
-    }, [])
+
+    const ficheClicked = (fiche) => {
+        props.navigation.navigate("Details", {fiche:fiche})
+    }
 
     return (
-        <View style={styles.container}>
+        <View>
             <Text>Bienvenue dans l'application mobile de Monsieur Penning</Text>
+            {listeFiches !=  [] ? 
+                <FlatList 
+                    data={listeFiches}
+                    renderItem = {({item}) => (
+                        <TouchableOpacity onPress={() => ficheClicked(item)}>
+                            <View style={styles.item}>
+                                <Text style={styles.itemText}>{item.nom} {item.prenom}</Text>
+                            </View>
+                        </TouchableOpacity>
+                    )}
+                    keyExtractor={(item, index) => index.toString()}
+                /> 
+                : null
+            }
             <StatusBar style="auto" />
         </View>
     );
@@ -35,5 +49,16 @@ export default function AffichagePatients(props) {
         backgroundColor: '#fff',
         alignItems: 'center',
         justifyContent: 'center',
+    },
+    item: {
+        flex: 1,
+        padding: 10,
+        height: 50,
+        backgroundColor: '#282C35'
+    },
+    itemText: {
+        color: '#fff',
+        fontSize: 24
     }
+    
 });

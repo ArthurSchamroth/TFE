@@ -39,3 +39,9 @@ input{
     color: #1F2020;
     background-color: #CFC486;
 }
+
+.login_failed{
+    font-size: 18px;
+    text-decoration: underline;
+    color: red;
+}

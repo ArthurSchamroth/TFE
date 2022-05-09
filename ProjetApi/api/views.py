@@ -36,7 +36,6 @@ class UserViewSet(viewsets.ModelViewSet):
             response = {'result': "pas d'id"}
             return Response(response)
 
-
 class TokenViewSet(viewsets.ModelViewSet):
     queryset = Token.objects.all()
     serializer_class = TokenSerializer

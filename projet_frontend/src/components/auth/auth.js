@@ -11,7 +11,8 @@ function Auth(){
     const [token, setToken] = useCookies([('mr-token')]);
     const [listeToken, setListeToken] = useState([]);
     const [username, setUsername] = useState("");
-    const [username_login, setUsername_login] = useState("");
+    const [isInvalidLogin, setIsInvalidLogin] = useState(false);
+    const [isInputNull, setIsInputNull] = useState(false);
     const test = []
 
     useEffect( async () => {
@@ -26,7 +27,8 @@ function Auth(){
                 test.push(i["username"])
             }
         })
-        
+        //.then(resp => setToken(, resp.token))
+        .catch(error => console.log(error))
     }, []);
 
     useEffect(()=>{
@@ -43,6 +45,14 @@ function Auth(){
     const loginClicked = async () => {
         API.loginUser({username, password})
             .then(response => {
+                if(username == "" || password == ""){
+                    setIsInputNull(true);
+                    setIsInvalidLogin(false);
+                }
+                if(response['non_field_errors']){
+                    setIsInvalidLogin(true);
+                    setIsInputNull(false);
+                }
                 for(let i of listeToken){
                     if(response.token === (i['key'])){
                         setToken('mr-token', response.token)
@@ -50,8 +60,6 @@ function Auth(){
                     }
                 }
             })
-            //.then(resp => setToken(, resp.token))
-            .catch(error => console.log(error))
     }
 
 
@@ -61,14 +69,19 @@ function Auth(){
             <div className="login-container" onLoad={onLoading}>
                 <h1>Connexion</h1>
                     <label htmlFor="username">Pseudo</label><br/>
-                    <input id='username' type="text" placeholder="Votre pseudo a été créé lors de votre. Il s'agit de votre PrénomNom." value={username}
+                    <input id='username' type="text" placeholder="Votre pseudo a été créé lors de votre inscription. Il s'agit de votre PrénomNom." value={username}
                     onChange={evt => setUsername(evt.target.value)}/><br/>
                     <label htmlFor="password">Mot de Passe</label><br/>
                     <input id="password" type="password" placeholder='MotDePasse123'value={password}
                     onChange={evt=>setPassword(evt.target.value)}/><br/>
+                    {isInputNull ? 
+                        <><p className='login_failed'> Veuillez remplir tous les champs.</p></> : null
+                    }
+                    {isInvalidLogin ? 
+                        <><p className='login_failed'> Identifiant/Mot de passe incorrect.</p></> : null
+                    }
                     <button className='btn_co_re' onClick={loginClicked}>Connexion</button>
-
-                <p className="redirection_log-reg" onClick={()=>window.location.href = '/inscription'}>You don't have an account ? <u>Click here!</u></p>
+                <p className="redirection_log-reg" onClick={()=>window.location.href = '/inscription'}>Pas de compte ? <u>Créez en un</u></p>
             </div>
         </div>
     )

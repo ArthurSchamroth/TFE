@@ -6,6 +6,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import Navbar from '../navbar/navbar';
 import {API} from '../../api-service';
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
+import Select from 'react-select';
 import { faPlus, faCaretDown, faCaretRight, faPaperclip } from '@fortawesome/free-solid-svg-icons';
 
 function ListingPatients(props) {
@@ -15,12 +16,12 @@ function ListingPatients(props) {
     const [isSuiviMedical, setIsSuiviMedical] = useState(false);
     const [listeRdvPatient, setListeRdvPatient] = useState([]);
     const [isRdv, setIsRdv] = useState(false);
-    const [isRoutine, setIsRoutine] = useState(false);
+    const [isRoutine, setIsRoutine] = useState(true);
     const [isRoutineOuverte, setIsRoutineOuverte] = useState(false);
+    const [isAjouterRoutine, setIsAjouterRoutine] = useState(false);
     const [listeRoutines, setListeRoutines] = useState([]);
     const [routine, setRoutine] = useState([]);
     const [optionsRoutine, setOptionsRoutine] = useState([]);
-    const [isAttributionRoutine, setIsAttributionRoutine] = useState(false);
 
     useEffect(() => {
         fetch("http://192.168.1.21:8000/api/fichePatient/", {
@@ -67,14 +68,26 @@ function ListingPatients(props) {
                 return resp.json()
             }).then(function(resp){
                 setRoutine(resp['result'])
+                
             })
         }
-        
-    }, [isRoutine])
+    }, [selectedFichePatients])
 
     useEffect(()=>{
-        
-    }, [isRoutineOuverte])
+        API.getRoutines().then(function(resp){
+            return resp.json()
+        }).then(function(resp){
+            setListeRoutines(resp)
+            var liste = []
+            for(const i of resp){
+                const object = {}
+                object['value'] = i.titre_routine
+                object['label'] = i.titre_routine
+                liste.push(object)
+            }
+            setOptionsRoutine(liste)
+        })
+    }, [isAjouterRoutine])
 
     useEffect(()=>{
         setIsRoutine(false)
@@ -92,9 +105,35 @@ function ListingPatients(props) {
 
     const activerRoutine = () => {
         setIsRoutine(!isRoutine);
-        console.log(routine)
         setIsRdv(false);
     }
+
+    const activerAjouterRoutine = () => {
+        setIsAjouterRoutine(!isAjouterRoutine);
+        setIsRdv(false);
+    }
+
+    const customStyles = {
+        control: (base, state) => ({
+            ...base,
+            background: "#023950",
+            borderRadius: state.isFocused ? "3px 3px 0 0" : 3,
+            borderColor: state.isFocused ? "yellow" : "green",
+            boxShadow: state.isFocused ? null : null,
+            "&:hover": {
+            borderColor: state.isFocused ? "red" : "blue"
+            }
+        }),
+        menu: (base) => ({
+            ...base,
+            borderRadius: 0,
+            marginTop: 0
+        }),
+        menuList: (base) => ({
+            ...base,
+            padding: 0
+        })
+        };
 
     return (
         <>
@@ -113,7 +152,11 @@ function ListingPatients(props) {
                                 Que souhaitez-vous faire ?</h3>
                                 <div className='container_btn_suivi'>
                                     <button className='redirection_btn_suivi' onClick={()=>activerRdv()}>Voir les rendez-vous</button>
-                                    <button className='redirection_btn_suivi' onClick={()=>activerRoutine()}>Voir routines</button>
+                                    {routine.length != 0 ? 
+                                        <button className='redirection_btn_suivi' onClick={()=>activerRoutine()}>Voir routines</button> :
+                                        <button className='redirection_btn_suivi' onClick={()=>activerAjouterRoutine()}>Ajouter routine</button> 
+                                    }
+                                    
                                 </div>
                                 <div className='section_suivi'>
                                     {isRdv ? 
@@ -130,11 +173,11 @@ function ListingPatients(props) {
                                             : null}
                                         </div>
                                         :
+                                        
                                         isRoutine ? 
                                         <>
                                             <br/>
                                             <div className="routine_container">
-                                            {console.log(routine)}
                                             {routine != [] ?
                                                 routine.map(resp => {
                                                     return(
@@ -172,12 +215,29 @@ function ListingPatients(props) {
                                                         </>
                                                     )
                                                 })
-                                            : <p>ok</p>
+                                            : null
                                             }
                                             </div>
                                         </>
                                         : 
-                                        null
+                                        isAjouterRoutine && optionsRoutine.length != 0 ? 
+                                            <div className='select_container'>
+                                                <Select 
+                                                    options={optionsRoutine}
+                                                    label="Sélectionner la routine que vous voulez attribuer"
+                                                    theme={(theme) => ({
+                                                        ...theme,
+                                                        borderRadius: 0,
+                                                        colors: {
+                                                            ...theme.colors,
+                                                            text: 'orangered',
+                                                            primary25: 'hotpink',
+                                                            primary: 'black'
+                                                        }
+                                                    })}
+                                                />
+                                            </div>
+                                        : console.log('non')
                                     }
                                 </div>
                             </div> 

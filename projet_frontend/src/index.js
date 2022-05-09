@@ -59,7 +59,9 @@ function Router(){
         <BrowserRouter>
           <Routes>
             <Route exact path="/" element={<HomePage/>}/>
+            <Route exact path="/commentaires" element={<Commentaire username={username!=''?username:null}/>}/>
             <Route exact path="/login" element={<Auth/>}/>
+            <Route exact path="/inscription" element={<Register/>}/>
             {username=="ArthurSchamroth" || username=="ThomasPenning" ? 
               <>
                 <Route exact path="/patients" element={<ListingPatients/>}/> 
@@ -67,12 +69,6 @@ function Router(){
               </>: 
                 <Route exact path='/routines' element={<Routine username={username != "" ? username : null} fiche={ficheId != "" ? ficheId : null}/>}/>
             }
-            <Route exact path="/espace_prive" element={<Profil_Kine/>}/>
-            <Route exact path="/espace_prive/fiche_sante" element={<Fiche_Sante username={username != "" ? username : null} fiche={ficheId != "" ? ficheId : null} type_kine = {typeKine != "" ? typeKine : null}
-            age={age != "" ? age : null} adresse={adresse != "" ? adresse : null} descriptProb = {descriptProb != "" ? descriptProb : null}/>}/>
-            <Route exact path="/inscription" element={<Register/>}/>
-            <Route exact path="/commentaires" element={<Commentaire username={username!=''?username:null}/>}/>
-            <Route exact path="/rendez_vous" element={<AccueilRdv/>}/>
             {!token && !ficheId != ""? null : 
             <>
               <Route exact path="/rendez_vous/anciens" element={<AncienRdv fiche={ficheId != "" ? ficheId : null}/>}/>
@@ -82,8 +78,12 @@ function Router(){
             {!token && !ficheId? null : 
             <Route exact path="/rendez_vous/programmer" element={<ProgrammerRdv type_kine={typeKine} fiche={ficheId != "" ? ficheId : null}/>}/>
             }
-            {username != '' && ficheId != "" ? 
+            {username && username != '' && ficheId != "" ? 
             <>
+              <Route exact path="/espace_prive" element={<Profil_Kine/>}/>
+              <Route exact path="/rendez_vous" element={<AccueilRdv/>}/>
+              <Route exact path="/espace_prive/fiche_sante" element={<Fiche_Sante username={username != "" ? username : null} fiche={ficheId != "" ? ficheId : null} type_kine = {typeKine != "" ? typeKine : null}
+              age={age != "" ? age : null} adresse={adresse != "" ? adresse : null} descriptProb = {descriptProb != "" ? descriptProb : null}/>}/>
               <Route exact path="/messagerie" element={<MessageAccueilCorrect fiche={ficheId} username={username}/>}/>
               <Route exact path="/messagerie/boite" element={<Messagerie fiche={ficheId} username={username}/>}/>
               <Route exact path="/messagerie/envoyer" element={<MessageAccueil fiche={ficheId} username={username}/>}/>

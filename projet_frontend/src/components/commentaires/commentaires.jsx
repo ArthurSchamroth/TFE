@@ -28,7 +28,7 @@ function Commentaire(props){
         method: 'GET',
         headers: {
             'Content-Type': 'application/json',
-            'Authorization': 'Token 32fd88f63f1e9f169ea9c09d9dd19d46ae7a2f4f'
+            'Authorization': `Token ${token}`
         }
         })
         .then(resp => resp.json())

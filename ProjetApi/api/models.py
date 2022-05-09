@@ -4,6 +4,8 @@ from datetime import datetime
 from django.contrib.postgres.fields import ArrayField
 
 # Create your models here.
+
+
 class FichePatient(models.Model):
     type_kine = (
         ('K', 'Kinésithérapie'),
