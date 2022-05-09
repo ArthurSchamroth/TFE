@@ -1,4 +1,4 @@
-const TOKEN = '32fd88f63f1e9f169ea9c09d9dd19d46ae7a2f4f';
+const TOKEN = process.env.REACT_APP_API_token;
 
 export class API{
     static loginUser(body){

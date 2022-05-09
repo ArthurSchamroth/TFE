@@ -28,7 +28,7 @@ function Commentaire(props){
         method: 'GET',
         headers: {
             'Content-Type': 'application/json',
-            'Authorization': `Token ${token}`
+            'Authorization': `Token ${process.env.REACT_APP_API_token}`
         }
         })
         .then(resp => resp.json())
