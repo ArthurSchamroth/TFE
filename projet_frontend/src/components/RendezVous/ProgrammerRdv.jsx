@@ -11,7 +11,6 @@ function ProgrammerRdv(props){
     
     const [date, setDate] = useState('');
     const [heure, setHeure] = useState('');
-    const [typeRdv, setTypeRdv] = useState('');
     const [description, setDescription] = useState('');
     const [loading, setLoading] = useState(false);
     const [rdvDateHeure, setRdvDateHeure] = useState([]);
@@ -20,7 +19,7 @@ function ProgrammerRdv(props){
     const heures_rdv = ["8:00", "9:00", "10:00", "11:00", "13:00", "14:00", "15:00", "16:00", "17:00"]
     
     const envoyerRdv = () => {API.addingRdv({'user': props.fiche, 'date': date, 'heure': heure, 
-                    'type_rdv': typeRdv, 'description': description,
+                    'type_rdv': "D", 'description': description,
                     'type_soin': props.type_kine})
                     window.location.href = "/rendez_vous/programmer"
     } 
@@ -48,7 +47,6 @@ function ProgrammerRdv(props){
         <>  
             <Navbar/>
             <div className="App">
-                {props.type_kine}
                 <h1>vous pouvez ici programmer vos prochains rendez-vous avec Monsieur Penning</h1>
                 <div className='form_rdv_envoi_container'>
                     <label htmlFor="date">Date</label><br/>
@@ -75,11 +73,6 @@ function ProgrammerRdv(props){
                         </div>:
                         null
                     }
-                    
-
-                    <label htmlFor="type_rdv">Type Rendez-vous</label><br/>
-                    <input id='type_rdv' type="text" value={typeRdv}
-                    onChange={evt => setTypeRdv(evt.target.value)}/><br/>
 
                     <label htmlFor="description">Description</label><br/>
                     <input id='description' type="text" value={description}

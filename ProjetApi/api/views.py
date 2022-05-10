@@ -179,6 +179,22 @@ class RendezVousViewSet(viewsets.ModelViewSet):
     authentication_classes = (TokenAuthentication,)
     permission_classes = (IsAuthenticated,)
 
+    @action(detail=False, methods=['DELETE'])
+    def del_rdv(self, request):
+        if 'id' in request.data:
+            try:
+                rdv_id = request.data['id']
+                rdv = RendezVous.objects.get(id=rdv_id)
+                rdv.delete()
+                response = {'result': 'ok'}
+                return Response(response)
+            except:
+                response = {'result': 'pas ok'}
+                return Response(response)
+        else:
+            response = {'result': "pas d'id"}
+            return Response(response)
+
     @action(detail=False, methods=["POST"])
     def getListSpecificRdv(self, request):
         if 'fiche' in request.data:
@@ -187,7 +203,7 @@ class RendezVousViewSet(viewsets.ModelViewSet):
                 username = request.data['fiche']
                 rdvs = RendezVous.objects.filter(user=username)
                 for i in rdvs:
-                    object = {'id': i.id, 'nom': i.user.nom, 'prenom': i.user.prenom, 'type_kine': i.type_soin,
+                    object = {'id': i.id, 'nom': i.user.nom, 'prenom': i.user.prenom, 'type_soin': i.type_soin,
                               'adresse': i.user.adresse, 'date': i.date, 'heure': i.heure, 'type_rdv': i.type_rdv,
                               'description': i.description}
                     tableau_response.append(object)
@@ -249,6 +265,17 @@ class RendezVousViewSet(viewsets.ModelViewSet):
         else:
             response = {'message': 'NOOOOO'}
             return Response(response, status=status.HTTP_200_OK)
+
+    @action(detail=False, methods=["POST"])
+    def getAllRdvsWithName(self, request):
+        rdvs = RendezVous.objects.all()
+        result = []
+        for i in rdvs:
+            objet = {'id': i.id, "nom": i.user.nom, "prenom": i.user.prenom, "date": i.date, "heure": i.heure,
+                     "type_soin": i.type_soin, "description": i.description}
+            result.append(objet)
+        response = {"result": result}
+        return Response(response, status=status.HTTP_200_OK)
 
     @action(detail=False, methods=["POST"])
     def getRdvSpecificPatient(self, request):

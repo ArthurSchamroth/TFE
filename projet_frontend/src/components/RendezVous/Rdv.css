@@ -5,7 +5,6 @@
     text-align: center;
 }
 
-
 .redirection_rdv_btn{
     color: #fff;
     background-color: #7C4C53;
@@ -30,10 +29,12 @@
     border: 2px solid;
     text-align: center;
     padding: 1% 2%;
+    text-decoration: underline;
 }
 
 #tableau_rdv_precedents{
     margin-top: 5%;
+    width: 80%;
 }
 
 .form_rdv_envoi_container{
@@ -60,4 +61,37 @@
 
 .heure_radio{
     width: 50%;
+}
+
+.tableau_container{
+    display: flex;
+    justify-content: center;
+    width: 100%;
+}
+
+th, td{
+    text-align: center;
+    border-bottom: 2px solid;
+    padding: 1%;
+}
+
+.premiere_colonne{
+    border-left: 2px solid;
+}
+
+.derniere_colonne{
+    border-right: 2px solid;
+}
+
+.del_rdv_btn{
+    background-color: #7C4C53;
+    border-radius: 10px;
+    color: #fff;
+}
+
+.del_rdv_btn:hover{
+    background-color: #fff;
+    border-radius: 10px;
+    color: #7C4C53;
+    transition: all 0.2s ease-in-out;
 }

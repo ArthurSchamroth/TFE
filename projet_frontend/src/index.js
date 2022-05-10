@@ -71,8 +71,8 @@ function Router(){
             }
             {!token && !ficheId != ""? null : 
             <>
-              <Route exact path="/rendez_vous/anciens" element={<AncienRdv fiche={ficheId != "" ? ficheId : null}/>}/>
-              <Route exact path="/rendez_vous/futurs" element={<FuturRdv fiche={ficheId != "" ? ficheId : null}/>}/>
+              <Route exact path="/rendez_vous/anciens" element={<AncienRdv fiche={ficheId != "" ? ficheId : null} username={username != "" ? username : null}/>}/>
+              <Route exact path="/rendez_vous/futurs" element={<FuturRdv fiche={ficheId != "" ? ficheId : null} username={username != "" ? username : null}/>}/>
             </>
             }
             {!token && !ficheId? null : 
