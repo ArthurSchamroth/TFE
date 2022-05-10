@@ -10,7 +10,6 @@ function MessageAccueil(props){
     const [contenuMessage, setContenuMessage] = useState('');
     const [destPossibles, setDestPossibles] = useState([]);
     const [destPossibleValues, setDestPossiblesValues] = useState([]);
-    const [test, setTest] = useState('');
 
     useEffect(()=>{
         const liste = []
@@ -32,12 +31,10 @@ function MessageAccueil(props){
     }, [])
 
     useEffect(()=>{
-        if(destinataire != {}){
-            setTest(destinataire)
-        }
+        console.log(destinataire)
     }, [destinataire])
 
-    const envoyerMessage = () => {
+    const envoyerMessage = destinataire => {
         if(props.username != "ThomasPenning"){
             var user = props.fiche
             var destinataire = 'ThomasPenning'
@@ -49,17 +46,18 @@ function MessageAccueil(props){
                 'contenu': contenuMessage, 'dest': destinataire
             })
         }
-        else{
-                var user = props.fiche
-                var today = new Date();
-                var dest = destinataire
-                var date = today.getFullYear()  + "-" + today.getMonth() + "-" + today.getDate()
-                var time = today.getHours() + ':' + today.getMinutes() + ':' + today.getSeconds()
-                API.sendingMessage({
-                    'user': user, 'date': date,'heure': time,  
-                    'contenu': contenuMessage, 'dest': dest
-                })
+        else{   
+            var user = props.fiche
+            var today = new Date();
+            var date = today.getFullYear()  + "-" + today.getMonth() + "-" + today.getDate()
+            var time = today.getHours() + ':' + today.getMinutes() + ':' + today.getSeconds()
+            API.sendingMessage({
+                'user': user, 'date': date,'heure': time,  
+                'contenu': contenuMessage, 'dest': destinataire
+            })
         }
+        alert("Message envoyé !")
+        window.location.href = "/messagerie"
     }
 
     return(
@@ -99,7 +97,7 @@ function MessageAccueil(props){
                     <input id="auteur" type="text" disabled value={props.username}
                     onChange={evt=>setAuteur(evt.target.value)}/><br/>
 
-                    <button className='btn_co_re' onClick={envoyerMessage}>Envoyer Message</button>
+                    <button className='btn_co_re' onClick={() => envoyerMessage(destinataire)}>Envoyer Message</button>
                 </div>
                 
             </div>

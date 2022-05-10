@@ -99,7 +99,7 @@ function AncienRdv(props){
                                     <td className='derniere_colonne'>
                                         <Popup trigger={<button className='del_rdv_btn'>Supprimer</button>} position='bottom center'>
                                             <div>Êtes-vous sûr de vouloir supprimer ce rendez-vous ?</div>
-                                            <button  onClick={() => deleteClicked(rdv)}>Supprimer</button>
+                                            <button onClick={() => deleteClicked(rdv)}>Supprimer</button>
                                         </Popup>
                                     </td>
                                 </tr> : null

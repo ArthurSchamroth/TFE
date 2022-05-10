@@ -165,6 +165,27 @@ export class API{
         })
     }
 
+    static async getAuthors(){
+        return fetch('http://192.168.1.21:8000/api/message/getAllAuthors/',{
+            method:'POST',
+            headers: {
+                'Content-Type':'application/json',
+                'authorization' : `Token ${TOKEN}`
+            }
+        })
+    }
+
+    static async getMsgFromAAuthor(body){
+        return fetch('http://192.168.1.21:8000/api/message/getMessagesMadeByAUser/',{
+            method:'POST',
+            headers: {
+                'Content-Type':'application/json',
+                'authorization' : `Token ${TOKEN}`
+            },
+            body: JSON.stringify(body)
+        })
+    }
+
     static async gettingRdvs(){
         return fetch('http://192.168.1.21:8000/api/rendezVous',{
             method:'GET',

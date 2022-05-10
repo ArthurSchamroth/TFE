@@ -12,7 +12,7 @@ function Fiche_Sante(props){
     const [prenom, setPrenom] = useState('');
     const [nom, setNom] = useState('');
     const [username, setUsername] = useState('');
-    const [user, setUser] = useState('');
+    const [user, setUser] = useState(props.user);
     const [listingFiches, setListingFiches] = useState([]);
     const [listingFiche_id, setListingFiche_id ] = useState([])
     const [age, setAge] = useState('2000-07-28');
@@ -23,8 +23,7 @@ function Fiche_Sante(props){
     const dateMax = new Date().toISOString().split('T')[0];
 
     useEffect(()=>{
-        if(props.fiche && props.username){
-            console.log("test")
+        if(props.fiche){
             API.gettingDataFromFiche({'username': props.username})
                 .then(function(resp){
                     return resp.json()
@@ -41,13 +40,12 @@ function Fiche_Sante(props){
     }, [])
 
     useEffect(()=>{
-        if(!props.fiche && !props.username){
+        if(!props.fiche){
             API.gettingDataFromToken({'token': token['mr-token']})
             .then(function(resp){
                 return resp.json()
             }).then(function(resp){
                 setEmail(resp['email']);
-                setUser(resp['id']);
                 setPrenom(resp['prenom']);
                 setNom(resp['nom']);
                 setUsername(resp['username']);
@@ -75,14 +73,14 @@ function Fiche_Sante(props){
     var date = today.getFullYear()+'-'+(today.getMonth()+1)+'-'+today.getDate();
 
     const envoyer_fiche = () => {
-        console.log(user, nom, prenom, age, adresse_mail, type_kine, description_probleme, adresse)
         API.creatingFiche({user, nom, prenom, age, adresse_mail, type_kine, description_probleme, adresse})
+        alert("Fiche créée !")
         window.location.href = "/espace_prive/fiche_sante"
     }
 
     const modifier_fiche = () => {
-        console.log(age)
         API.updatingFiche({user, nom, prenom, age, adresse_mail, type_kine, description_probleme, adresse})
+        alert("Fiche modifée !")
         window.location.href = "/espace_prive/fiche_sante"
     }
 

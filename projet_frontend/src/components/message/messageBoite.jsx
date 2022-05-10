@@ -6,8 +6,18 @@ import {API} from '../../api-service';
 
 function Messagerie(props){
     const [messages, setMessages] = useState([]);
+    const [auteurs, setAuteurs] = useState([]);
+    const [auteurSelected, setAuteurSelected] = useState("");
+    const [messagesFromSpecificUser, setMessagesFromSpecificUser] = useState([]);
 
     useEffect(()=>{
+        if(props.username == "ArthurSchamroth" || props.username == "ThomasPenning"){
+            API.getAuthors().then(function(resp){
+                return resp.json()
+            }).then(function(resp){
+                setAuteurs(resp['result'])
+            })
+        }
         API.gettingMessageSpecific({'dest': props.username})
             .then(function(resp){
                 return resp.json()
@@ -16,12 +26,35 @@ function Messagerie(props){
             })
     }, [])
 
+    const auteurClicked = (auteur, auteur_nom) => {
+        API.getMsgFromAAuthor({'user': auteur}).then(function(resp){
+            return resp.json()
+        }).then(function(resp){
+            setAuteurSelected(auteur_nom)
+            setMessagesFromSpecificUser(resp['result']);
+        })
+    }
+
     return(
         <>
             <Navbar/>
             <div className='App'>
-                {props.username}, voici vos messages.
-                <div className="boiteMessageContainer">
+                <h2>Voici vos messages.</h2>
+                {props.username == "ArthurSchamroth" || props.username == "ThomasPenning" ? 
+                    auteurs != [] ? 
+                        auteurs.map(auteur => {
+                            return(
+                                <>
+                                {auteur.auteur.split(" ")[0] + auteur.auteur.split(" ")[1] == props.username ?
+                                    null : 
+                                    <button key={auteur.id} onClick={() => auteurClicked(auteur.auteur_id, auteur.auteur)}>{auteur.auteur}</button>
+                                }
+                                </>
+                            )
+                        }) 
+                        : null
+                    : 
+                    <div className="boiteMessageContainer">
                     {messages != [] ? 
                     messages.map(msg => {
                         return(
@@ -29,9 +62,25 @@ function Messagerie(props){
                                 {msg['date']} {msg['heure']}<br/>{msg['contenu']}
                             </div>
                         )
-                    })
-                    : console.log('pas ok')}
-                </div>
+                        })
+                        : null}
+                    </div>
+                }
+                {auteurSelected != "" && messagesFromSpecificUser != [] ? 
+                    <div className="message_specific_sender">
+                        {messagesFromSpecificUser.map(message => {
+                            return(
+                                <>{console.log(message)}
+                                <div key={message.id} className="message_container">
+                                    <p>Date et Heure : {message.date} {message.heure}</p>
+                                    <p>Contenu : <br/>{message.contenu}</p>
+                                </div></>
+                            )
+                        })}
+                    </div>
+                    : console.log("pas d'auteur")
+                }
+                
             </div>
             
         </>

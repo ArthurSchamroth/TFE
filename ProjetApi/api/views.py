@@ -316,12 +316,48 @@ class MessageViewSet(viewsets.ModelViewSet):
     permission_classes = (IsAuthenticated,)
 
     @action(detail=False, methods=["POST"])
+    def getAllAuthors(self, request):
+        messages = Message.objects.all()
+        result = []
+        auteurs = []
+        for i in messages:
+            auteur = i.user.prenom + " " + i.user.nom
+            if auteur not in auteurs:
+                auteurs.append(auteur)
+                objet = {"auteur": auteur, "auteur_id": i.user_id}
+                result.append(objet)
+        response = {"result": result}
+        return Response(response, status=status.HTTP_200_OK)
+
+    @action(detail=False, methods=["POST"])
     def getMessagesFromSpecificUser(self, request):
         if 'dest' in request.data:
             try:
                 tableau_response = []
                 username = request.data['dest']
                 messages = Message.objects.filter(dest=username)
+                for i in messages:
+                    object = {'id': i.id, 'date': i.date, 'heure': i.heure, 'dest': i.dest,
+                              'contenu': i.contenu}
+                    tableau_response.append(object)
+
+                response = {'result': tableau_response}
+                return Response(response, status=status.HTTP_200_OK)
+
+            except:
+                response = {'message': 'it s not working'}
+                return Response(response, status=status.HTTP_200_OK)
+        else:
+            response = {'message': 'NOOOOO'}
+            return Response(response, status=status.HTTP_200_OK)
+
+    @action(detail=False, methods=["POST"])
+    def getMessagesMadeByAUser(self, request):
+        if 'user' in request.data:
+            try:
+                tableau_response = []
+                user = request.data['user']
+                messages = Message.objects.filter(user_id=user)
                 for i in messages:
                     object = {'id': i.id, 'date': i.date, 'heure': i.heure, 'dest': i.dest,
                               'contenu': i.contenu}

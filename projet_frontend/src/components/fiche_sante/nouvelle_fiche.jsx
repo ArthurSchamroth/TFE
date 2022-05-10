@@ -21,10 +21,12 @@ function Nouvelle_Fiche_Sante(){
     const [description_probleme, setDetail_prob] = useState('');
 
     useEffect(()=>{
+        console.log("ok")
         API.gettingDataFromToken({'token': token['mr-token']})
             .then(function(resp){
                 return resp.json()
             }).then(function(resp){
+                console.log(resp)
                 setEmail(resp['email']);
                 setUser(resp['id']);
                 setPrenom(resp['prenom']);
@@ -68,7 +70,8 @@ function Nouvelle_Fiche_Sante(){
     var today = new Date();
     var date = today.getFullYear()+'-'+(today.getMonth()+1)+'-'+today.getDate();
     const envoyer_fiche = () => {
-        API.creatingFiche({user, nom, prenom, age, adresse_mail, type_kine, description_probleme, adresse})
+        print(user, nom, prenom, age, adresse_mail, type_kine, description_probleme, adresse)
+        // API.creatingFiche({user, nom, prenom, age, adresse_mail, type_kine, description_probleme, adresse})
     }
 
     const modifier_fiche = () => {
