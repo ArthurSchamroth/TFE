@@ -250,6 +250,17 @@ export class API{
         })
     }
 
+    static async deletingMessage(body){
+        return fetch('http://192.168.1.21:8000/api/message/del_msg/',{
+            method:'DELETE',
+            headers: {
+                'Content-Type':'application/json',
+                'authorization': `Token ${TOKEN}`
+            },
+            body: JSON.stringify(body)
+        })
+    }
+
     static async gettingMessageSpecific(body){
         return fetch('http://192.168.1.21:8000/api/message/getMessagesFromSpecificUser/',{
             method:'POST',

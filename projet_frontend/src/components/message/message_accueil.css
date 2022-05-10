@@ -1,0 +1,48 @@
+.redirect_link_rdv{
+    width: 10rem;
+}
+
+.message_specific_sender{
+    margin-top: 25px;
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.message_container{
+    border: 2px #1F2020 solid;
+    padding-left: 10px;
+    padding-right: 10px;
+    padding-top: 10px;
+    margin: 10px;
+    flex: 1 0 47%;
+}
+
+.supprimer_msg{
+    cursor: pointer;
+    margin-right: 10%;
+}
+
+.rep_msg{
+    cursor: pointer;
+}
+
+.btn_auteur{
+    width: 25%;
+    margin: 0.2%;
+    border-radius: 10px;
+    background-color: #7C4C53;
+    color: #fff;
+}
+
+.btn_auteur:hover{
+    background-color: transparent;
+    transition: all 0.2s ease-in-out;
+}
+
+.btn_container{
+    margin-top: 25px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}

@@ -3,6 +3,8 @@ import {useCookies} from 'react-cookie';
 import Navbar from '../navbar/navbar';
 import './message_accueil.css';
 import {API} from '../../api-service';
+import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
+import {faCircleMinus, faReply} from '@fortawesome/free-solid-svg-icons';
 
 function Messagerie(props){
     const [messages, setMessages] = useState([]);
@@ -35,11 +37,16 @@ function Messagerie(props){
         })
     }
 
+    const deleteClicked = msg => {
+        API.deletingMessage({id: msg.id});
+        window.location.href = "/messagerie/boite";
+    }
+
     return(
         <>
             <Navbar/>
             <div className='App'>
-                <h2>Voici vos messages.</h2>
+                <h2>Ceci est votre boite de réception.</h2>
                 {props.username == "ArthurSchamroth" || props.username == "ThomasPenning" ? 
                     auteurs != [] ? 
                         auteurs.map(auteur => {
@@ -47,7 +54,7 @@ function Messagerie(props){
                                 <>
                                 {auteur.auteur.split(" ")[0] + auteur.auteur.split(" ")[1] == props.username ?
                                     null : 
-                                    <button key={auteur.id} onClick={() => auteurClicked(auteur.auteur_id, auteur.auteur)}>{auteur.auteur}</button>
+                                    <button className='btn_auteur' key={auteur.id} onClick={() => auteurClicked(auteur.auteur_id, auteur.auteur)}>{auteur.auteur}</button>
                                 }
                                 </>
                             )
@@ -70,15 +77,19 @@ function Messagerie(props){
                     <div className="message_specific_sender">
                         {messagesFromSpecificUser.map(message => {
                             return(
-                                <>{console.log(message)}
+                                <>
                                 <div key={message.id} className="message_container">
                                     <p>Date et Heure : {message.date} {message.heure}</p>
                                     <p>Contenu : <br/>{message.contenu}</p>
+                                    <p>
+                                        Supprimer : <FontAwesomeIcon className='supprimer_msg' onClick={() => deleteClicked(message)} icon={faCircleMinus}/>
+                                        Répondre : <FontAwesomeIcon className='rep_msg' onClick={() => window.location.href = "/messagerie/envoyer"} icon={faReply}/>
+                                    </p>
                                 </div></>
                             )
                         })}
                     </div>
-                    : console.log("pas d'auteur")
+                    : null
                 }
                 
             </div>

@@ -315,6 +315,22 @@ class MessageViewSet(viewsets.ModelViewSet):
     authentication_classes = (TokenAuthentication,)
     permission_classes = (IsAuthenticated,)
 
+    @action(detail=False, methods=['DELETE'])
+    def del_msg(self, request):
+        if 'id' in request.data:
+            try:
+                msg_id = request.data['id']
+                msg = Message.objects.get(id=msg_id)
+                msg.delete()
+                response = {'result': 'ok'}
+                return Response(response)
+            except:
+                response = {'result': 'pas ok'}
+                return Response(response)
+        else:
+            response = {'result': "pas d'id"}
+            return Response(response)
+
     @action(detail=False, methods=["POST"])
     def getAllAuthors(self, request):
         messages = Message.objects.all()

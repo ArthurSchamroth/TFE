@@ -48,7 +48,7 @@ function Profil_Kine(){
                     
                     <div className="profil_button_container">
                         <h1>Messagerie</h1>
-                        <p>Envoyez vos messages à vos patients, leurs vidéos d'exercices, ...</p>
+                        <p>Envoyez vos indications, vos questions à vos patients ou répondez à Monsieur Penning, ...</p>
                         <a href="/messagerie"><button className='profil_redirection'>Messagerie</button></a>
                     </div>
 
@@ -60,11 +60,6 @@ function Profil_Kine(){
                     
                     {pseudo == "ArthurSchamroth" || pseudo == "ThomasPenning" ?
                     <>
-                        <div className="profil_button_container">
-                            <h1>Gestion des Comptes</h1>
-                            <p>Gérez les différents comptes inscrits sur votre site.</p>
-                            <a href="/patients"><button className='profil_redirection'>Comptes</button></a>
-                        </div>
 
                         <div className="profil_button_container">
                             <h1>Gestion des Commentaires</h1>
