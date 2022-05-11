@@ -17,6 +17,8 @@ import MessageAccueil from './components/message/message_accueil';
 import MessageAccueilCorrect from './components/message/message_accueil_correcte';
 import Messagerie from './components/message/messageBoite';
 import Routine from './components/fiche_sante/routine';
+import ProgrammerIndisponilibites from './components/RendezVous/ProgrammerIndisponibilités';
+import VoirIndispos from './components/RendezVous/VoirIndispo';
 import PageError404 from './components/404Error/404_page_error';
 import reportWebVitals from './reportWebVitals';
 import {Route, BrowserRouter, Routes} from 'react-router-dom';
@@ -56,7 +58,7 @@ function Router(){
     }, [])
 
   return (
-    <React.StrictMode>
+    <React.Fragment>
       <CookiesProvider>
         <BrowserRouter>
           <Routes>
@@ -75,10 +77,14 @@ function Router(){
             <>
               <Route exact path="/rendez_vous/anciens" element={<AncienRdv fiche={ficheId != "" ? ficheId : null} username={username != "" ? username : null}/>}/>
               <Route exact path="/rendez_vous/futurs" element={<FuturRdv fiche={ficheId != "" ? ficheId : null} username={username != "" ? username : null}/>}/>
+              <Route exact path="/rendez_vous/indispos" element={<VoirIndispos fiche={ficheId != "" ? ficheId : null} username={username != "" ? username : null}/>}/>
             </>
             }
             {!token && !ficheId? null : 
-            <Route exact path="/rendez_vous/programmer" element={<ProgrammerRdv type_kine={typeKine} fiche={ficheId != "" ? ficheId : null}/>}/>
+            <>
+              <Route exact path="/rendez_vous/programmer" element={<ProgrammerRdv type_kine={typeKine} fiche={ficheId != "" ? ficheId : null}/>}/>
+              <Route exact path="/rendez_vous/add_indisponibilites" element={<ProgrammerIndisponilibites type_kine={typeKine} fiche={ficheId != "" ? ficheId : null}/>}/>
+            </>
             }
             {username && username != '' && ficheId != "" ? 
             <>
@@ -96,7 +102,7 @@ function Router(){
           </Routes>
         </BrowserRouter>
       </CookiesProvider>
-    </React.StrictMode>
+    </React.Fragment>
   )
 }
 

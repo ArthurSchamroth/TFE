@@ -37,7 +37,14 @@ function AccueilRdv(){
                     <h2>Que voulez-vous faire ?</h2>
                     <a className='redirect_link_rdv' href="/rendez_vous/futurs"><button className='redirection_rdv_btn'>Voir mes futurs rendez-vous</button></a>
                     <a className='redirect_link_rdv' href="/rendez_vous/anciens"><button className='redirection_rdv_btn'>Voir mes précédents rendez-vous</button></a>
-                    <a className='redirect_link_rdv' href="/rendez_vous/programmer"><button className='redirection_rdv_btn'>Organiser un nouveau rendez-vous</button></a>
+                    {username == "ThomasPenning" || username == "ArthurSchamroth" ?
+                        <>
+                        <a className='redirect_link_rdv' href="/rendez_vous/add_indisponibilites"><button className='redirection_rdv_btn'>Donner vos dates d'indisponibilités.</button></a>
+                        <a className='redirect_link_rdv' href="/rendez_vous/indispos"><button className='redirection_rdv_btn'>Voir vos dates d'indisponibilités.</button></a>
+                        </>
+                        : 
+                        <a className='redirect_link_rdv' href="/rendez_vous/programmer"><button className='redirection_rdv_btn'>Organiser un nouveau rendez-vous</button></a>
+                    }
                 </div>
             </div>
         </>
