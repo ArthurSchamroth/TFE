@@ -7,7 +7,7 @@ import Navbar from '../navbar/navbar';
 import {API} from '../../api-service';
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
 import Select from 'react-select';
-import { faPlus, faCaretDown, faCaretRight, faPaperclip } from '@fortawesome/free-solid-svg-icons';
+import { faPlus, faCaretDown, faCaretRight, faCircleMinus } from '@fortawesome/free-solid-svg-icons';
 
 function ListingPatients(props) {
 
@@ -22,6 +22,13 @@ function ListingPatients(props) {
     const [listeRoutines, setListeRoutines] = useState([]);
     const [routine, setRoutine] = useState([]);
     const [optionsRoutine, setOptionsRoutine] = useState([]);
+    const [routineSelected, setRoutineSelected] = useState("");
+    const [routinePreCharged, setRoutinePreCharged] = useState("");
+    const [idUser, setIdUser] = useState("");
+    const [titreRoutine, setTitreRoutine] = useState("");
+    const [descriptionRoutine, setDescriptionRoutine] = useState("");
+    const [videosRoutine, setVideosRoutine] = useState([]);
+    const [isErreur, setIsErreur] = useState(false);
 
     useEffect(() => {
         fetch("http://192.168.1.21:8000/api/fichePatient/", {
@@ -68,7 +75,7 @@ function ListingPatients(props) {
                 return resp.json()
             }).then(function(resp){
                 setRoutine(resp['result'])
-                
+                setIdUser(selectedFichePatients['id'])
             })
         }
     }, [selectedFichePatients])
@@ -90,8 +97,32 @@ function ListingPatients(props) {
     }, [isAjouterRoutine])
 
     useEffect(()=>{
-        setIsRoutine(false)
+        setIsRoutine(false);
+        setIsAjouterRoutine(false);
+        console.log(selectedFichePatients)
     }, [selectedFichePatients])
+
+    useEffect(() => {
+        if(routineSelected != ""){
+            setRoutineSelected(routineSelected)
+            API.getInfosSpecificRoutine({routine: routineSelected}).then(function(resp){
+                return resp.json()
+            }).then(function (resp){
+                setRoutinePreCharged(resp['result'])
+                setTitreRoutine(resp["result"][0].titre_routine)
+                setDescriptionRoutine(resp["result"][0].description_detaillee)
+                const videos = []
+                for(const i of resp["result"][0].videos){
+                    videos.push(i.id)
+                }
+                setVideosRoutine(videos)
+            })
+        }
+    }, [routineSelected])
+
+    useEffect(() => {
+        console.log(titreRoutine)
+    }, [titreRoutine])
 
     const fichePatientClicked = fichePatient => {
         setIsRdv(false);
@@ -114,26 +145,37 @@ function ListingPatients(props) {
     }
 
     const customStyles = {
-        control: (base, state) => ({
-            ...base,
-            background: "#023950",
-            borderRadius: state.isFocused ? "3px 3px 0 0" : 3,
-            borderColor: state.isFocused ? "yellow" : "green",
-            boxShadow: state.isFocused ? null : null,
-            "&:hover": {
-            borderColor: state.isFocused ? "red" : "blue"
-            }
+        menu: (provided, state) => ({
+            ...provided,
+            width: state.selectProps.width,
+            borderBottom: '1px dotted pink',
+            color: state.selectProps.menuColor,
+            padding: 20,
         }),
-        menu: (base) => ({
-            ...base,
-            borderRadius: 0,
-            marginTop: 0
+        
+        control: (_, { selectProps: { width }}) => ({
+            width: width
         }),
-        menuList: (base) => ({
-            ...base,
-            padding: 0
-        })
-        };
+        
+        singleValue: (provided, state) => {
+            const opacity = state.isDisabled ? 0.5 : 1;
+            const transition = 'opacity 300ms';
+        
+            return { ...provided, opacity, transition };
+        }
+    }
+
+    const envoyerRoutine = e => {
+        e.preventDefault();
+        API.envoyerRoutine({user: selectedFichePatients.id, titre_routine: titreRoutine, 
+            description_detaillee: descriptionRoutine, videos: videosRoutine}).then(function(resp){
+                if(resp['statusText']){
+                    setIsErreur(true)
+                }else{
+                    alert("Routine attribuée !")
+                }
+            })
+    }
 
     return (
         <>
@@ -181,7 +223,7 @@ function ListingPatients(props) {
                                             {routine != [] ?
                                                 routine.map(resp => {
                                                     return(
-                                                        <>  
+                                                        <div key={resp.id}>  
                                                             {isRoutineOuverte ? 
                                                                 <div key={resp.id}>
                                                                     <div className="ficheRoutine">
@@ -200,7 +242,7 @@ function ListingPatients(props) {
                                                                         {resp.videos != [] ? 
                                                                             resp.videos.map(video => {
                                                                                 return(
-                                                                                    <div id={video.id} className="video_container">
+                                                                                    <div key={video.id} id={video.id} className="video_container">
                                                                                         Titre : {video.titre} <br/>
                                                                                         <a href={video.url}>{video.titre}</a>
                                                                                     </div>
@@ -212,7 +254,7 @@ function ListingPatients(props) {
                                                                 </div>
                                                                 </>
                                                                 }
-                                                        </>
+                                                        </div>
                                                     )
                                                 })
                                             : null
@@ -221,27 +263,51 @@ function ListingPatients(props) {
                                         </>
                                         : 
                                         isAjouterRoutine && optionsRoutine.length != 0 ? 
-                                            <div className='select_container'>
+                                            <><div className='select_container'>
                                                 <Select 
+                                                    onChange={evt=>setRoutineSelected(evt.label)}
                                                     options={optionsRoutine}
+                                                    style={customStyles}
                                                     label="Sélectionner la routine que vous voulez attribuer"
                                                     theme={(theme) => ({
                                                         ...theme,
                                                         borderRadius: 0,
                                                         colors: {
                                                             ...theme.colors,
+                                                            menuColor: 'black',
                                                             text: 'orangered',
-                                                            primary25: 'hotpink',
+                                                            primary25: 'black',
                                                             primary: 'black'
                                                         }
                                                     })}
                                                 />
                                             </div>
-                                        : console.log('non')
+                                            {routinePreCharged != "" ? 
+                                                <div className="container_preloaded_routine">
+                                                    <form>
+                                                        <label htmlFor="Titre">Titre</label>
+                                                        <input type="text" onChange={evt => setTitreRoutine(evt.target.value)} defaultValue={routinePreCharged[0].titre_routine}/>
+                                                        <label htmlFor="Description">Description</label>
+                                                        <textarea  onChange={evt => setDescriptionRoutine(evt.target.value)} name="description" id="description" cols="31" rows="4" defaultValue={routinePreCharged[0].description_detaillee}/>
+                                                        <label htmlFor="vidéos">Vidéos d'exercice</label><br/>
+                                                        {routinePreCharged[0].videos.map(video => {
+                                                            return(
+                                                            <div key={video.id}>
+                                                            <a href={video.url}>{video.titre}</a><br/>
+                                                            </div>
+                                                        )})}
+                                                        {isErreur ? <p>Veuillez changer au moins le titre de la routine</p> : null}
+                                                        <button onClick={(e) => envoyerRoutine(e)}>Ajouter</button>
+                                                    </form>
+                                                </div>
+                                                
+                                                : null
+                                            }
+                                            </>
+                                        : null
                                     }
                                 </div>
                             </div> 
-                            
                             : null : null
                         } 
                 </div>

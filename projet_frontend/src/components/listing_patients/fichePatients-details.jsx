@@ -50,7 +50,7 @@ function FichePatientsDetails(props){
 
     const envoyerModif = () => {
         API.updatingFiche({
-            'user': user, 'nom': nom, 'prenom': prenom, 'adresse_mail': adresseMail, 'description_probleme': descriptionProb, 'type_kine': typeSoin, 'adresse': adresse
+            'user': user, 'nom': nom, 'prenom': prenom, 'adresse_mail': adresseMail, 'description_probleme': descriptionProb, 'type_kine': typeSoin, 'adresse': adresse, "age": naissance
         })
         window.location.href = "/patients"
     }
@@ -101,7 +101,7 @@ function FichePatientsDetails(props){
                                 
                                 <label htmlFor='naissance'>Date de naissance</label>
                                 <input type="date" name='naissance' defaultValue={dateMax} max={dateMax} min='1910-12-31'
-                                onChange={evt => setNom(evt.target.value)}/>
+                                onChange={evt => setNaissace(evt.target.value)}/>
 
                                 <label htmlFor="adresse_input">Adresse</label>
                                 <input type="text" name='adresse_input' defaultValue={props.fichePatient.adresse} onChange={evt => setAdresse(evt.target.value)}/>

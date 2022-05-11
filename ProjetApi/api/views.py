@@ -413,7 +413,7 @@ class RoutineViewSet(viewsets.ModelViewSet):
                 routines = Routine.objects.filter(user=user)
                 for i in routines:
                     for j in i.videos.all():
-                        videos = {'titre': j.titre, 'url': j.url}
+                        videos = {'id': j.id, 'titre': j.titre, 'url': j.url}
                         liste_videos.append(videos)
                     objet = {
                         'id': i.id, 'user': i.user.id, 'titre_routine': i.titre_routine,
@@ -439,7 +439,7 @@ class RoutineViewSet(viewsets.ModelViewSet):
                 routines = Routine.objects.filter(titre_routine=routine)
                 for i in routines:
                     for j in i.videos.all():
-                        videos = {'titre': j.titre, 'url': j.url}
+                        videos = {'id': j.id, 'titre': j.titre, 'url': j.url}
                         liste_videos.append(videos)
                     objet = {
                         'id': i.id, 'user': i.user.id, 'titre_routine': i.titre_routine,
