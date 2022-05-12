@@ -114,7 +114,7 @@ function GestionRoutine(props) {
                                 <input id='titre_video' type="text" onChange={evt => setTitreVideo(evt.target.value)}/>
                                 <label htmlFor="url_video">URL Vidéo</label>
                                 <input id='url_video' type="url" onChange={evt => setUrlVideo(evt.target.value)}/>
-                                <button onClick={envoyerVideo}>Envoyer</button>
+                                <button onClick={envoyerVideo}>Envoyer</button> 
                             </div>
                             : isLister ?
                                 listeVideos != [] ? 

@@ -7,7 +7,7 @@ import Navbar from '../navbar/navbar';
 import {API} from '../../api-service';
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
 import Select from 'react-select';
-import { faPlus, faCaretDown, faCaretRight, faCircleMinus } from '@fortawesome/free-solid-svg-icons';
+import { faCircleMinus, faCaretDown, faCaretRight, faTrashCan, faPlus } from '@fortawesome/free-solid-svg-icons';
 
 function ListingPatients(props) {
 
@@ -29,6 +29,11 @@ function ListingPatients(props) {
     const [descriptionRoutine, setDescriptionRoutine] = useState("");
     const [videosRoutine, setVideosRoutine] = useState([]);
     const [isErreur, setIsErreur] = useState(false);
+    const [isAjouterVideo, setIsAjouterVideo] = useState(false);
+    const [listeVideos, setListeVideos] = useState([]);
+    const [videoRoutineSelected, setVideoRoutineSelected] = useState([]);
+    const [selectedValue, setSelectedValue] = useState([]);
+    const [videosDispos, setVideosDispos] = useState([]);
 
     useEffect(() => {
         fetch("http://192.168.1.21:8000/api/fichePatient/", {
@@ -80,6 +85,12 @@ function ListingPatients(props) {
         }
     }, [selectedFichePatients])
 
+    useEffect(() =>{
+        console.log(videoRoutineSelected)
+        const new_liste = listeVideos.push(videoRoutineSelected)
+        setVideosRoutine(new_liste)
+    }, [videoRoutineSelected])
+
     useEffect(()=>{
         API.getRoutines().then(function(resp){
             return resp.json()
@@ -99,7 +110,6 @@ function ListingPatients(props) {
     useEffect(()=>{
         setIsRoutine(false);
         setIsAjouterRoutine(false);
-        console.log(selectedFichePatients)
     }, [selectedFichePatients])
 
     useEffect(() => {
@@ -119,10 +129,6 @@ function ListingPatients(props) {
             })
         }
     }, [routineSelected])
-
-    useEffect(() => {
-        console.log(titreRoutine)
-    }, [titreRoutine])
 
     const fichePatientClicked = fichePatient => {
         setIsRdv(false);
@@ -145,25 +151,57 @@ function ListingPatients(props) {
     }
 
     const customStyles = {
-        menu: (provided, state) => ({
-            ...provided,
-            width: state.selectProps.width,
-            borderBottom: '1px dotted pink',
-            color: state.selectProps.menuColor,
-            padding: 20,
-        }),
-        
-        control: (_, { selectProps: { width }}) => ({
-            width: width
-        }),
-        
-        singleValue: (provided, state) => {
-            const opacity = state.isDisabled ? 0.5 : 1;
-            const transition = 'opacity 300ms';
-        
-            return { ...provided, opacity, transition };
+        control: (base, state) => ({
+        ...base,
+        background: "#023950",
+        borderRadius: state.isFocused ? "3px 3px 0 0" : 3,
+        boxShadow: state.isFocused ? null : null,
+        "&:hover": {
+        borderColor: state.isFocused ? "red" : "blue"
         }
+    }),
+    menu: (base) => ({
+        ...base,
+        borderRadius: 0,
+        marginTop: 0,
+        fontColor: "white"
+    }),
+    menuList: (base, state) => ({
+        ...base,
+        background: "#023950",
+        padding: 0,
+        "&:hover": {
+        borderColor: state.isFocused ? "red" : "blue",
+        background: "#023950",
+        color: state.isFocused ? "white" : "white" 
+        }
+    })
+    };
+
+    const delVideoClicked = video => {
+        const new_liste = videosRoutine.filter(function(f) {return f !== video.id})
+        setVideosRoutine(new_liste)
+        document.getElementById(video.id).innerHTML = ""
     }
+
+    const ajouterVideoClicked = () => {
+        setIsAjouterVideo(true)
+        API.listerVideos()
+        .then(function(resp){
+            return resp.json()
+        }).then(function (resp){
+            setListeVideos(resp)
+        })
+    }
+
+    useEffect(() => {
+        const liste = []
+        for(const i of listeVideos){
+            const obj = {value: i.id, label:i.titre}
+            liste.push(obj)
+        }
+        setVideosDispos(liste)
+    }, [listeVideos])
 
     const envoyerRoutine = e => {
         e.preventDefault();
@@ -173,8 +211,27 @@ function ListingPatients(props) {
                     setIsErreur(true)
                 }else{
                     alert("Routine attribuée !")
+                    window.location.href = "/patients"
                 }
             })
+        alert("Routine créée et attribuée !")
+        window.location.href = "/patients"
+    }
+
+    const handleChange = (e) => {
+        const f = e
+        setVideosRoutine(Array.isArray(f) ? f.map(x => x.value) : []);
+    }
+
+    useEffect(() => {
+        console.log(selectedValue)
+    }, [selectedValue])
+
+
+    const deleteRoutine = routine => {
+        API.supprimerRoutine({"id": routine.id})
+        alert("Routine Supprimée !")
+        window.location.href = "/patients"
     }
 
     return (
@@ -227,13 +284,13 @@ function ListingPatients(props) {
                                                             {isRoutineOuverte ? 
                                                                 <div key={resp.id}>
                                                                     <div className="ficheRoutine">
-                                                                    <div className='titre_routine'>{resp.titre_routine} <FontAwesomeIcon className='icon_dev' icon={faCaretRight} onClick={()=>setIsRoutineOuverte(!isRoutineOuverte)}/></div>
+                                                                    <div className='titre_routine'>{resp.titre_routine} <FontAwesomeIcon className='icon_dev' icon={faCaretRight} onClick={()=>setIsRoutineOuverte(!isRoutineOuverte)}/> <button onClick={() => deleteRoutine(resp)}><FontAwesomeIcon className='icon_dev'  icon={faTrashCan}/></button></div>
                                                                     </div>
                                                                 </div>
                                                                 : 
                                                                 <>
                                                                 <div key={resp.id} className="ficheRoutine">
-                                                                <div className='titre_routine'>{resp.titre_routine} <FontAwesomeIcon className='icon_dev' icon={faCaretDown} onClick={()=>setIsRoutineOuverte(!isRoutineOuverte)}/></div>
+                                                                <div className='titre_routine'>{resp.titre_routine} <FontAwesomeIcon className='icon_dev' icon={faCaretDown} onClick={()=>setIsRoutineOuverte(!isRoutineOuverte)}/> <button onClick={() => deleteRoutine(resp)}><FontAwesomeIcon className='icon_dev' icon={faTrashCan}/></button></div>
                                                                     <br/> 
                                                                     <div className="routine_developpee">
                                                                     <div className="sous_titres_fiche">Description :</div>{resp.description_detaillee} 
@@ -267,36 +324,54 @@ function ListingPatients(props) {
                                                 <Select 
                                                     onChange={evt=>setRoutineSelected(evt.label)}
                                                     options={optionsRoutine}
-                                                    style={customStyles}
+                                                    styles={customStyles}
                                                     label="Sélectionner la routine que vous voulez attribuer"
                                                     theme={(theme) => ({
                                                         ...theme,
                                                         borderRadius: 0,
                                                         colors: {
-                                                            ...theme.colors,
                                                             menuColor: 'black',
                                                             text: 'orangered',
-                                                            primary25: 'black',
-                                                            primary: 'black'
                                                         }
                                                     })}
                                                 />
                                             </div>
                                             {routinePreCharged != "" ? 
                                                 <div className="container_preloaded_routine">
+                                                    <p>Veuillez au moins changer le titre de la routine avant d'envoyer !</p>
                                                     <form>
                                                         <label htmlFor="Titre">Titre</label>
                                                         <input type="text" onChange={evt => setTitreRoutine(evt.target.value)} defaultValue={routinePreCharged[0].titre_routine}/>
                                                         <label htmlFor="Description">Description</label>
                                                         <textarea  onChange={evt => setDescriptionRoutine(evt.target.value)} name="description" id="description" cols="31" rows="4" defaultValue={routinePreCharged[0].description_detaillee}/>
-                                                        <label htmlFor="vidéos">Vidéos d'exercice</label><br/>
+                                                        <label htmlFor="vidéos">Vidéos d'exercice</label> <FontAwesomeIcon title="Ajouter vidéo à la routine" icon={faPlus} onClick={() => ajouterVideoClicked()}/><br/>
                                                         {routinePreCharged[0].videos.map(video => {
                                                             return(
-                                                            <div key={video.id}>
-                                                            <a href={video.url}>{video.titre}</a><br/>
+                                                            <div key={video.id} id={video.id}>
+                                                            <a href={video.url}>{video.titre}</a><FontAwesomeIcon onClick={() => delVideoClicked(video)} icon={faCircleMinus}/><br/>
                                                             </div>
                                                         )})}
-                                                        {isErreur ? <p>Veuillez changer au moins le titre de la routine</p> : null}
+                                                        {isAjouterVideo && listeVideos && videosDispos != [] ?
+                                                            <>
+                                                            <Select 
+                                                                styles={customStyles}
+                                                                options={videosDispos}
+                                                                onChange={handleChange}
+                                                                placeholder="Choisissez les vidéos pour cette routine"
+                                                                theme={(theme) => ({
+                                                                    ...theme,
+                                                                    borderRadius: 0,
+                                                                    colors: {
+                                                                        menuColor: 'black',
+                                                                        text: 'orangered',
+                                                                    }
+                                                                })}
+                                                                isMulti
+                                                            />
+                                                            </>
+                                                            :null
+                                                        }
+                                                        {isErreur ? <p className='error_msg'>Veuillez changer au moins le titre de la routine</p> : null}
                                                         <button onClick={(e) => envoyerRoutine(e)}>Ajouter</button>
                                                     </form>
                                                 </div>

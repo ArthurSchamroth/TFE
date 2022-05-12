@@ -293,3 +293,8 @@ h1 .fa-film {
 .select_container{
   width: 100%;
 }
+
+.error_msg{
+  color: red;
+  font-size: 16px;
+}

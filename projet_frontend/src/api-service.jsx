@@ -304,9 +304,19 @@ export class API{
     }
 
     static envoyerRoutine(body){
-        console.log(body)
         return fetch('http://192.168.1.21:8000/api/routine/', {
             method:'POST',
+            headers:{
+                'Content-Type':'application/json',
+                'authorization': `Token ${TOKEN}`
+            },
+            body: JSON.stringify(body)
+        })
+    }
+
+    static supprimerRoutine(body){
+        return fetch('http://192.168.1.21:8000/api/routine/del_routine/', {
+            method:'DELETE',
             headers:{
                 'Content-Type':'application/json',
                 'authorization': `Token ${TOKEN}`

@@ -403,6 +403,22 @@ class RoutineViewSet(viewsets.ModelViewSet):
     authentication_classes = (TokenAuthentication,)
     permission_classes = (IsAuthenticated,)
 
+    @action(detail=False, methods=['DELETE'])
+    def del_routine(self, request):
+        if 'id' in request.data:
+            try:
+                routine_id = request.data['id']
+                routine = Routine.objects.get(id=routine_id)
+                routine.delete()
+                response = {'result': 'ok'}
+                return Response(response)
+            except:
+                response = {'result': 'pas ok'}
+                return Response(response)
+        else:
+            response = {'result': "pas d'id"}
+            return Response(response)
+
     @action(detail=False, methods=['POST'])
     def getRoutineSpecificUser(self, request):
         if 'user' in request.data:

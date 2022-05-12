@@ -65,7 +65,7 @@ class Routine(models.Model):
     user = models.ForeignKey(FichePatient, on_delete=models.CASCADE)
     titre_routine = models.CharField(max_length=1024, null=False, unique=True)
     description_detaillee = models.TextField(max_length=5096)
-    videos = models.ManyToManyField(VideoTuto)
+    videos = models.ManyToManyField(VideoTuto, null=True, blank=True)
 
 
 
