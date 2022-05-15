@@ -3,6 +3,7 @@ import {useCookies} from 'react-cookie';
 import Navbar from '../navbar/navbar';
 import "./Rdv.css";
 import {API} from '../../api-service';
+import Footer from '../footer/footer';
 
 
 function AccueilRdv(){
@@ -46,6 +47,7 @@ function AccueilRdv(){
                         <a className='redirect_link_rdv' href="/rendez_vous/programmer"><button className='redirection_rdv_btn'>Organiser un nouveau rendez-vous</button></a>
                     }
                 </div>
+                <Footer/>
             </div>
         </>
     )

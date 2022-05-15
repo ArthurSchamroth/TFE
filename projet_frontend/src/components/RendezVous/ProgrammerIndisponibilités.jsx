@@ -6,6 +6,7 @@ import "./Rdv.css";
 import {API} from '../../api-service';
 import 'react-datepicker/dist/react-datepicker.css'
 import "@mobiscroll/react/dist/css/mobiscroll.min.css";
+import Footer from '../footer/footer';
 
 function ProgrammerIndisponilibites(props){
     
@@ -183,8 +184,8 @@ function ProgrammerIndisponilibites(props){
                         </> 
                         : null
                 }
+                <Footer/>
                 </div>
-            
         </>
     )
 }

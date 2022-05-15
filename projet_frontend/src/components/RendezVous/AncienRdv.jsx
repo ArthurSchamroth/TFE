@@ -4,6 +4,7 @@ import Navbar from '../navbar/navbar';
 import "./Rdv.css";
 import {API} from '../../api-service';
 import Popup from 'reactjs-popup';
+import Footer from '../footer/footer';
 
 
 function AncienRdv(props){
@@ -111,6 +112,7 @@ function AncienRdv(props){
                     </tbody>
                 </table>
                 </div>
+                <Footer/>
             </div>
         </>
     )

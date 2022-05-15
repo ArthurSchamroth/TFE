@@ -5,6 +5,7 @@ import "./profil_page.css";
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
 import {faRightFromBracket} from '@fortawesome/free-solid-svg-icons'
 import {API} from '../../api-service';
+import Footer from '../footer/footer'
 
 function Profil_Kine(){
     const [token, setToken, deleteToken] = useCookies([('mr-token')]);
@@ -87,6 +88,7 @@ function Profil_Kine(){
                     </div>
 
                 </div>
+                <Footer/>
             </div>
         </>
     )

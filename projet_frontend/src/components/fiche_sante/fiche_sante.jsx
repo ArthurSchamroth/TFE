@@ -3,6 +3,7 @@ import {useCookies} from 'react-cookie';
 import Navbar from '../navbar/navbar';
 import "./fiche_sante.css";
 import {API} from '../../api-service';
+import Footer from '../footer/footer';
 
 
 function Fiche_Sante(props){
@@ -171,6 +172,7 @@ function Fiche_Sante(props){
                     <button className='validation_fiche_button' onClick={modifier_fiche}>Modifier</button>
                 }
                 </div>
+                <Footer/>
             </div>
         </>
     )

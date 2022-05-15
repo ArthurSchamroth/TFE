@@ -8,6 +8,7 @@ import {API} from '../../api-service';
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
 import Select from 'react-select';
 import { faCircleMinus, faCaretDown, faCaretRight, faTrashCan, faPlus } from '@fortawesome/free-solid-svg-icons';
+import Footer from '../footer/footer';
 
 function ListingPatients(props) {
 
@@ -32,8 +33,8 @@ function ListingPatients(props) {
     const [isAjouterVideo, setIsAjouterVideo] = useState(false);
     const [listeVideos, setListeVideos] = useState([]);
     const [videoRoutineSelected, setVideoRoutineSelected] = useState([]);
-    const [selectedValue, setSelectedValue] = useState([]);
     const [videosDispos, setVideosDispos] = useState([]);
+    const [nouvellesVideos, setNouvellesVideos] = useState([]);
 
     useEffect(() => {
         fetch("http://192.168.1.21:8000/api/fichePatient/", {
@@ -86,7 +87,6 @@ function ListingPatients(props) {
     }, [selectedFichePatients])
 
     useEffect(() =>{
-        console.log(videoRoutineSelected)
         const new_liste = listeVideos.push(videoRoutineSelected)
         setVideosRoutine(new_liste)
     }, [videoRoutineSelected])
@@ -205,27 +205,41 @@ function ListingPatients(props) {
 
     const envoyerRoutine = e => {
         e.preventDefault();
-        API.envoyerRoutine({user: selectedFichePatients.id, titre_routine: titreRoutine, 
-            description_detaillee: descriptionRoutine, videos: videosRoutine}).then(function(resp){
-                if(resp['statusText']){
-                    setIsErreur(true)
-                }else{
-                    alert("Routine attribuée !")
-                    window.location.href = "/patients"
-                }
+        console.log(optionsRoutine)
+        const titreRoutines = []
+        for(const i of optionsRoutine){
+            titreRoutines.push(i.label)
+        }
+        console.log(titreRoutines)
+        if(titreRoutines.includes(titreRoutine)){
+            setIsErreur(true)
+        }else{
+            API.envoyerRoutine({user: selectedFichePatients.id, titre_routine: titreRoutine, 
+                description_detaillee: descriptionRoutine, videos: videosRoutine}).then(function(resp){
+                alert("Routine attribuée !")
+                window.location.href = "/patients"
             })
-        alert("Routine créée et attribuée !")
-        window.location.href = "/patients"
+        }
     }
 
     const handleChange = (e) => {
         const f = e
-        setVideosRoutine(Array.isArray(f) ? f.map(x => x.value) : []);
+        setNouvellesVideos(Array.isArray(f) ? f.map(x => x.value) : []);
     }
 
-    useEffect(() => {
-        console.log(selectedValue)
-    }, [selectedValue])
+    useEffect(()=>{
+        const a = videosRoutine
+        for(const i of nouvellesVideos){
+            if(!a.includes(i)){
+                a.push(i)
+            }
+        }
+        setVideosRoutine(a)
+    }, [nouvellesVideos])
+
+    useEffect(()=>{
+        console.log(videosRoutine)
+    }, [videosRoutine])
 
 
     const deleteRoutine = routine => {
@@ -284,13 +298,13 @@ function ListingPatients(props) {
                                                             {isRoutineOuverte ? 
                                                                 <div key={resp.id}>
                                                                     <div className="ficheRoutine">
-                                                                    <div className='titre_routine'>{resp.titre_routine} <FontAwesomeIcon className='icon_dev' icon={faCaretRight} onClick={()=>setIsRoutineOuverte(!isRoutineOuverte)}/> <button onClick={() => deleteRoutine(resp)}><FontAwesomeIcon className='icon_dev'  icon={faTrashCan}/></button></div>
+                                                                    <div className='titre_routine'>{resp.titre_routine} <FontAwesomeIcon className='icon_dev' icon={faCaretRight} onClick={()=>setIsRoutineOuverte(!isRoutineOuverte)}/> <button className='icon_del' onClick={() => deleteRoutine(resp)}><FontAwesomeIcon icon={faTrashCan}/></button></div>
                                                                     </div>
                                                                 </div>
                                                                 : 
                                                                 <>
                                                                 <div key={resp.id} className="ficheRoutine">
-                                                                <div className='titre_routine'>{resp.titre_routine} <FontAwesomeIcon className='icon_dev' icon={faCaretDown} onClick={()=>setIsRoutineOuverte(!isRoutineOuverte)}/> <button onClick={() => deleteRoutine(resp)}><FontAwesomeIcon className='icon_dev' icon={faTrashCan}/></button></div>
+                                                                <div className='titre_routine'>{resp.titre_routine} <FontAwesomeIcon className='icon_dev' icon={faCaretDown} onClick={()=>setIsRoutineOuverte(!isRoutineOuverte)}/> <button className='icon_del' onClick={() => deleteRoutine(resp)}><FontAwesomeIcon icon={faTrashCan}/></button></div>
                                                                     <br/> 
                                                                     <div className="routine_developpee">
                                                                     <div className="sous_titres_fiche">Description :</div>{resp.description_detaillee} 
@@ -321,6 +335,7 @@ function ListingPatients(props) {
                                         : 
                                         isAjouterRoutine && optionsRoutine.length != 0 ? 
                                             <><div className='select_container'>
+                                                <h3>Sélectionner la routine sur laquelle vous voulez vous baser.</h3>
                                                 <Select 
                                                     onChange={evt=>setRoutineSelected(evt.label)}
                                                     options={optionsRoutine}
@@ -385,8 +400,8 @@ function ListingPatients(props) {
                             </div> 
                             : null : null
                         } 
+                <Footer/>
                 </div>
-                
         </>
         
     );

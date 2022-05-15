@@ -39,20 +39,6 @@ button:disabled {
   background-color: #444;
   cursor: not-allowed;
 }
-.orange {
-  color: orange;
-}
-.purple {
-  color: purple;
-}
-.rate-container {
-  margin-top: 20px;
-  border-top: 2px solid purple;
-}
-.rate-container .fa-star {
-  font-size: 1.8rem;
-  cursor: pointer;
-}
 .fiche-item {
   width: 25rem;
   display: grid;
@@ -94,7 +80,7 @@ h1 .fa-film {
 
 .fiche-item{
   text-align: center;
-  margin-bottom: 5%;
+  margin-bottom: 3.5%;
   border: solid 3px #7C4C53;
   border-radius: 20px;
   background: #7C4C53;
@@ -134,7 +120,7 @@ h1 .fa-film {
 }
 
 .button_edit_fiche:hover{
-  color: #a5a275;
+  color: #CFC486;
   transition: all 0.2s ease-in-out;
 }
 
@@ -275,7 +261,7 @@ h1 .fa-film {
 
 .ficheRoutine{
   width: 35rem;
-  border: 2px solid black;
+  border: 2px solid #1F2020;
   padding: 25px;
   margin-bottom: 15px;
 }
@@ -297,4 +283,15 @@ h1 .fa-film {
 .error_msg{
   color: red;
   font-size: 16px;
+}
+
+.icon_del{
+  background-color: transparent;
+  color: white;
+  border: transparent;
+}
+
+.icon_del:hover{
+  color: red;
+  transition: all 0.2s ease-in-out;
 }

@@ -4,6 +4,7 @@ import Navbar from '../navbar/navbar';
 import "./Rdv.css";
 import {API} from '../../api-service';
 import Popup from 'reactjs-popup';
+import Footer from '../footer/footer';
 
 
 function VoirIndispos(props){
@@ -102,6 +103,7 @@ function VoirIndispos(props){
                     </tbody>
                 </table>
                 </div>
+                <Footer/>
             </div>
         </>
     )

@@ -5,6 +5,7 @@ import "./fiche_sante.css";
 import {API} from '../../api-service';
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
 import {faCaretDown, faCaretRight} from '@fortawesome/free-solid-svg-icons';
+import Footer from '../footer/footer';
 
 function Routine(props){
     
@@ -57,6 +58,7 @@ function Routine(props){
                         )
                     })
                 : null}
+            <Footer/>
             </div>
         </>
     )

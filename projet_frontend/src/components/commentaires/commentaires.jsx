@@ -1,6 +1,7 @@
 import React, {useEffect, useState} from 'react';
 import {useCookies} from 'react-cookie';
 import Navbar from '../navbar/navbar';
+import Footer from '../footer/footer';
 import "./commentaires.css";
 import {API} from '../../api-service';
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
@@ -167,6 +168,7 @@ function Commentaire(props){
                     :
                     <p>Veuillez vous connecter afin de laisser un avis.</p>
                 }
+                <Footer/>
             </div>
         </>
     )

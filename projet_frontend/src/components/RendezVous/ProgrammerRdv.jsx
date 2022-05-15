@@ -6,6 +6,7 @@ import "./Rdv.css";
 import {API} from '../../api-service';
 import 'react-datepicker/dist/react-datepicker.css'
 import "@mobiscroll/react/dist/css/mobiscroll.min.css";
+import Footer from '../footer/footer';
 
 function ProgrammerRdv(props){
     
@@ -80,6 +81,7 @@ function ProgrammerRdv(props){
 
                     <button className='btn_co_re' onClick={envoyerRdv}>Envoyer Rdv</button>
                 </div>
+                <Footer/>
             </div>
         </>
     )

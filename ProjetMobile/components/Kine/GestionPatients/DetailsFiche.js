@@ -10,7 +10,7 @@ export default function Details(props) {
     fetch(`http://192.168.1.21:8000/api/fichePatient`, {
         method: 'GET',
         headers: {
-            'Authorization': 'Token 32fd88f63f1e9f169ea9c09d9dd19d46ae7a2f4f'
+            'Authorization': `Token ${process.env.REACT_APP_API_token}`
         }
     })
     .then(resp => resp.json())

@@ -5,7 +5,7 @@ import Navbar from '../navbar/navbar';
 import {API} from '../../api-service';
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
 import { faPlus, faClapperboard, faCamera } from '@fortawesome/free-solid-svg-icons';
-import ReactPlayer from 'react-player';
+import Footer from '../footer/footer';
 
 function GestionRoutine(props) {
 

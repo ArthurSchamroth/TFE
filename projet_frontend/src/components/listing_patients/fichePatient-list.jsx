@@ -1,4 +1,5 @@
 import React from 'react';
+import Footer from '../footer/footer';
 
 function FichePatientsList(props){
 
@@ -20,6 +21,8 @@ function FichePatientsList(props){
                 )
             })}
         </div>
+
+        
     )
 }
 
