@@ -160,7 +160,7 @@ function Commentaire(props){
                                 <textarea name="contenu_commentaire" id="contenu_commentaire" cols="31" rows="4" placeholder="Quel est votre avis par rapport à votre expérience ?"
                                 onChange={evt => setAvis(evt.target.value)}
                                 />
-                                <button onClick={envoyerAvis}>Envoyer avis</button>
+                                <button className='envoyer_btn_comm' onClick={envoyerAvis}>Envoyer avis</button>
                             </div>:
                             null
                         }

@@ -42,6 +42,7 @@ button:disabled {
 .fiche-item {
   width: 25rem;
   display: grid;
+  color: #fff;
   grid-template-columns: 1fr auto auto;
 }
 .movie-item svg {
@@ -51,13 +52,11 @@ button:disabled {
 .fa-trash {
   color: crimson;
 }
+
 h1 {
-  color: #CFC486;
+  color: #005eb6;
 }
-h1 .fa-film {
-  color: white;
-  transform: rotate(30deg);
-}
+
 .fa-sign-out-alt {
   position: absolute;
   top: 20px;
@@ -72,8 +71,6 @@ h1 .fa-film {
 
 .titre_liste{
   font-size: 48;
-  border-bottom: solid 3px #CFC486;
-  border-top: solid 3px #CFC486;
   padding: 12px;
   margin-bottom: 24px;
 }
@@ -81,14 +78,14 @@ h1 .fa-film {
 .fiche-item{
   text-align: center;
   margin-bottom: 3.5%;
-  border: solid 3px #7C4C53;
+  border: solid 3px #005eb6;
   border-radius: 20px;
-  background: #7C4C53;
+  background: #005eb6;
   cursor: pointer;
 }
 
 .fiche-item:hover{
-  background: #be707c;
+  background: #1688f1;
 }
 
 .nom_patient{
@@ -101,12 +98,11 @@ h1 .fa-film {
 }
 
 .redirection_mail_button a{
-  color: white;
+  color: black;
 }
 
 .button_del_fiche{
   font-size: 36px;
-  color: white;
 }
 
 .button_del_fiche:hover{
@@ -120,7 +116,7 @@ h1 .fa-film {
 }
 
 .button_edit_fiche:hover{
-  color: #CFC486;
+  color: #1688f1;
   transition: all 0.2s ease-in-out;
 }
 
@@ -143,6 +139,7 @@ h1 .fa-film {
 .del_btn_user{
   background: transparent;
   border: transparent;
+  color: black;
 }
 
 .gestion_medical_patient_btn{
@@ -150,11 +147,11 @@ h1 .fa-film {
   margin-left: 10%;
   border-radius: 10px;
   color: white;
-  background-color: #7C4C53;
+  background-color: #005eb6;
 }
 
 .gestion_medical_patient_btn:hover{
-  background: #be707c;
+  background: #1688f1;
   transition: all 0.2s ease-in-out;
 }
 
@@ -174,12 +171,12 @@ h1 .fa-film {
   margin: 3%;
   padding: 5%;
   border-radius: 10px;
-  background-color: #7C4C53;
+  background-color: #005eb6;
   color: white;
 }
 
 .redirection_btn_suivi:hover{
-  background: #be707c;
+  background: #1688f1;
   transition: all 0.2s ease-in-out;
 }
 
@@ -219,7 +216,7 @@ h1 .fa-film {
 }
 
 .btn_gestion_routine:hover{
-  color: #7C4C53;
+  color: #1688f1;
   transition: all 0.2s ease-in-out;
 }
 
@@ -229,7 +226,7 @@ h1 .fa-film {
 }
 
 #envoyer_routine_btn{
-  background-color: #7C4C53;
+  background-color: #005eb6;
   color: white;
   padding: 2%;
   border-radius: 10px;
@@ -237,7 +234,7 @@ h1 .fa-film {
 }
 
 #envoyer_routine_btn:hover{
-  background: #be707c;
+  background: #1688f1;
   transition: all 0.2s ease-in-out;
 }
 
@@ -287,7 +284,7 @@ h1 .fa-film {
 
 .icon_del{
   background-color: transparent;
-  color: white;
+  color: black;
   border: transparent;
 }
 

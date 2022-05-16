@@ -22,11 +22,11 @@ function HomePage(){
                         <p className='text_presentation'>
                             Diplômé en Kinésithérapie en 1998 de l’école supérieure I.S.E.K. à Auderghem.<br/>
                             J'ai directement enchainé avec une formation de cinq ans pour devenir Ostéopathe au C.B.O (Collège Belge d'Ostéopathie) d'où j'obtiendrai mon diplôme en 2003.<br/>
-                            Situé sur Bruxelles, je peux, pour certaines circonstances, me rendre à domicile pour une première entrevue avec les patients.
+                            Situé sur Bruxelles, je peux, pour certaines circonstances, me rendre à domicile pour une première entrevue avec les patients.<br/>
+                            Si vous désirez prendre rendez-vous avec moi, ce site vous permet de vous inscrire et d'avoir un suivi complet avec moi.
                         </p>
                         <div>
-                            <img src="https://scontent.fbru2-1.fna.fbcdn.net/v/t39.30808-6/255918807_2862100080754684_5695316897273823915_n.jpg?_nc_cat=111&ccb=1-5&_nc_sid=09cbfe&_nc_ohc=bRd-CIvThfEAX9eTY_g&_nc_ht=scontent.fbru2-1.fna&oh=00_AT8x3nJFGzHfuyQ4q088YKY-VTmV8EqRzOA3s8hLm-hCLg&oe=624FA4CD"
-                            className="photo_presentation" alt="photo_de_presentation"/>
+                            <img src="/photo_presentation.png" className="photo_presentation" alt="photo_de_presentation"/>
                         </div>
                     </div>
 
@@ -61,23 +61,6 @@ function HomePage(){
                             </div>
                         </div>
                         
-                    </div>
-                    <div className="contactContainer">
-                        <h1>CONTACTS</h1>
-                        <div className="tableau_contact">
-                            <div className='contacts'>
-                                <h2>Contacts</h2> 
-                                <address>
-                                    <SiGmail/> Email : <a href="mailto:schamrotharthur@gmail.com">schamrotharthur@gmail.com</a><br/>
-                                    <AiFillPhone/> Téléphone : <a href="tel:+32477834954">0477834954</a><br/>
-                                    <BsTwitter/> Twitter : <a href="https://twitter.com/ArthurSchamroth">Arthur Schamroth</a><br/>
-                                </address>
-                            </div>
-                            <div className="email_section">
-                                <h2>Email</h2>
-                                
-                            </div>
-                        </div>
                     </div>
                     <div className="mapContainer">
                         <MapGH/>

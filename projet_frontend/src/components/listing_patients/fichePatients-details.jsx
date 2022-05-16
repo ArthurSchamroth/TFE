@@ -100,7 +100,7 @@ function FichePatientsDetails(props){
                                 <input type="text" name='adresse_mail_input' defaultValue={props.fichePatient.adresse_mail} onChange={evt => setAdresseMail(evt.target.value)}/>
                                 
                                 <label htmlFor='naissance'>Date de naissance</label>
-                                <input type="date" name='naissance' defaultValue={dateMax} max={dateMax} min='1910-12-31'
+                                <input type="date" name='naissance' defaultValue={props.fichePatient.age} max={dateMax} min='1910-12-31'
                                 onChange={evt => setNaissace(evt.target.value)}/>
 
                                 <label htmlFor="adresse_input">Adresse</label>

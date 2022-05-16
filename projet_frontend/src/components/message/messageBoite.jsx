@@ -1,5 +1,5 @@
 import React, {useState, useEffect} from 'react';
-import {useCookies} from 'react-cookie';
+import Footer from '../footer/footer';
 import Navbar from '../navbar/navbar';
 import './message_accueil.css';
 import {API} from '../../api-service';
@@ -46,7 +46,11 @@ function Messagerie(props){
         <>
             <Navbar/>
             <div className='App'>
-                <h2>Ceci est votre boite de réception.</h2>
+                {props.username != "ArthurSchamroth" || props.username != "ThomasPenning" ?
+                    <h2>Voici les messages de Monsieur Penning</h2> :
+                    <h2>Voici votre boite de réception</h2>
+                }
+                
                 {props.username == "ArthurSchamroth" || props.username == "ThomasPenning" ? 
                     auteurs != [] ? 
                         auteurs.map(auteur => {
@@ -91,7 +95,7 @@ function Messagerie(props){
                     </div>
                     : null
                 }
-                
+            <Footer/>
             </div>
             
         </>

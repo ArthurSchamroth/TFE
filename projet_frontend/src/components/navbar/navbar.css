@@ -7,7 +7,7 @@ a{
     justify-content: space-around;
     margin: 0;
     height: 100px;
-    background: #1f2020;
+    background: #005eb6;
     list-style-type: none;
     padding: 0;
     align-items: center;
@@ -25,10 +25,11 @@ nav{
     text-align: center;
     color: white;
     font-size: 24px;
+    height: 30px;
 }
 
 .links:hover{
-    border-bottom: solid 2px;
+    text-decoration: underline;
     transition: all 0.2s ease-in-out;
 }
 
@@ -39,12 +40,12 @@ nav{
 }
 
 .links_logo:hover{
-    color: #d3cca7;
+    color: rgb(135, 231, 238);
 }
 
 .links_login{
-    border: solid 3px #CFC486;
-    color: #CFC486;
+    border: solid 3px white;
+    color: white;
     text-align: center;
     border-radius: 4px;
     padding: 4px;
@@ -53,11 +54,11 @@ nav{
 }
 
 .links_login:hover{
-    border: solid #1F2020;
-    background-color: #CFC486;
-    color: #1F2020;
+    border: solid #005eb6;
+    background-color: white;
+    color: #005eb6;
     text-align: center;
-    border-radius: 4px;
+    border-radius: 10px;
 }
 
 .links_container_mobile{
@@ -69,12 +70,12 @@ nav{
 }
 
 .profile_button{
-    color: #7C4C53;
+    color: #fff;
     font-size: 24px;
 }
 
 .profile_button:hover{
-    color: #af7981;
+    color: rgb(135, 231, 238);
     font-size: 24px;
 }
 
@@ -87,13 +88,13 @@ nav{
         flex-direction: column;
         justify-content: space-between;
         font-size: 48px;
-        color: #CfC486;
+        color: white;
         transition: all 0.5s ease;
     }
 
     .hamburger_menu:hover{
         cursor: pointer;
-        color: #d8d1ac;
+        color: white;
     }
 
     .links_container{
@@ -106,7 +107,7 @@ nav{
         justify-content: space-around;
         margin: 0;
         height: 100%;
-        background: #1f2020;
+        background: #005eb6;
         list-style-type: none;
         padding: 0;
         align-items: center;
@@ -132,5 +133,9 @@ nav{
         list-style-type: none;
         padding: 0;
         align-items: center;
+    }
+
+    .hamburger_menu{
+        color: white;
     }
 }

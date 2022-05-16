@@ -5,8 +5,8 @@
 .redirection_rdv_btn{
     width: 70%;
     color: #fff;
-    background-color: #7C4C53;
-    border: 2px solid #7C4C53;
+    background-color: #005eb6;
+    border: 2px solid #005eb6;
     border-radius: 5px;
     transition: all 0.5s ease;
     padding: 10px;
@@ -72,6 +72,8 @@ th, td{
     padding: 1%;
 }
 
+
+
 .premiere_colonne{
     border-left: 2px solid;
 }
@@ -81,7 +83,7 @@ th, td{
 }
 
 .del_rdv_btn{
-    background-color: #7C4C53;
+    background-color: #005eb6;
     border-radius: 10px;
     color: #fff;
 }
@@ -89,13 +91,13 @@ th, td{
 .del_rdv_btn:hover{
     background-color: #fff;
     border-radius: 10px;
-    color: #7C4C53;
+    color: #005eb6;
     transition: all 0.2s ease-in-out;
 }
 
 .btn_choix_jour{
     width: 25%;
-    background-color: #7C4C53;
+    background-color: #005eb6;
     border-radius: 10px;
     color: #fff;
     margin: 0.2%;
@@ -104,13 +106,13 @@ th, td{
 .btn_choix_jour:hover{
     background-color: #fff;
     border-radius: 10px;
-    color: #7C4C53;
+    color: #005eb6;
     transition: all 0.2s ease-in-out;
 }
 
 .btn_select_houres{
     width: 25%;
-    background-color: #7C4C53;
+    background-color: #005eb6;
     border-radius: 10px;
     color: #fff;
     margin: 0.2%;
@@ -119,13 +121,13 @@ th, td{
 .btn_select_houres:hover{
     background-color: #fff;
     border-radius: 10px;
-    color: #7C4C53;
+    color: #005eb6;
     transition: all 0.2s ease-in-out;
 }
 
 .btn_envoyer_indispo{
     width: 25%;
-    background-color: #7C4C53;
+    background-color: #005eb6;
     border-radius: 10px;
     color: #fff;
     margin: 0.2%;
@@ -135,4 +137,5 @@ th, td{
 .btn_envoyer_indispo:hover{
     background-color: transparent;
     transition: all 0.2s ease-in-out;
+    color: black;
 }

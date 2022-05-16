@@ -68,27 +68,31 @@ function MessageAccueil(props){
                 <div className="messageContainer">
                     {props.username == "ArthurSchamroth" || props.username == "ThomasPenning"? 
                         <>  
-                            <label htmlFor="destinataire">Destinataire</label>
+                            <label htmlFor="destinataire">Destinataire :</label><br/>
                             {destPossibleValues != [] ? 
                                 <>
                                     <select name="destinataire" id="destinataire" onChange={evt => setDestinataire(evt.target.value)}>
                                         {destPossibleValues.map(dest => {
                                             return(
-                                                <option value={dest.value}>{dest.label}</option>
+                                                <>
+                                                {dest.label == "ArthurSchamroth" || dest.label == "ThomasPenning" ? 
+                                                null :
+                                                <option value={dest.value}>{dest.label}</option>}
+                                                </>
                                             )
                                         })}
-                                    </select>
+                                    </select><br/>
                                 </>
-                                : console.log('pas ok')
+                                : null
                             }
                         </>: 
                         <>
-                            <label htmlFor="destinaire">Destinataire</label>
+                            <label htmlFor="destinaire">Destinataire :</label>
                             <input disabled type="text" id="destinaire" value="Monsieur Penning" onChange={null}/>
                         </>
                     }
 
-                    <label htmlFor="contenuMessage">Contenu</label>
+                    <label htmlFor="contenuMessage">Contenu :</label>
                     <textarea name="contenuMessage" id="contenuMessage" cols="30" rows="5" onChange={evt => setContenuMessage(evt.target.value)}
                     placeholder="Contenu de votre message"></textarea>
                     

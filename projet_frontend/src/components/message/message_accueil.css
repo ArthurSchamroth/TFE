@@ -1,5 +1,17 @@
 .redirect_link_rdv{
-    width: 10rem;
+    width: 100%
+}
+
+.redirection_rdv_btn{
+    width: 100%;
+    border-color: #005eb6;
+    background-color: #005eb6;
+}
+
+.redirection_rdv_btn:hover{
+    width: 100%;
+    border-color: #1688f1;
+    background-color: #1688f1;
 }
 
 .message_specific_sender{
@@ -30,13 +42,14 @@
     width: 25%;
     margin: 0.2%;
     border-radius: 10px;
-    background-color: #7C4C53;
+    background-color: #1688f1;
     color: #fff;
 }
 
 .btn_auteur:hover{
     background-color: transparent;
     transition: all 0.2s ease-in-out;
+    color: black;
 }
 
 .btn_container{
@@ -49,4 +62,30 @@
 
 .message_container{
     text-align: center;
+    width: 300px
+}
+
+label{
+    text-decoration: underline;
+}
+
+#auteur:hover{
+    cursor: not-allowed;
+}
+
+#contenuMessage{
+    border-radius: 10px;
+}
+
+#destinaire:hover{
+    cursor: not-allowed;
+}
+
+.messageContent{
+    width: 20rem;
+    border: solid 2px #1688f1;
+    padding: 1%;
+    margin: 1%;
+    text-align: center;
+    font-size: 18px;
 }

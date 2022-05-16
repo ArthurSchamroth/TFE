@@ -153,7 +153,7 @@ function ListingPatients(props) {
     const customStyles = {
         control: (base, state) => ({
         ...base,
-        background: "#023950",
+        background: "#1688f1",
         borderRadius: state.isFocused ? "3px 3px 0 0" : 3,
         boxShadow: state.isFocused ? null : null,
         "&:hover": {
@@ -168,11 +168,11 @@ function ListingPatients(props) {
     }),
     menuList: (base, state) => ({
         ...base,
-        background: "#023950",
+        background: "#1688f1",
         padding: 0,
         "&:hover": {
         borderColor: state.isFocused ? "red" : "blue",
-        background: "#023950",
+        background: "#1688f1",
         color: state.isFocused ? "white" : "white" 
         }
     })
@@ -345,7 +345,7 @@ function ListingPatients(props) {
                                                         ...theme,
                                                         borderRadius: 0,
                                                         colors: {
-                                                            menuColor: 'black',
+                                                            menuColor: '#1688f1',
                                                             text: 'orangered',
                                                         }
                                                     })}
@@ -363,7 +363,7 @@ function ListingPatients(props) {
                                                         {routinePreCharged[0].videos.map(video => {
                                                             return(
                                                             <div key={video.id} id={video.id}>
-                                                            <a href={video.url}>{video.titre}</a><FontAwesomeIcon onClick={() => delVideoClicked(video)} icon={faCircleMinus}/><br/>
+                                                            <a href={video.url}>{video.titre}</a><br/><FontAwesomeIcon onClick={() => delVideoClicked(video)} icon={faCircleMinus}/><br/>
                                                             </div>
                                                         )})}
                                                         {isAjouterVideo && listeVideos && videosDispos != [] ?
@@ -377,7 +377,7 @@ function ListingPatients(props) {
                                                                     ...theme,
                                                                     borderRadius: 0,
                                                                     colors: {
-                                                                        menuColor: 'black',
+                                                                        menuColor: '#1688f1',
                                                                         text: 'orangered',
                                                                     }
                                                                 })}

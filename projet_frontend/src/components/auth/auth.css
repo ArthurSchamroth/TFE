@@ -2,6 +2,7 @@
     display: flex;
     padding-top: 50px;
     align-items: center;
+    background-color: #fff;
 }
 
 h1{
@@ -13,9 +14,9 @@ h1{
     flex-direction: column;
     height: 50%;
     width: 75%;
-    border: 3px solid #CFC486;
+    border: 3px solid #005eb6;
     padding: 5% 10% 5% 10%;
-    border-radius: 5px;
+    border-radius: 25%;
 }
 
 label{
@@ -30,14 +31,14 @@ input{
 .btn_co_re{
     margin-top: 10px;
     margin-bottom: 15px;
-    color: #CFC486;
+    color: white;
     background-color: #1F2020;
     border-radius: 5px;
 }
 
 .btn_co_re:hover{
     color: #1F2020;
-    background-color: #CFC486;
+    background-color: #005eb6;
 }
 
 .login_failed{

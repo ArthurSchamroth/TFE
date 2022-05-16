@@ -13,7 +13,7 @@
     align-items: center;
     width: 36rem;
     margin: 15px;
-    border: 3px solid #CFC486;
+    border: 3px solid #005eb6;
     border-radius: 5px;
     padding: 10px;
 }
@@ -65,16 +65,16 @@
     background-color: #1F2020;
     border-radius: 10px;
     width: 12rem;
-    color: #CFC486;
+    color: white;
     transition: all 0.3s ease;
 }
 
 .profil_redirection:hover{
     margin-bottom: 15px;
-    background-color: #CFC486;
+    background-color: #005eb6;
     border-radius: 10px;
     width: 12rem;
-    color: #1F2020;
+    color: white;
 }
 
 .deconnexion_button_container{
@@ -86,8 +86,8 @@
 }
 
 .salutation_profil{
-    color: #bcc0a1;
-    border-bottom: solid 2px;
+    color: black;
+    text-decoration: underline;
     font-size: 36px;
     margin-bottom: 16px;
 }

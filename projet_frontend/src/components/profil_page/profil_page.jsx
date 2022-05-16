@@ -65,7 +65,7 @@ function Profil_Kine(){
                         <div className="profil_button_container">
                             <h1>Gestion des Commentaires</h1>
                             <p>Gérez les commentaires laissés par vos différents patients sur votre site.</p>
-                            <a href="/patients"><button className='profil_redirection'>Commentaires</button></a>
+                            <a href="/commentaires"><button className='profil_redirection'>Commentaires</button></a>
                         </div>
                         <div className="profil_button_container">
                             <h1>Gestion des Routines</h1>
