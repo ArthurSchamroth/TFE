@@ -33,3 +33,11 @@
 .partie_footer h2{
     text-decoration: underline;
 }
+
+@media only screen and (max-width:840px){
+    .footer{
+        width: 100%;
+        display: flex;
+        flex-direction: row;
+    }
+}

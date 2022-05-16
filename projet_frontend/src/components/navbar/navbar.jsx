@@ -29,7 +29,7 @@ function Navbar(){
                 <a href="#" className="hamburger_menu"><GiHamburgerMenu/></a>
                 <a href="/"><li className="links_logo">Thomas Penning<FaWalking/></li></a>
                 <a href="/"><li className="links">A propos</li></a>
-                <a href="/commentaires"><li className="links">Avis</li></a>
+                <a href="/commentaires"><li className="links">Commentaires</li></a>
                 {token['mr-token'] ? 
                 <a href="/espace_prive" className="profile_button"><CgProfile/>{pseudo}</a> : 
                 <a href="/login"><li className="links_login">Connexion</li></a>
@@ -42,8 +42,7 @@ function Navbar(){
                 {menu_mobile ? 
                 <>
                 <a href="/"><li className="links_logo">Thomas <FaWalking/></li></a>
-                <a href="/"><li className="links">A propos</li></a>
-                <a href="/"><li className="links">Spécialisations</li></a>
+                <a href="/commentaires"><li className="links">Commentaires</li></a>
                 <a href="/"><li className="links">A propos</li></a>
                 {token['mr-token'] ? 
                 <a href="/espace_prive" className="profile_button"><CgProfile/>        {pseudo}</a> : 

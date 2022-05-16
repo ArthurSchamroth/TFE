@@ -292,3 +292,37 @@ h1 {
   color: red;
   transition: all 0.2s ease-in-out;
 }
+
+@media only screen and (max-width:840px){
+  .layout{
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .container_suivi_patient{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 75%;
+  }
+
+  .container_btn_suivi{
+    display: flex;
+    flex-direction: column;
+  }
+
+  .ficheRoutine{
+    width: 100%;
+    left: 0;
+  }
+  
+  #container_btn_routine{
+    width: 80%;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .container_gestion_routine{
+    width: 80%;
+  }
+}

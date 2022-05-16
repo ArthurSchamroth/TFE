@@ -22,6 +22,15 @@
     transition: all 0.5s ease;
 }
 
+.redirect_link_rdv{
+    width: 65%;
+    padding-right: 0;
+}
+
+.redirection_rdv_btn{
+    width: 65%;
+}
+
 .titre_rdv_tableau{
     border: 2px solid;
     text-align: center;

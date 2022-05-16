@@ -26,8 +26,9 @@ h2{
     flex: 1 0 47%;
 }
 
-.contenu_commentaire{
+.commentaire_contenu{
     width: 100%;
+    font-size: 20px;
 }
 
 .del_comm_btn{

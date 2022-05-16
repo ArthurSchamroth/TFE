@@ -15,7 +15,7 @@ function AncienRdv(props){
 
     const deleteClicked = rdv => {
         API.delRdv({id: rdv.id})
-        window.location.href = "/rendez_vous/anciens/"
+        window.location.href = "/rendez_vous/futurs"
     }
 
     useEffect(()=>{
@@ -53,7 +53,6 @@ function AncienRdv(props){
                         test.push(i)
                     }
                     const liste_triee = test.sort(trier)
-                    console.log(liste_triee)
                     setListeRdv(liste_triee)
                     
                     return listeRdv
@@ -68,7 +67,7 @@ function AncienRdv(props){
         <>  
             <Navbar/>
             <div className="App">
-                <h1>Voici vos précédents rendez-vous.</h1>
+                <h1>Voici vos futurs rendez-vous.</h1>
                 <div className="tableau_container">
                 <table id='tableau_rdv_precedents'>
                     <thead>
@@ -88,21 +87,23 @@ function AncienRdv(props){
                     {listeRdv && listeRdv.map(rdv => {
                         return(
                             <>
-                            {rdv.date <=  currentDate && rdv.description != "Indisponible"? 
-                                <tr key={rdv.id}>
+                            {rdv.date <= currentDate && rdv.description != "Indisponible"? 
+                                <tr>
                                     <td className='premiere_colonne'>{rdv.nom} {rdv.prenom}</td>
                                     <td>{rdv.date}</td>
                                     <td>{rdv.heure}</td>
                                     {rdv.type_soin == "KR" ? <td>Kinésithérapie respiratoire</td> : 
                                     rdv.type_soin == "K" ? <td>Kinésithérapie</td> :
                                     rdv.type_soin == "OS" ? <td>Osthéopatie</td> : rdv.type_soin == "P" ? <td>Pédiatrie</td> : <td></td>}
-                                    <td>{rdv.description}</td>
+                                    <td className={props.username == "ArthurSchamroth" || props.username == "ThomasPenning" ? null : 'derniere_colonne'}>{rdv.description}</td>
+                                    {props.username == "ArthurSchamroth" || props.username == "ThomasPenning" ? 
                                     <td className='derniere_colonne'>
                                         <Popup trigger={<button className='del_rdv_btn'>Supprimer</button>} position='bottom center'>
                                             <div>Êtes-vous sûr de vouloir supprimer ce rendez-vous ?</div>
-                                            <button  onClick={() => deleteClicked(rdv)}>Supprimer</button>
+                                            <button onClick={() => deleteClicked(rdv)}>Supprimer</button>
                                         </Popup>
-                                    </td>
+                                    </td> : null
+                                    }
                                 </tr> : null
                             }
                             
