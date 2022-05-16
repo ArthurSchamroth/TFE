@@ -205,12 +205,10 @@ function ListingPatients(props) {
 
     const envoyerRoutine = e => {
         e.preventDefault();
-        console.log(optionsRoutine)
         const titreRoutines = []
         for(const i of optionsRoutine){
             titreRoutines.push(i.label)
         }
-        console.log(titreRoutines)
         if(titreRoutines.includes(titreRoutine)){
             setIsErreur(true)
         }else{
@@ -236,10 +234,6 @@ function ListingPatients(props) {
         }
         setVideosRoutine(a)
     }, [nouvellesVideos])
-
-    useEffect(()=>{
-        console.log(videosRoutine)
-    }, [videosRoutine])
 
 
     const deleteRoutine = routine => {

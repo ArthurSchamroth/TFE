@@ -53,7 +53,6 @@ function VoirIndispos(props){
                         test.push(i)
                     }
                     const liste_triee = test.sort(trier)
-                    console.log(liste_triee)
                     setListeRdv(liste_triee)
                     
                     return listeRdv

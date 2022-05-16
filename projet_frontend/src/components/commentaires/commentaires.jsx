@@ -57,13 +57,11 @@ function Commentaire(props){
                     window.location.href = '/commentaires'
                     break;
                 }else{
-                    console.log(user, auteur_nom, auteur_prenom, commentaire)
                     API.sendingAvis({user, auteur_nom, auteur_prenom, commentaire})
                     window.location.href = '/commentaires'
                 }
             }
         }else{
-            console.log('pas ok')
             API.sendingAvis({user, auteur_nom, auteur_prenom, commentaire})
             window.location.href = '/commentaires'
         }

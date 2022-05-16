@@ -58,7 +58,6 @@ function ProgrammerIndisponilibites(props){
     };
 
     const envoyerIndisponibilités = () => {
-        console.log("heures : ", heuresSelected)
         for(const i of dates){
             for(const j of heuresSelected){
                 API.addingRdv({'user': props.fiche, 'date': i, 'heure': j + ":00" , 

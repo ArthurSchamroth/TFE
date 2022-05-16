@@ -51,7 +51,6 @@ function Router(){
             setUsername(resp['username'])
             if(resp["fiche"]){
               setFicheId(resp['fiche'])
-              console.log("ok")
             }
             setAge(resp['age'])
             setAdresse(resp['adresse'])
@@ -61,10 +60,6 @@ function Router(){
     setLoading(false)
     }
     }, [])
-
-    useEffect(() => {
-      console.log(ficheId)
-    }, [ficheId])
 
   return (
     <React.Fragment>

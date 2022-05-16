@@ -21,7 +21,6 @@ function Nouvelle_Fiche_Sante(){
     const [description_probleme, setDetail_prob] = useState('');
 
     useEffect(()=>{
-        console.log("ok")
         API.gettingDataFromToken({'token': token['mr-token']})
             .then(function(resp){
                 return resp.json()

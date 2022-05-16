@@ -30,10 +30,6 @@ function MessageAccueil(props){
             })
     }, [])
 
-    useEffect(()=>{
-        console.log(destinataire)
-    }, [destinataire])
-
     const envoyerMessage = destinataire => {
         if(props.username != "ThomasPenning"){
             var user = props.fiche

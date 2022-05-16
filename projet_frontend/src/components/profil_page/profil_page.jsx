@@ -22,7 +22,6 @@ function Profil_Kine(){
         .then(function(resp){
             return resp.json()
         }).then(function(resp){
-            console.log(resp)
             const a = (resp["username"])
             if(resp["fiche"]){
                 setFiche(resp['fiche'])

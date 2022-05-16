@@ -19,9 +19,6 @@ function GestionRoutine(props) {
     const [listeVideosRoutine, setListeVideosRoutine] = useState([]);
     const [description, setDescription] = useState('');
 
-    useEffect(() => {
-        console.log(listeVideosRoutine)
-    }, [listeVideosRoutine])
 
     const creationClicked = () => {
         setIsCreer(!isCreer);
@@ -60,18 +57,12 @@ function GestionRoutine(props) {
     const valueHandle = (e) => {
         const test = []
         const getvalue = (e?test.push(e.target.value):[]);
-        console.log(test)
     } 
 
     const envoyerVideo = () => {
         API.envoyerVideo({titre: titreVideo, url: urlVideo})
         alert("Vidéo ajoutée !")
-        console.log(titreVideo, urlVideo)
     }
-
-    useEffect(()=>{
-        console.log(listeVideosRoutine)
-    }, [listeVideosRoutine])
 
     return (
         <>
