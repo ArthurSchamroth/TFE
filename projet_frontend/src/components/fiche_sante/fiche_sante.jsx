@@ -20,6 +20,8 @@ function Fiche_Sante(props){
     const [type_kine, setType_besoin] = useState('');
     const [adresse, setAdresse] = useState('');
     const [description_probleme, setDetail_prob] = useState('');
+    const [isAutorisationChecked, setIsAutorisationChecked] = useState("Non");
+    const [isAlert, setIsAlert] = useState(false);
 
     const dateMax = new Date().toISOString().split('T')[0];
 
@@ -74,15 +76,24 @@ function Fiche_Sante(props){
     var date = today.getFullYear()+'-'+(today.getMonth()+1)+'-'+today.getDate();
 
     const envoyer_fiche = () => {
-        API.creatingFiche({user, nom, prenom, age, adresse_mail, type_kine, description_probleme, adresse})
-        alert("Fiche créée !")
-        window.location.href = "/espace_prive/fiche_sante"
+        if(nom == "" || prenom == "" || age == "" || adresse_mail == "" || type_kine == "" || description_probleme == "" || adresse == ""){
+            setIsAlert(true);
+        }else{
+            API.creatingFiche({user, nom, prenom, age, adresse_mail, type_kine, description_probleme, adresse, autorisation_consultation: isAutorisationChecked})
+            alert("Fiche créée !")
+            window.location.href = "/espace_prive/fiche_sante"
+        }
+        
     }
 
     const modifier_fiche = () => {
-        API.updatingFiche({user, nom, prenom, age, adresse_mail, type_kine, description_probleme, adresse})
-        alert("Fiche modifée !")
+        API.updatingFiche({user, nom, prenom, age, adresse_mail, type_kine, description_probleme, adresse});
+        alert("Fiche modifée !");
         window.location.href = "/espace_prive/fiche_sante"
+    }
+
+    const autorisationChecked = () => {
+        setIsAutorisationChecked("oui");
     }
 
     return(
@@ -165,10 +176,22 @@ function Fiche_Sante(props){
                     onChange={evt=>setDetail_prob(evt.target.value)} 
                     placeholder="Décrivez brièvement la raison de votre présence chez Monsieur Penning"></textarea>
                     }
-                    
-                    
+
+                    {props.autorisation ? 
+                        <div className="autorisation_container">
+                        {props.autorisation == "oui" ? <p><strong>Monsieur Penning a accès à votre dossier médical.</strong></p> : <p><strong>Monsieur Penning n'a pas accès à votre dossier.</strong></p>}
+                        <br/></div> : 
+                        <>
+                        <label htmlFor="autorisation_dossier">Cochez pour autoriser Monsieur Penning à accéder à votre dossier médical.</label>
+                        <input className='radio_autorisation' type="radio" onChange={() => autorisationChecked()}/>
+                        {isAutorisationChecked == "oui" ? <p>Monsieur Penning a accès à votre dossier.</p> : null}
+                        <br/></>
+                    }
+                    {isAlert ? 
+                        <p className='alert_fiche'>Veuillez compléter tous les champs !</p> : null
+                    }
                     {!listingFiche_id.includes(user) ? 
-                    <button className='validation_fiche_button' onClick={envoyer_fiche}>Inscription</button>:
+                    <button className='validation_fiche_button' onClick={envoyer_fiche}>Envoyer</button>:
                     <button className='validation_fiche_button' onClick={modifier_fiche}>Modifier</button>
                 }
                 </div>

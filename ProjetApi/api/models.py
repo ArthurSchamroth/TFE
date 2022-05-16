@@ -21,6 +21,7 @@ class FichePatient(models.Model):
     type_kine = models.CharField(max_length=2, choices=type_kine, blank=True)
     description_probleme = models.TextField(max_length=1024, blank=True)
     adresse = models.CharField(max_length=64, blank=True)
+    autorisation_consultation = models.CharField(default="Non", max_length=3)
 
     class Meta:
         unique_together = (('nom', 'prenom'),)

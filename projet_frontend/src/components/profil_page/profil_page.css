@@ -45,7 +45,7 @@
 }
 
 #deco_btn:hover{
-    color: #363B48;
+    color: white;
     background-color: red;
     border: 2px solid red;
     cursor: pointer;

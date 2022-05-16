@@ -19,6 +19,7 @@ function FichePatientsDetails(props){
     const [descriptionProb, setDescriptionProb] = useState('');
     const [isModification, setIsModification] = useState(false);
     const [isSuivi, setIsSuivi] = useState(false);
+    const [autorisation, setAutorisation] = useState("");
 
     const dateMax = new Date().toISOString().split('T')[0];
 
@@ -26,6 +27,7 @@ function FichePatientsDetails(props){
 
     useEffect(() => {
         if(props.fichePatient){
+            setAutorisation(props.fichePatient.autorisation_consultation)
             setStr_mail("mailto:" + props.fichePatient.adresse_mail);
             setUser(props.fichePatient.user)
             setNom(props.fichePatient.nom);
@@ -76,7 +78,8 @@ function FichePatientsDetails(props){
                                     window.open('https://maps.google.com?q='+props.fichePatient.adresse)
                                 }}>Adresse : {props.fichePatient.adresse}</p>
                                 <p>Description Problème : {props.fichePatient.description_probleme}</p>
-                                <p>Description de soin demandé : {type[props.fichePatient.type_kine]}</p><br/>
+                                <p>Description de soin demandé : {type[props.fichePatient.type_kine]}</p>
+                                <p>Autorisé à consulter le dossier médical : {props.fichePatient.autorisation_consultation == "oui" ? 'Oui' : 'Non'}</p>
                                 <div className='container_btn_profil'>
                                     <Popup trigger={<button title="Supprimer l'utilisateur" className='del_btn_user'><FontAwesomeIcon className='button_del_fiche' icon={faTrashCan}/></button>} position='bottom center'>
                                     <div>Voulez-vous supprimer ce patient ? (Toutes les informations le concernant seront supprimées !)</div>

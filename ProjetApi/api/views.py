@@ -61,9 +61,10 @@ class TokenViewSet(viewsets.ModelViewSet):
                     ficheAge = patient_wth_token.user.fichepatient.age
                     ficheAdresse = patient_wth_token.user.fichepatient.adresse
                     ficheProb = patient_wth_token.user.fichepatient.description_probleme
+                    autorisation = patient_wth_token.user.fichepatient.autorisation_consultation
                     response = {'id': id, 'username': user, 'email': email, 'prenom': prenom,
                                 'nom': nom, 'fiche': ficheId, "type_kine": ficheTypeKine, 'age': ficheAge,
-                                'adresse': ficheAdresse, 'probleme': ficheProb}
+                                'adresse': ficheAdresse, 'probleme': ficheProb, 'autorisation': autorisation}
                 except:
                     response = {'id': id, 'username': user, 'email': email, 'prenom': prenom,
                                 'nom': nom, 'actif': actif}

@@ -110,6 +110,7 @@ function Nouvelle_Fiche_Sante(){
                 <input type="text" name='description_prob' value={description_probleme}
                 onChange={evt=>setDetail_prob(evt.target.value)}/>
                 
+                
                 {!listingFiche_id.includes(user) ? 
                 <button className='validation_fiche_button' onClick={envoyer_fiche}>Envoyer Fiche</button>:
                 <button className='validation_fiche_button' onClick={modifier_fiche}>Modifier</button>

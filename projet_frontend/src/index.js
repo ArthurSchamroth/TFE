@@ -37,6 +37,7 @@ function Router(){
   const [age, setAge] = useState('');
   const [adresse, setAdresse] = useState('');
   const [descriptProb, setDescriptProb] = useState('');
+  const [isAutorise, setIsAutorise] = useState('');
 
   useEffect(()=>{
     if(token['mr-token']){
@@ -45,6 +46,7 @@ function Router(){
         .then(function(resp){
             return resp.json()
         }).then(function(resp){
+          console.log(resp)
             setUserId(resp["id"])
             setTypeKine(resp['type_kine'])
             setUsername(resp['username'])
@@ -52,6 +54,7 @@ function Router(){
             setAge(resp['age'])
             setAdresse(resp['adresse'])
             setDescriptProb(resp['probleme'])
+            setIsAutorise(resp['autorisation'])
         })
     setLoading(false)
     }
@@ -91,7 +94,7 @@ function Router(){
               <Route exact path="/espace_prive" element={<Profil_Kine/>}/>
               <Route exact path="/rendez_vous" element={<AccueilRdv/>}/>
               <Route exact path="/espace_prive/fiche_sante" element={<Fiche_Sante user={userId != "" ? userId : null} username={username != "" ? username : null} fiche={ficheId != "" ? ficheId : null} type_kine = {typeKine != "" ? typeKine : null}
-              age={age != "" ? age : null} adresse={adresse != "" ? adresse : null} descriptProb = {descriptProb != "" ? descriptProb : null}/>}/>
+              age={age != "" ? age : null} adresse={adresse != "" ? adresse : null} descriptProb = {descriptProb != "" ? descriptProb : null} autorisation={isAutorise != "" ? isAutorise : null}/> }/>
               <Route exact path="/messagerie" element={<MessageAccueilCorrect fiche={ficheId} username={username}/>}/>
               <Route exact path="/messagerie/boite" element={<Messagerie fiche={ficheId} username={username}/>}/>
               <Route exact path="/messagerie/envoyer" element={<MessageAccueil fiche={ficheId} username={username}/>}/>

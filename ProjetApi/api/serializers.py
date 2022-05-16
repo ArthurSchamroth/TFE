@@ -26,7 +26,8 @@ class CommentaireSerializer(serializers.ModelSerializer):
 class FichePatientSerializer(serializers.ModelSerializer):
     class Meta:
         model = FichePatient
-        fields = ('id', 'user', "nom", "prenom", "age", "adresse_mail", 'type_kine', "description_probleme", "adresse")
+        fields = ('id', 'user', "nom", "prenom", "age", "adresse_mail", 'type_kine', "description_probleme", "adresse",
+                  "autorisation_consultation")
 
 
 class TokenSerializer(serializers.ModelSerializer):
