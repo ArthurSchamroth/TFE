@@ -46,11 +46,13 @@ function Router(){
         .then(function(resp){
             return resp.json()
         }).then(function(resp){
-          console.log(resp)
             setUserId(resp["id"])
             setTypeKine(resp['type_kine'])
             setUsername(resp['username'])
-            setFicheId(resp['fiche'])
+            if(resp["fiche"]){
+              setFicheId(resp['fiche'])
+              console.log("ok")
+            }
             setAge(resp['age'])
             setAdresse(resp['adresse'])
             setDescriptProb(resp['probleme'])
@@ -59,6 +61,10 @@ function Router(){
     setLoading(false)
     }
     }, [])
+
+    useEffect(() => {
+      console.log(ficheId)
+    }, [ficheId])
 
   return (
     <React.Fragment>
@@ -76,28 +82,28 @@ function Router(){
               </>: 
                 <Route exact path='/routines' element={<Routine username={username != "" ? username : null} fiche={ficheId != "" ? ficheId : null}/>}/>
             }
-            {!token && !ficheId != ""? null : 
+            {!token || ficheId == "" ? null : 
             <>
               <Route exact path="/rendez_vous/anciens" element={<AncienRdv fiche={ficheId != "" ? ficheId : null} username={username != "" ? username : null}/>}/>
               <Route exact path="/rendez_vous/futurs" element={<FuturRdv fiche={ficheId != "" ? ficheId : null} username={username != "" ? username : null}/>}/>
               <Route exact path="/rendez_vous/indispos" element={<VoirIndispos fiche={ficheId != "" ? ficheId : null} username={username != "" ? username : null}/>}/>
             </>
             }
-            {!token && !ficheId? null : 
+            {!token || ficheId == "" ? null : 
             <>
               <Route exact path="/rendez_vous/programmer" element={<ProgrammerRdv type_kine={typeKine} fiche={ficheId != "" ? ficheId : null}/>}/>
               <Route exact path="/rendez_vous/add_indisponibilites" element={<ProgrammerIndisponilibites type_kine={typeKine} fiche={ficheId != "" ? ficheId : null}/>}/>
-            </>
-            }
-            {username && username != '' && ficheId != "" ? 
-            <>
-              <Route exact path="/espace_prive" element={<Profil_Kine/>}/>
               <Route exact path="/rendez_vous" element={<AccueilRdv/>}/>
-              <Route exact path="/espace_prive/fiche_sante" element={<Fiche_Sante user={userId != "" ? userId : null} username={username != "" ? username : null} fiche={ficheId != "" ? ficheId : null} type_kine = {typeKine != "" ? typeKine : null}
-              age={age != "" ? age : null} adresse={adresse != "" ? adresse : null} descriptProb = {descriptProb != "" ? descriptProb : null} autorisation={isAutorise != "" ? isAutorise : null}/> }/>
               <Route exact path="/messagerie" element={<MessageAccueilCorrect fiche={ficheId} username={username}/>}/>
               <Route exact path="/messagerie/boite" element={<Messagerie fiche={ficheId} username={username}/>}/>
               <Route exact path="/messagerie/envoyer" element={<MessageAccueil fiche={ficheId} username={username}/>}/>
+            </>
+            }
+            {username && username != '' ? 
+            <>
+              <Route exact path="/espace_prive" element={<Profil_Kine/>}/>
+              <Route exact path="/espace_prive/fiche_sante" element={<Fiche_Sante user={userId != "" ? userId : null} username={username != "" ? username : null} fiche={ficheId != "" ? ficheId : null} type_kine = {typeKine != "" ? typeKine : null}
+              age={age != "" ? age : null} adresse={adresse != "" ? adresse : null} descriptProb = {descriptProb != "" ? descriptProb : null} autorisation={isAutorise != "" ? isAutorise : null}/> }/>
             </> : null
             }
             

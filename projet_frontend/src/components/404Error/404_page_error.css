@@ -1,6 +1,6 @@
 #error_message{
     font-size: 24px;
-    color: #fff;
+    color: black;
 }
 
 #error_message:hover{
