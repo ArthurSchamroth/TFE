@@ -23,6 +23,8 @@ function GestionRoutine(props) {
     const [isListerRoutine, setIsListerRoutine] = useState(false);
     const [listeVideosInfos, setListeVideosInfos] = useState([]);
     const [listeRoutines, setListeRoutines] = useState([]);
+    const [isInputVide, setIsInputVide] = useState(false);
+    const [iseVideoInputVide ,setIsVideoInputVide] = useState(false);
 
 
     const creationClicked = () => {
@@ -79,14 +81,30 @@ function GestionRoutine(props) {
     }
 
     const envoyerRoutine = () => {
-        API.envoyerRoutine({user: 1, titre_routine: titre, description_detaillee: description, videos: listeVideosRoutine})
-        alert("Routine créée !")
-        window.href("/gestion_routine")
+        if(titre == "" || description == ""){
+            setIsInputVide(true);
+        }else{
+            API.envoyerRoutine({user: 1, titre_routine: titre, description_detaillee: description, videos: listeVideosRoutine})
+            alert("Routine créée !")
+            window.href("/gestion_routine")
+        }
+        
     }
 
     const envoyerVideo = () => {
-        API.envoyerVideo({titre: titreVideo, url: urlVideo})
-        alert("Vidéo ajoutée !")
+        if(titreVideo == "" || urlVideo == ""){
+            setIsVideoInputVide(true);
+        }else{
+            API.envoyerVideo({titre: titreVideo, url: urlVideo})
+            alert("Vidéo ajoutée !")
+        }
+    }
+
+    const delClicked = (routine) => {
+        const test = routine.id
+        API.supprimerRoutine({id: test})
+        alert("Routine Supprimée")
+        window.location ="/gestion_routine"
     }
 
     const handleChange = (e) => {
@@ -169,6 +187,10 @@ function GestionRoutine(props) {
                                 })}
                                 isMulti
                             /><br/>
+                                {isInputVide ?
+                                    <p style={{fontWeight:"bold", color:'red'}}>Veuillez compléter les champs du formulaire</p> : null
+                                }
+                                    
                                     <button id='envoyer_routine_btn' onClick={envoyerRoutine}>
                                         Envoyer routine
                                     </button>
@@ -183,7 +205,10 @@ function GestionRoutine(props) {
                                 <input id='titre_video' type="text" onChange={evt => setTitreVideo(evt.target.value)}/>
                                 <label htmlFor="url_video">URL Vidéo</label>
                                 <input id='url_video' type="url" onChange={evt => setUrlVideo(evt.target.value)}/>
-                                <button onClick={envoyerVideo}>Envoyer</button> 
+                                {iseVideoInputVide ? 
+                                    <p style={{fontWeight:"bold", color:'red'}}>Veuillez compléter les champs du formulaire</p> : null
+                                }
+                                <button id='envoyer_routine_btn' onClick={envoyerVideo}>Envoyer</button> 
                             </div>
                             : isLister ?
                                 listeVideos != [] ? 
@@ -201,9 +226,10 @@ function GestionRoutine(props) {
                                 isListerRoutine ? 
                                     listeRoutines.map(routine => {
                                         return(
-                                            <div key={routine.id} className="routine_container">
+                                            <div key={routine.id} className="routine_container_liste">
                                                 Titre: {routine.titre_routine}<br/>
                                                 Description: <br/> {routine.description_detaillee}<br/>
+                                                Supprimer : <button onClick={() => delClicked(routine)}>Supprimer</button>
                                             </div>
                                         )
                                     })

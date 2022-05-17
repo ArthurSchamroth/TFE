@@ -381,7 +381,7 @@ function ListingPatients(props) {
                                                             :null
                                                         }
                                                         {isErreur ? <p className='error_msg'>Veuillez changer au moins le titre de la routine</p> : null}
-                                                        <button onClick={(e) => envoyerRoutine(e)}>Ajouter</button>
+                                                        <button className='btn_ajouter_routine_listing' onClick={(e) => envoyerRoutine(e)}>Ajouter</button>
                                                     </form>
                                                 </div>
                                                 

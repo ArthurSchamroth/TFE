@@ -44,6 +44,9 @@ function ProgrammerRdv(props){
         }
     }, [date])
 
+    var minDate = new Date().toISOString().split("T")[0];
+    console.log(minDate)
+
     return(
         <>  
             <Navbar/>
@@ -52,7 +55,7 @@ function ProgrammerRdv(props){
                 <div className='form_rdv_envoi_container'>
                     <label htmlFor="date">Date</label><br/>
                     <input id='date' type="date" value={date}
-                    onChange={evt => setDate(evt.target.value)}/><br/>
+                    onChange={evt => setDate(evt.target.value)} min={minDate}/><br/>
                     {date != "" ? 
                         <div className='radio-group'>
                             {heures_rdv.map(heure=>{

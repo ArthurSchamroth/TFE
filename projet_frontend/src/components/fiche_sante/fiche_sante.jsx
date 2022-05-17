@@ -16,12 +16,14 @@ function Fiche_Sante(props){
     const [user, setUser] = useState(props.user);
     const [listingFiches, setListingFiches] = useState([]);
     const [listingFiche_id, setListingFiche_id ] = useState([])
-    const [age, setAge] = useState('2000-07-28');
+    const [age, setAge] = useState('');
     const [type_kine, setType_besoin] = useState('');
     const [adresse, setAdresse] = useState('');
     const [description_probleme, setDetail_prob] = useState('');
     const [isAutorisationChecked, setIsAutorisationChecked] = useState("Non");
     const [isAlert, setIsAlert] = useState(false);
+    const [dateDef, setDateDef] = useState("");
+    const [test, setTest] = useState(false);
 
     const dateMax = new Date().toISOString().split('T')[0];
 
@@ -38,9 +40,33 @@ function Fiche_Sante(props){
                     setEmail(resp['adresse_mail'])
                     setDetail_prob(resp['description_prob'])
                     setType_besoin(resp['type_kine'])
+                    setTest(true)
                 })
         }
     }, [])
+
+    useEffect(()=>{
+        setDateDef(age)
+    }, [test])
+
+    useEffect(() => {
+        if(props.fiche){
+            API.gettingDataFromFiche({'username': props.username})
+                .then(function(resp){
+                    return resp.json()
+                }).then(function (resp){
+                    if(resp["naissance"]){
+                        setAge(resp['naissance'])
+                    }
+                    setPrenom(resp['prenom'])
+                    setNom(resp['nom'])
+                    setAdresse(resp['adresse'])
+                    setEmail(resp['adresse_mail'])
+                    setDetail_prob(resp['description_prob'])
+                    setType_besoin(resp['type_kine'])
+                })
+        }
+    }, [props])
 
     useEffect(()=>{
         if(!props.fiche){
@@ -121,11 +147,13 @@ function Fiche_Sante(props){
                     <label htmlFor='adresse_mail'>Email</label>
                     <input className='not_modifiable_input' type="text" name='adresse_mail' disabled defaultValue={adresse_mail}/>
                     <label htmlFor='naissance'>Date de naissance</label>
-                    {props.age ? 
-                        <input className='not_modifiable_input' type="date" name='naissance' defaultValue={props.age} max={date} min='1910-12-31'
-                        onChange={evt=>setAge(evt.target.value)} disabled/>:
+                    {age != ""? 
+                        <>
+                        <input className='not_modifiable_input' type="date" name='naissance' defaultValue={age} max={dateMax} min='1910-12-31'
+                        onChange={evt=>setAge(evt.target.value)} disabled/></>:
+                        <>
                         <input type="date" name='naissance' defaultValue={'2000-07-28'} max={dateMax} min='1910-12-31'
-                        onChange={evt=>setAge(evt.target.value)}/>
+                        onChange={evt=>setAge(evt.target.value)}/></>
                     }
                     
                     <label htmlFor='type_kine'>Type besoin</label><br/>

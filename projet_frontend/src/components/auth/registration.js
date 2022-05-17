@@ -117,7 +117,7 @@ function Register(){
                         } 
                     <button className='btn_co_re' onClick={registerClicked}>Inscription</button>
                     </form>
-                <p className="redirection_log-reg" onClick={()=>window.location.href = '/login'}>Already an account ? <u>Login here!</u> </p>
+                <p className="redirection_log-reg" onClick={()=>window.location.href = '/login'}>Déjà un compte ? <u>Connectez vous ici !</u> </p>
             </div>
         </div>
     )

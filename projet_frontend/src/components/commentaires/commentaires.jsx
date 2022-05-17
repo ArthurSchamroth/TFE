@@ -21,6 +21,7 @@ function Commentaire(props){
     const [selectedComment, setSelectedComment] = useState({});
     const [selectedCommentDel, setSelectedCommentDel] = useState({});
     const [auteurConnu, setAuteurConnu] = useState(false);
+    const [isCommentaireVideo, setIsCommentaireVide] = useState(false);
     const liste_id = []
 
     useEffect(() => {
@@ -57,13 +58,19 @@ function Commentaire(props){
                     window.location.href = '/commentaires'
                     break;
                 }else{
+                    if(commentaire == ""){
+                        setIsCommentaireVide(true)
+                    }else{
                     API.sendingAvis({user, auteur_nom, auteur_prenom, commentaire})
-                    window.location.href = '/commentaires'
+                    window.location.href = '/commentaires'}
                 }
             }
         }else{
+            if(commentaire == ""){
+                setIsCommentaireVide(true)
+            }else{
             API.sendingAvis({user, auteur_nom, auteur_prenom, commentaire})
-            window.location.href = '/commentaires'
+            window.location.href = '/commentaires'}
         }
         
     }
@@ -158,6 +165,9 @@ function Commentaire(props){
                                 <textarea name="contenu_commentaire" id="contenu_commentaire" cols="31" rows="4" placeholder="Quel est votre avis par rapport à votre expérience ?"
                                 onChange={evt => setAvis(evt.target.value)}
                                 />
+                                {isCommentaireVideo ? 
+                                    <p style={{color:'red', fontWeight:"bold"}}>Veuillez compléter le commentaire avant de vouloir l'envoyer !</p> : null
+                                }
                                 <button className='envoyer_btn_comm' onClick={envoyerAvis}>Envoyer avis</button>
                             </div>:
                             null

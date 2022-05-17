@@ -24,8 +24,8 @@ function Routine(props){
         <>
             <Navbar/>
             <div className="App">
-                <h1>Voici votre/vos routine(s) mise(s) en place par Monsieur Penning</h1>
-                {routines != [] ? 
+                <h1>Voici votre routine</h1>
+                {routines == [] ? 
                     routines.map(routine => {
                         return(
                             <div key={routine.id} className="container_routine">
@@ -57,7 +57,7 @@ function Routine(props){
                             </div>
                         )
                     })
-                : null}
+                : <p style={{fontWeight:"bold"}}>Vous n'avez pas encore de routine attribuée. Vous pouvez contacter Monsieur Penning pour demander plus d'informations.</p>}
             <Footer/>
             </div>
         </>
