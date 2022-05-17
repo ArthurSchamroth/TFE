@@ -397,6 +397,15 @@ class VideoViewSet(viewsets.ModelViewSet):
     authentication_classes = (TokenAuthentication,)
     permission_classes = (IsAuthenticated,)
 
+    @action(detail=False, methods=['GET'])
+    def allInfosVideos(self, request):
+        videos = VideoTuto.objects.all()
+        liste = []
+        for i in videos:
+            objt = {"id": i.id, "titre": i.titre, "url": i.url}
+            liste.append(objt)
+        response = {'result': liste}
+        return Response(response)
 
 class RoutineViewSet(viewsets.ModelViewSet):
     queryset = Routine.objects.all()
