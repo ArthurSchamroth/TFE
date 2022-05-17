@@ -176,7 +176,6 @@ function Commentaire(props){
                     :
                     <p>Veuillez vous connecter afin de laisser un avis.</p>
                 }
-                <Footer/>
             </div>
         </>
     )

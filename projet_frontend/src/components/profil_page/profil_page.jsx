@@ -95,7 +95,6 @@ function Profil_Kine(){
                     </div>
 
                 </div>
-                <Footer/>
             </div>
         </>
     )

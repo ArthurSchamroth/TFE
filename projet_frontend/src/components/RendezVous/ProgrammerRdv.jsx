@@ -84,7 +84,6 @@ function ProgrammerRdv(props){
 
                     <button className='btn_co_re' onClick={envoyerRdv}>Envoyer Rdv</button>
                 </div>
-                <Footer/>
             </div>
         </>
     )

@@ -66,7 +66,6 @@ function HomePage(){
                 <CookieConsent debug={true} buttonStyle={{backgroundColor: "#005eb6", color: "white", borderRadius:"10px", marginRight: "15px"}} buttonText="J'accepte">
                     Ce site utilise des cookies afin d'enregistrer votre connexion et que vous n'ayez plus à vous connecter manuellement la prochaine fois.
                 </CookieConsent>
-                <Footer/>
             </div>
             
         </>

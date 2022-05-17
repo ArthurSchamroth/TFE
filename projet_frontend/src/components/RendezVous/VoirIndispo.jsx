@@ -102,7 +102,6 @@ function VoirIndispos(props){
                     </tbody>
                 </table>
                 </div>
-                <Footer/>
             </div>
         </>
     )

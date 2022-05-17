@@ -58,7 +58,6 @@ function Routine(props){
                         )
                     })
                 : <p style={{fontWeight:"bold"}}>Vous n'avez pas encore de routine attribuée. Vous pouvez contacter Monsieur Penning pour demander plus d'informations.</p>}
-            <Footer/>
             </div>
         </>
     )

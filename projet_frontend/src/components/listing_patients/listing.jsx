@@ -394,7 +394,6 @@ function ListingPatients(props) {
                             </div> 
                             : null : null
                         } 
-                <Footer/>
                 </div>
         </>
         

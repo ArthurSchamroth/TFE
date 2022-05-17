@@ -183,7 +183,6 @@ function ProgrammerIndisponilibites(props){
                         </> 
                         : null
                 }
-                <Footer/>
                 </div>
         </>
     )

@@ -114,7 +114,6 @@ function Nouvelle_Fiche_Sante(){
                 <button className='validation_fiche_button' onClick={envoyer_fiche}>Envoyer Fiche</button>:
                 <button className='validation_fiche_button' onClick={modifier_fiche}>Modifier</button>
                 }
-                <Footer/>
                 </div>
         </>    
         </>

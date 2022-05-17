@@ -13,7 +13,6 @@ function MessageAccueilCorrect(props){
                     <a className='redirect_link_rdv' href="/messagerie/boite"><button className='redirection_rdv_btn'>Voir mes messages</button></a>
                     <a className='redirect_link_rdv' href="/messagerie/envoyer"><button className='redirection_rdv_btn'>Envoyer un message</button></a>
                 </div>
-            <Footer/>
             </div>
             
         </>

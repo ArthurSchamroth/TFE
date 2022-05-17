@@ -67,7 +67,7 @@ function AncienRdv(props){
         <>  
             <Navbar/>
             <div className="App">
-                <h1>Voici vos futurs rendez-vous.</h1>
+                <h1>Voici vos anciens rendez-vous.</h1>
                 <div className="tableau_container">
                 <table id='tableau_rdv_precedents'>
                     <thead>
@@ -113,7 +113,6 @@ function AncienRdv(props){
                     </tbody>
                 </table>
                 </div>
-                <Footer/>
             </div>
         </>
     )

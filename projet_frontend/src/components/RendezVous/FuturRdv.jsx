@@ -113,7 +113,6 @@ function AncienRdv(props){
                     </tbody>
                 </table>
                 </div>
-                <Footer/>
             </div>
         </>
     )

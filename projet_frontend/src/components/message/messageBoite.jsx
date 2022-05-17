@@ -95,7 +95,6 @@ function Messagerie(props){
                     </div>
                     : null
                 }
-            <Footer/>
             </div>
             
         </>

@@ -25,6 +25,7 @@ import {Route, BrowserRouter, Routes} from 'react-router-dom';
 import {useCookies} from 'react-cookie';
 import {CookiesProvider} from 'react-cookie';
 import {API} from './api-service';
+import Footer from './components/footer/footer';
 
 function Router(){
 
@@ -106,6 +107,7 @@ function Router(){
           </Routes>
         </BrowserRouter>
       </CookiesProvider>
+      <Footer/>
     </React.Fragment>
   )
 }

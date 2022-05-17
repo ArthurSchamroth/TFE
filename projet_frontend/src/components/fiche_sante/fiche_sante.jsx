@@ -228,7 +228,6 @@ function Fiche_Sante(props){
                     <button className='validation_fiche_button' onClick={modifier_fiche}>Modifier</button>
                 }
                 </div>
-                <Footer/>
             </div>
         </>
     )
