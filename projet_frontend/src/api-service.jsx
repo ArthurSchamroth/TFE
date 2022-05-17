@@ -346,4 +346,24 @@ export class API{
             body: JSON.stringify(body)
         })
     }
+
+    static getInfosAllVideos(){
+        return fetch('http://192.168.1.21:8000/api/video/allInfosVideos/', {
+            method:'GET',
+            headers:{
+                'Content-Type':'application/json',
+                'authorization': `Token ${TOKEN}`
+            }
+        })
+    }
+
+    static getRoutines(){
+        return fetch('http://192.168.1.21:8000/api/routine', {
+            method:'GET',
+            headers:{
+                'Content-Type':'application/json',
+                'authorization': `Token ${TOKEN}`
+            }
+        })
+    }
 }

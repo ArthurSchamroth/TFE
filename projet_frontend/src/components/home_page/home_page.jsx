@@ -2,10 +2,7 @@ import React, {useState, useEffect} from 'react';
 import {useCookies} from 'react-cookie';
 import Navbar from '../navbar/navbar';
 import './home_page.css';
-import {SiGmail} from 'react-icons/si';
-import {AiFillPhone} from 'react-icons/ai';
-import {BsTwitter} from 'react-icons/bs';
-import {MdOutlineHomeWork} from 'react-icons/md';
+import CookieConsent from "react-cookie-consent";
 import MapGH from '../Map/Map';
 import Footer from '../footer/footer';
 
@@ -66,6 +63,9 @@ function HomePage(){
                         <MapGH/>
                     </div>
                 </div>
+                <CookieConsent debug={true} buttonStyle={{backgroundColor: "#005eb6", color: "white", borderRadius:"10px", marginRight: "15px"}} buttonText="J'accepte">
+                    Ce site utilise des cookies afin d'enregistrer votre connexion et que vous n'ayez plus à vous connecter manuellement la prochaine fois.
+                </CookieConsent>
                 <Footer/>
             </div>
             

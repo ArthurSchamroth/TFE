@@ -4,8 +4,9 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import Navbar from '../navbar/navbar';
 import {API} from '../../api-service';
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
-import { faPlus, faClapperboard, faCamera } from '@fortawesome/free-solid-svg-icons';
+import { faPlus, faClapperboard, faCamera, faDumbbell } from '@fortawesome/free-solid-svg-icons';
 import Footer from '../footer/footer';
+import Select from 'react-select';
 
 function GestionRoutine(props) {
 
@@ -18,12 +19,17 @@ function GestionRoutine(props) {
     const [titre, setTitre] = useState('');
     const [listeVideosRoutine, setListeVideosRoutine] = useState([]);
     const [description, setDescription] = useState('');
+    const [listeOptionsVideos, setListeOptionsVideos] = useState([]);
+    const [isListerRoutine, setIsListerRoutine] = useState(false);
+    const [listeVideosInfos, setListeVideosInfos] = useState([]);
+    const [listeRoutines, setListeRoutines] = useState([]);
 
 
     const creationClicked = () => {
         setIsCreer(!isCreer);
         setIsAjouter(false);
         setIsLister(false);
+        setIsListerRoutine(false);
         API.listerVideos()
         .then(function(resp){
             return resp.json()
@@ -36,12 +42,34 @@ function GestionRoutine(props) {
         setIsAjouter(!isAjouter)
         setIsCreer(false);
         setIsLister(false);
+        setIsListerRoutine(false);
+    }
+
+    const listerRoutineClicked = () => {
+        setIsListerRoutine(!isListerRoutine)
+        setIsCreer(false);
+        setIsLister(false);
+        setIsAjouter(false);
+        API.getInfosAllVideos()
+        .then(function(resp){
+            return resp.json()
+        }).then(function (resp){
+            console.log(resp)
+            setListeVideosInfos(resp)
+        })
+        API.getRoutines()
+        .then(function(resp){
+            return resp.json()
+        }).then(function (resp){
+            setListeRoutines(resp)
+        })
     }
 
     const listerClicked = () => {
         setIsLister(!isLister);
         setIsCreer(false);
         setIsAjouter(false);
+        setIsListerRoutine(false);
         API.listerVideos()
         .then(function(resp){
             return resp.json()
@@ -51,18 +79,59 @@ function GestionRoutine(props) {
     }
 
     const envoyerRoutine = () => {
-        API.envoyerRoutine({user: 1, titre: titre, description_detaillee: description, videos: [1]})
+        API.envoyerRoutine({user: 1, titre_routine: titre, description_detaillee: description, videos: listeVideosRoutine})
+        alert("Routine créée !")
+        window.href("/gestion_routine")
     }
-
-    const valueHandle = (e) => {
-        const test = []
-        const getvalue = (e?test.push(e.target.value):[]);
-    } 
 
     const envoyerVideo = () => {
         API.envoyerVideo({titre: titreVideo, url: urlVideo})
         alert("Vidéo ajoutée !")
     }
+
+    const handleChange = (e) => {
+        const f = e
+        setListeVideosRoutine(Array.isArray(f) ? f.map(x => x.value) : []);
+    }
+
+    const customStyles = {
+        control: (base, state) => ({
+        ...base,
+        background: "#1688f1",
+        borderRadius: state.isFocused ? "3px 3px 0 0" : 3,
+        boxShadow: state.isFocused ? null : null,
+        "&:hover": {
+        borderColor: state.isFocused ? "red" : "blue"
+        }
+    }),
+    menu: (base) => ({
+        ...base,
+        borderRadius: 0,
+        marginTop: 0,
+        fontColor: "white"
+    }),
+    menuList: (base, state) => ({
+        ...base,
+        background: "#1688f1",
+        padding: 0,
+        "&:hover": {
+        borderColor: state.isFocused ? "red" : "blue",
+        background: "#1688f1",
+        color: state.isFocused ? "white" : "white" 
+        }
+    })
+    };
+
+    useEffect(() => {
+        if(listeVideos != []){
+            const liste = []
+            for(const i of listeVideos){
+                const obj = {value: i.id, label:i.titre}
+                liste.push(obj)
+            }
+            setListeOptionsVideos(liste)
+        }
+    }, [listeVideos])
 
     return (
         <>
@@ -71,9 +140,10 @@ function GestionRoutine(props) {
                 <h1>Vous pouvez ici créer, modifier, supprimer des routines.</h1>
                 <h2>Que souhaitez-vous faire ?</h2>
                 <div id='container_btn_routine'>
-                    Créer routine : <FontAwesomeIcon onClick={creationClicked} className='btn_gestion_routine' title='créer routine' icon={faPlus}/>
-                    Ajouter vidéo d'exercice :<FontAwesomeIcon onClick={ajouterClicked} className='btn_gestion_routine' title='ajouter vidéo à utiliser' icon={faClapperboard}/>
-                    Lister Vidéos d'exercice :<FontAwesomeIcon onClick={listerClicked} className='btn_gestion_routine' title='ajouter vidéo à utiliser' icon={faCamera}/>
+                    <p>Créer routine : <FontAwesomeIcon onClick={creationClicked} className='btn_gestion_routine' title='créer routine' icon={faPlus}/></p>
+                    <p>Ajouter vidéo d'exercice :<FontAwesomeIcon onClick={ajouterClicked} className='btn_gestion_routine' title='ajouter vidéo à utiliser' icon={faClapperboard}/></p>
+                    <p>Lister Vidéos d'exercice :<FontAwesomeIcon onClick={listerClicked} className='btn_gestion_routine' title='lister les vidéos' icon={faCamera}/></p>
+                    <p>Lister les différentes routines:<FontAwesomeIcon onClick={listerRoutineClicked} className='btn_gestion_routine' title="lister les routines" icon={faDumbbell}/></p>
                 </div>
                 <div className='container_gestion_routine'>
                     {isCreer ?
@@ -84,13 +154,21 @@ function GestionRoutine(props) {
                             <textarea onChange={evt => setDescription(evt.target.value)} name="description_complete" id="description_routine" cols="30" rows="4" placeholder='Décrivez la routine (nombre de répétition par jour, nombre de semaine, ...'></textarea>
                             <label htmlFor="description_routine">Choix vidéos tuto (maintenez ctrl pour en sélectionner plusieurs)</label><br/>
                             {listeVideos != [] ? 
-                                <><select onSelect={evt => setListeVideosRoutine(evt.target.value)} onChange={valueHandle} name="choice_video" id="choice_video_select" multiple>
-                                {listeVideos.map(video => {
-                                    return(
-                                        <option key={video.id} value={video.id}>{video.titre}</option>
-                                    )
+                                <><Select 
+                                styles={customStyles}
+                                options={listeOptionsVideos}
+                                onChange={handleChange}
+                                placeholder="Choisissez les vidéos pour cette routine"
+                                theme={(theme) => ({
+                                    ...theme,
+                                    borderRadius: 0,
+                                    colors: {
+                                        menuColor: '#1688f1',
+                                        text: 'orangered',
+                                    }
                                 })}
-                                </select><br/>
+                                isMulti
+                            /><br/>
                                     <button id='envoyer_routine_btn' onClick={envoyerRoutine}>
                                         Envoyer routine
                                     </button>
@@ -119,7 +197,18 @@ function GestionRoutine(props) {
                                             <a href={video.url}>{video.titre}</a></div>
                                         )
                                     }) 
-                                : null : null
+                                : null : 
+                                isListerRoutine ? 
+                                    listeRoutines.map(routine => {
+                                        return(
+                                            <div key={routine.id} className="routine_container">
+                                                Titre: {routine.titre_routine}<br/>
+                                                Description: <br/> {routine.description_detaillee}<br/>
+                                            </div>
+                                        )
+                                    })
+                                    
+                                    :null
                     }
                 </div>
             </div>
