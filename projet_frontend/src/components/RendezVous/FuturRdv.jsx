@@ -87,7 +87,7 @@ function AncienRdv(props){
                     {listeRdv && listeRdv.map(rdv => {
                         return(
                             <>
-                            {rdv.date > currentDate && rdv.description != "Indisponible"? 
+                            {rdv.date >= currentDate && rdv.description != "Indisponible"? 
                                 <tr>
                                     <td className='premiere_colonne'>{rdv.nom} {rdv.prenom}</td>
                                     <td>{rdv.date}</td>

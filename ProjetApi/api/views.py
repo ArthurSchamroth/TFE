@@ -71,10 +71,11 @@ class TokenViewSet(viewsets.ModelViewSet):
                 return Response(response, status=status.HTTP_200_OK)
 
             except:
-                print("token inconnu")
+                response = {'result': "token inconnu"}
+                return Response(response, status=status.HTTP_200_OK)
 
         else:
-            response = {'message': 'NOOOOO'}
+            response = {'result': 'Pas de token'}
             return Response(response, status=status.HTTP_200_OK)
 
 
@@ -261,10 +262,10 @@ class RendezVousViewSet(viewsets.ModelViewSet):
                 return Response(response, status=status.HTTP_200_OK)
 
             except:
-                response = {'message': 'it s not working'}
+                response = {'message': 'pas d\'id correspondante'}
                 return Response(response, status=status.HTTP_200_OK)
         else:
-            response = {'message': 'NOOOOO'}
+            response = {'message': 'pas d\'id'}
             return Response(response, status=status.HTTP_200_OK)
 
     @action(detail=False, methods=["POST"])
@@ -303,10 +304,10 @@ class RendezVousViewSet(viewsets.ModelViewSet):
                 return Response(response, status=status.HTTP_200_OK)
 
             except:
-                response = {'message': 'it s not working'}
+                response = {'message': 'pas de patient correspondant'}
                 return Response(response, status=status.HTTP_200_OK)
         else:
-            response = {'message': 'NOOOOO'}
+            response = {'message': 'pas de patient'}
             return Response(response, status=status.HTTP_200_OK)
 
 
@@ -384,10 +385,10 @@ class MessageViewSet(viewsets.ModelViewSet):
                 return Response(response, status=status.HTTP_200_OK)
 
             except:
-                response = {'message': 'it s not working'}
+                response = {'message': 'utilisateur inconnu'}
                 return Response(response, status=status.HTTP_200_OK)
         else:
-            response = {'message': 'NOOOOO'}
+            response = {'message': 'pas d\'utilisateur'}
             return Response(response, status=status.HTTP_200_OK)
 
 
