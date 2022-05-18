@@ -68,6 +68,7 @@ function AncienRdv(props){
             <Navbar/>
             <div className="App">
                 <h1>Voici vos futurs rendez-vous.</h1>
+                <p className='tel_horizontal'>Afin de mieux visualiser le tableau, placez votre téléphone à l'horizontal.</p>
                 <div className="tableau_container">
                 <table id='tableau_rdv_precedents'>
                     <thead>
@@ -88,7 +89,7 @@ function AncienRdv(props){
                         return(
                             <>
                             {rdv.date >= currentDate && rdv.description != "Indisponible"? 
-                                <tr>
+                                <tr key={rdv.id}>
                                     <td className='premiere_colonne'>{rdv.nom} {rdv.prenom}</td>
                                     <td>{rdv.date}</td>
                                     <td>{rdv.heure}</td>

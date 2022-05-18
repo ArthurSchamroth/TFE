@@ -45,7 +45,19 @@ function ProgrammerRdv(props){
     }, [date])
 
     var minDate = new Date().toISOString().split("T")[0];
-    console.log(minDate)
+
+    if(document.getElementById("date2")){
+        const picker = document.getElementById("date2");
+        picker.addEventListener('input', function(e){
+            var day = new Date(this.value).getUTCDay();
+            if([6,0].includes(day)){
+                e.preventDefault();
+                this.value = "";
+                alert("Les weekends ne sont pas autorisés.")
+            }
+        })
+    }
+    
 
     return(
         <>  
@@ -54,7 +66,7 @@ function ProgrammerRdv(props){
                 <h1>vous pouvez ici programmer vos prochains rendez-vous avec Monsieur Penning</h1>
                 <div className='form_rdv_envoi_container'>
                     <label htmlFor="date">Date</label><br/>
-                    <input id='date' type="date" value={date}
+                    <input id='date2' type="date" value={date}
                     onChange={evt => setDate(evt.target.value)} min={minDate}/><br/>
                     {date != "" ? 
                         <div className='radio-group'>

@@ -26,6 +26,7 @@ import {useCookies} from 'react-cookie';
 import {CookiesProvider} from 'react-cookie';
 import {API} from './api-service';
 import Footer from './components/footer/footer';
+import { GiConsoleController } from 'react-icons/gi';
 
 function Router(){
 
@@ -53,7 +54,9 @@ function Router(){
             if(resp["fiche"]){
               setFicheId(resp['fiche'])
             }
-            setAge(resp['age'])
+            if(resp['age']){
+              setAge(resp['age'])
+            }
             setAdresse(resp['adresse'])
             setDescriptProb(resp['probleme'])
             setIsAutorise(resp['autorisation'])
@@ -76,7 +79,12 @@ function Router(){
                 <Route exact path="/patients" element={<ListingPatients/>}/> 
                 <Route exact path="/gestion_routine" element={<GestionRoutine/>}/>
               </>: 
-                <Route exact path='/routines' element={<Routine username={username != "" ? username : null} fiche={ficheId != "" ? ficheId : null}/>}/>
+                <>
+                {!token || ficheId == "" ? 
+                  null :  
+                  <Route exact path='/routines' element={<Routine username={username != "" ? username : null} fiche={ficheId != "" ? ficheId : null}/>}/>
+                }
+                </>
             }
             {!token || ficheId == "" ? null : 
             <>

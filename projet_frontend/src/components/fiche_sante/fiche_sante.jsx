@@ -33,7 +33,9 @@ function Fiche_Sante(props){
                 .then(function(resp){
                     return resp.json()
                 }).then(function (resp){
-                    setAge(resp['naissance'])
+                    if(props.age){
+                        setAge(props.age)
+                    }
                     setPrenom(resp['prenom'])
                     setNom(resp['nom'])
                     setAdresse(resp['adresse'])
@@ -43,30 +45,11 @@ function Fiche_Sante(props){
                     setTest(true)
                 })
         }
-    }, [])
+    }, [props])
 
     useEffect(()=>{
         setDateDef(age)
     }, [test])
-
-    useEffect(() => {
-        if(props.fiche){
-            API.gettingDataFromFiche({'username': props.username})
-                .then(function(resp){
-                    return resp.json()
-                }).then(function (resp){
-                    if(resp["naissance"]){
-                        setAge(resp['naissance'])
-                    }
-                    setPrenom(resp['prenom'])
-                    setNom(resp['nom'])
-                    setAdresse(resp['adresse'])
-                    setEmail(resp['adresse_mail'])
-                    setDetail_prob(resp['description_prob'])
-                    setType_besoin(resp['type_kine'])
-                })
-        }
-    }, [props])
 
     useEffect(()=>{
         if(!props.fiche){
@@ -147,9 +130,10 @@ function Fiche_Sante(props){
                     <label htmlFor='adresse_mail'>Email</label>
                     <input className='not_modifiable_input' type="text" name='adresse_mail' disabled defaultValue={adresse_mail}/>
                     <label htmlFor='naissance'>Date de naissance</label>
-                    {age != ""? 
+                    {props.age? 
                         <>
-                        <input className='not_modifiable_input' type="date" name='naissance' defaultValue={age} max={dateMax} min='1910-12-31'
+                        {console.log(props.age)}
+                        <input className='not_modifiable_input' type="date" name='naissance' defaultValue={props.age} max={dateMax} min='1910-12-31'
                         onChange={evt=>setAge(evt.target.value)} disabled/></>:
                         <>
                         <input type="date" name='naissance' defaultValue={'2000-07-28'} max={dateMax} min='1910-12-31'

@@ -48,7 +48,8 @@ function Register(){
         return listeToken
     }
 
-    const registerClicked = () => {
+    const registerClicked = e => {
+        e.preventDefault();
         if(isVerified){
             var passw=  /^[A-Za-z0-9]\w{7,25}$/;
             // User vide
@@ -107,15 +108,15 @@ function Register(){
                         onChange={verifyCallback}
                         />
                         {isInputNull ?
-                            <p>Veuillez compléter tous les champs du formulaire.</p> :
+                            <p style={{color:'red', fontWeight:"bold"}}>Veuillez compléter tous les champs du formulaire.</p> :
                             isUserKnowed ?
-                                <p>{first_name} + {last_name} est déjà inscrit</p> :
+                                <p style={{color:'red', fontWeight:"bold"}}>{first_name} {last_name} est déjà inscrit</p> :
                                 isPasswordOk ?  
-                                    <p>Veuillez entrer deux fois un mot de passe identique composé de caractères alphanumériques (entre 7 et 25 caractères).</p> :
+                                    <p style={{color:'red', fontWeight:"bold"}}>Veuillez entrer deux fois un mot de passe identique composé de caractères alphanumériques (entre 7 et 25 caractères).</p> :
                                     isCaptchaOk ?
-                                        <p>Veuillez compléter le captcha.</p> : null
+                                        <p style={{color:'red', fontWeight:"bold"}}>Veuillez compléter le captcha.</p> : null
                         } 
-                    <button className='btn_co_re' onClick={registerClicked}>Inscription</button>
+                    <button className='btn_co_re' onClick={(e)=> registerClicked(e)}>Inscription</button>
                     </form>
                 <p className="redirection_log-reg" onClick={()=>window.location.href = '/login'}>Déjà un compte ? <u>Connectez vous ici !</u> </p>
             </div>

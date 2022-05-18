@@ -91,7 +91,7 @@ function FichePatientsDetails(props){
                                 
                             </> :
                             <>
-                                <h3>Modifier la fiche de {props.fichePatient.prenom} {props.fichePatient.nom} {props.fichePatient.id}</h3>
+                                <h3>Modifier la fiche de {props.fichePatient.prenom} {props.fichePatient.nom}</h3>
 
                                 <label htmlFor="nom_input">Nom</label>
                                 <input type="text" name='nom_input' defaultValue={props.fichePatient.nom} onChange={evt => setNom(evt.target.value)}/>
