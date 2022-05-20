@@ -7,7 +7,7 @@ export default function Edit(props) {
 
     const [listeFiches, setListeFiches] = useState([]);
 
-    fetch(`http://192.168.1.21:8000/api/fichePatient`, {
+    fetch(`http://127.0.0.1:8000/api/fichePatient`, {
         method: 'GET',
         headers: {
             'Authorization': `Token ${process.env.REACT_APP_API_token}`

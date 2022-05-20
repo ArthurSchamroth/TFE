@@ -84,7 +84,7 @@ function GestionRoutine(props) {
         if(titre == "" || description == ""){
             setIsInputVide(true);
         }else{
-            API.envoyerRoutine({user: 1, titre_routine: titre, description_detaillee: description, videos: listeVideosRoutine})
+            API.envoyerRoutine({user: 2, titre_routine: titre, description_detaillee: description, videos: listeVideosRoutine})
             alert("Routine créée !")
             window.href("/gestion_routine")
         }

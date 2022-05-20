@@ -37,7 +37,7 @@ function ListingPatients(props) {
     const [nouvellesVideos, setNouvellesVideos] = useState([]);
 
     useEffect(() => {
-        fetch("http://192.168.1.21:8000/api/fichePatient/", {
+        fetch("http://127.0.0.1:8000/api/fichePatient/", {
         method: 'GET',
         headers: {
             'Content-Type': 'application/json',
