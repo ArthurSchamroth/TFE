@@ -16,6 +16,7 @@ function Routine(props){
         API.getRoutineSpecificUser({'user': props.fiche}).then(function(resp){
             return resp.json()
         }).then(function(resp){
+            console.log(resp)
             setRoutines(resp['result'])
         })
     }, [props])
@@ -25,7 +26,7 @@ function Routine(props){
             <Navbar/>
             <div className="App">
                 <h1>Voici votre routine</h1>
-                {routines == [] ? 
+                {routines.length != 0 ? 
                     routines.map(routine => {
                         return(
                             <div key={routine.id} className="container_routine">

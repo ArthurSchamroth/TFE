@@ -7,7 +7,7 @@ export default function AffichagePatients(props) {
 
     const [listeFiches, setListeFiches] = useState([]);
 
-    fetch(`http://127.0.0.1:8000/api/fichePatient`, {
+    fetch(`https://tfe-osteoclic.herokuapp.com/api/fichePatient`, {
         method: 'GET',
         headers: {
             'Authorization': `Token ${process.env.REACT_APP_API_token}`

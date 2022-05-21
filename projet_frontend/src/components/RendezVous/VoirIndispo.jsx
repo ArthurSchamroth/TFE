@@ -15,7 +15,7 @@ function VoirIndispos(props){
 
     const deleteClicked = rdv => {
         API.delRdv({id: rdv.id})
-        window.location.href = "/rendez_vous/anciens/"
+        window.location.href = "/rendez_vous/indispos/"
     }
 
     useEffect(()=>{
@@ -54,7 +54,7 @@ function VoirIndispos(props){
                     }
                     const liste_triee = test.sort(trier)
                     setListeRdv(liste_triee)
-                    
+                    console.log(listeRdv)
                     return listeRdv
                 })
                 setLoading(false)

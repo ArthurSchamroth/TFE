@@ -81,7 +81,7 @@ function Profil_Kine(){
                             </> : 
                                 <div className="profil_button_container">
                                     <h1>Routine(s)</h1>
-                                    <p>Visualiser vos routines.</p>
+                                    <p>Visualisez vos routines.</p>
                                     <a href="/routines"><button className='profil_redirection'>Routines</button></a>
                                 </div>
                             }
@@ -90,7 +90,7 @@ function Profil_Kine(){
 
                     <div className="profil_button_container_deco">
                         <h1 id="test">Déconnexion</h1>
-                        <p>Gérez les commentaires laissés par vos différents patients sur votre site.</p>
+                        <p>Déconnectez vous du site.</p>
                         <a onClick={logoutUser} id="deco_btn"><FontAwesomeIcon icon={faRightFromBracket}/>Déconnexion</a>
                     </div>
 

@@ -26,7 +26,7 @@ function Commentaire(props){
 
     useEffect(() => {
         
-        fetch("http://127.0.0.1:8000/api/commentaires/", {
+        fetch("https://tfe-osteoclic.herokuapp.com/api/commentaires/", {
         method: 'GET',
         headers: {
             'Content-Type': 'application/json',

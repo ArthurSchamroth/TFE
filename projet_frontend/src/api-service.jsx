@@ -2,7 +2,7 @@ const TOKEN = process.env.REACT_APP_API_token;
 
 export class API{
     static loginUser(body){
-        return fetch('http://127.0.0.1:8000/auth/',{
+        return fetch('https://tfe-osteoclic.herokuapp.com/auth/',{
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
@@ -12,7 +12,7 @@ export class API{
     }
 
     static registerUser(body){
-        return fetch('http://127.0.0.1:8000/api/users/',{
+        return fetch('https://tfe-osteoclic.herokuapp.com/api/users/',{
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
@@ -23,7 +23,7 @@ export class API{
     }
 
     static async listingTokens(){
-        const data = await fetch('http://127.0.0.1:8000/api/tokens/',{
+        const data = await fetch('https://tfe-osteoclic.herokuapp.com/api/tokens/',{
             method: 'GET',
             headers: {
                 'Content-Type': 'application/json'
@@ -33,7 +33,7 @@ export class API{
     }
 
     static sendingAvis(body){
-        return fetch('http://127.0.0.1:8000/api/commentaires/', {
+        return fetch('https://tfe-osteoclic.herokuapp.com/api/commentaires/', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -44,7 +44,7 @@ export class API{
     }
 
     static updatingAvis(body){
-        return fetch('http://127.0.0.1:8000/api/commentaires/update_commentaire/', {
+        return fetch('https://tfe-osteoclic.herokuapp.com/api/commentaires/update_commentaire/', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -55,7 +55,7 @@ export class API{
     }
 
     static deletingAvis(body){
-        return fetch('http://127.0.0.1:8000/api/commentaires/del_commentaire/', {
+        return fetch('https://tfe-osteoclic.herokuapp.com/api/commentaires/del_commentaire/', {
             method: 'DELETE',
             headers: {
                 'Content-Type': 'application/json',
@@ -66,7 +66,7 @@ export class API{
     }
 
     static listingUser(body){
-        return fetch('http://127.0.0.1:8000/api/users/',{
+        return fetch('https://tfe-osteoclic.herokuapp.com/api/users/',{
             method: 'GET',
             headers: {
                 'Content-Type': 'application/json',
@@ -77,7 +77,7 @@ export class API{
     }
 
     static gettingDataFromToken(body){
-        return fetch('http://127.0.0.1:8000/api/tokens/getSpecificToken/',{
+        return fetch('https://tfe-osteoclic.herokuapp.com/api/tokens/getSpecificToken/',{
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -88,7 +88,7 @@ export class API{
     }
 
     static async gettingEveryFiche(){
-        const data = await fetch("http://127.0.0.1:8000/api/fichePatient/",{
+        const data = await fetch("https://tfe-osteoclic.herokuapp.com/api/fichePatient/",{
             method:'GET',
             headers: {
                 'Content-Type': 'application/json',
@@ -99,7 +99,7 @@ export class API{
     }
 
     static creatingFiche(body){
-        return fetch('http://127.0.0.1:8000/api/fichePatient/',{
+        return fetch('https://tfe-osteoclic.herokuapp.com/api/fichePatient/',{
             method:'POST',
             headers: {
                 'Content-Type':'application/json', 
@@ -110,7 +110,7 @@ export class API{
     }
 
     static updatingFiche(body){
-        return fetch('http://127.0.0.1:8000/api/fichePatient/update_fiche/',{
+        return fetch('https://tfe-osteoclic.herokuapp.com/api/fichePatient/update_fiche/',{
             method:'POST',
             headers: {
                 'Content-Type':'application/json', 
@@ -121,7 +121,7 @@ export class API{
     }
 
     static deletingFiche(body){
-        return fetch('http://127.0.0.1:8000/api/users/del_user/',{
+        return fetch('https://tfe-osteoclic.herokuapp.com/api/users/del_user/',{
             method:'DELETE',
             headers: {
                 'Content-Type':'application/json', 
@@ -132,7 +132,7 @@ export class API{
     }
 
     static gettingDataFromFiche(body){
-        return fetch('http://127.0.0.1:8000/api/fichePatient/getSpecificFiche/',{
+        return fetch('https://tfe-osteoclic.herokuapp.com/api/fichePatient/getSpecificFiche/',{
             method:'POST',
             headers: {
                 'Content-Type':'application/json', 
@@ -143,7 +143,7 @@ export class API{
     }
 
     static async gettingRdvsFromSpecificUser(body){
-        const data = await fetch('http://127.0.0.1:8000/api/rendezVous/getListSpecificRdv/',{
+        const data = await fetch('https://tfe-osteoclic.herokuapp.com/api/rendezVous/getListSpecificRdv/',{
             method:'POST',
             headers: {
                 'Content-Type':'application/json', 
@@ -155,7 +155,7 @@ export class API{
     }
 
     static async delRdv(body){
-        return fetch('http://127.0.0.1:8000/api/rendezVous/del_rdv/',{
+        return fetch('https://tfe-osteoclic.herokuapp.com/api/rendezVous/del_rdv/',{
             method:'DELETE',
             headers: {
                 'Content-Type':'application/json',
@@ -166,7 +166,7 @@ export class API{
     }
 
     static async getAuthors(){
-        return fetch('http://127.0.0.1:8000/api/message/getAllAuthors/',{
+        return fetch('https://tfe-osteoclic.herokuapp.com/api/message/getAllAuthors/',{
             method:'POST',
             headers: {
                 'Content-Type':'application/json',
@@ -176,7 +176,7 @@ export class API{
     }
 
     static async getMsgFromAAuthor(body){
-        return fetch('http://127.0.0.1:8000/api/message/getMessagesMadeByAUser/',{
+        return fetch('https://tfe-osteoclic.herokuapp.com/api/message/getMessagesMadeByAUser/',{
             method:'POST',
             headers: {
                 'Content-Type':'application/json',
@@ -187,7 +187,7 @@ export class API{
     }
 
     static async gettingRdvs(){
-        return fetch('http://127.0.0.1:8000/api/rendezVous',{
+        return fetch('https://tfe-osteoclic.herokuapp.com/api/rendezVous',{
             method:'GET',
             headers: {
                 'Content-Type':'application/json',
@@ -197,7 +197,7 @@ export class API{
     }
 
     static async gettingRdvsWithName(){
-        return fetch('http://127.0.0.1:8000/api/rendezVous/getAllRdvsWithName/',{
+        return fetch('https://tfe-osteoclic.herokuapp.com/api/rendezVous/getAllRdvsWithName/',{
             method:'POST',
             headers: {
                 'Content-Type':'application/json',
@@ -207,7 +207,7 @@ export class API{
     }
 
     static async addingRdv(body){
-        return fetch('http://127.0.0.1:8000/api/rendezVous/',{
+        return fetch('https://tfe-osteoclic.herokuapp.com/api/rendezVous/',{
             method:'POST',
             headers: {
                 'Content-Type':'application/json',
@@ -218,7 +218,7 @@ export class API{
     }
 
     static async gettingRdvsFromSpecificDate(body){
-        return fetch('http://127.0.0.1:8000/api/rendezVous/getRdvByDate/', {
+        return fetch('https://tfe-osteoclic.herokuapp.com/api/rendezVous/getRdvByDate/', {
             method:'POST',
             headers: {
                 'Content-Type':'application/json',
@@ -229,7 +229,7 @@ export class API{
     }
 
     static async gettingRdvsFromAUser(body){
-        return fetch('http://127.0.0.1:8000/api/rendezVous/getRdvSpecificPatient/', {
+        return fetch('https://tfe-osteoclic.herokuapp.com/api/rendezVous/getRdvSpecificPatient/', {
             method:'POST',
             headers: {
                 'Content-Type':'application/json',
@@ -240,7 +240,7 @@ export class API{
     }
 
     static async sendingMessage(body){
-        return fetch('http://127.0.0.1:8000/api/message/',{
+        return fetch('https://tfe-osteoclic.herokuapp.com/api/message/',{
             method:'POST',
             headers: {
                 'Content-Type':'application/json',
@@ -251,7 +251,7 @@ export class API{
     }
 
     static async deletingMessage(body){
-        return fetch('http://127.0.0.1:8000/api/message/del_msg/',{
+        return fetch('https://tfe-osteoclic.herokuapp.com/api/message/del_msg/',{
             method:'DELETE',
             headers: {
                 'Content-Type':'application/json',
@@ -262,7 +262,7 @@ export class API{
     }
 
     static async gettingMessageSpecific(body){
-        return fetch('http://127.0.0.1:8000/api/message/getMessagesFromSpecificUser/',{
+        return fetch('https://tfe-osteoclic.herokuapp.com/api/message/getMessagesFromSpecificUser/',{
             method:'POST',
             headers: {
                 'Content-Type':'application/json',
@@ -273,7 +273,7 @@ export class API{
     }
 
     static async envoyerVideo(body){
-        return fetch('http://127.0.0.1:8000/api/video/', {
+        return fetch('https://tfe-osteoclic.herokuapp.com/api/video/', {
             method:'POST',
             headers: {
                 'Content-Type':'application/json',
@@ -284,7 +284,7 @@ export class API{
     }
 
     static async listerVideos(){
-        return fetch('http://127.0.0.1:8000/api/video', {
+        return fetch('https://tfe-osteoclic.herokuapp.com/api/video', {
             method:'GET',
             headers: {
                 'Content-Type':'application/json',
@@ -294,7 +294,7 @@ export class API{
     }
 
     static getRoutines(){
-        return fetch('http://127.0.0.1:8000/api/routine', {
+        return fetch('https://tfe-osteoclic.herokuapp.com/api/routine', {
             method:'GET',
             headers: {
                 'Content-Type':'application/json',
@@ -304,7 +304,7 @@ export class API{
     }
 
     static envoyerRoutine(body){
-        return fetch('http://127.0.0.1:8000/api/routine/', {
+        return fetch('https://tfe-osteoclic.herokuapp.com/api/routine/', {
             method:'POST',
             headers:{
                 'Content-Type':'application/json',
@@ -315,7 +315,7 @@ export class API{
     }
 
     static supprimerRoutine(body){
-        return fetch('http://127.0.0.1:8000/api/routine/del_routine/', {
+        return fetch('https://tfe-osteoclic.herokuapp.com/api/routine/del_routine/', {
             method:'DELETE',
             headers:{
                 'Content-Type':'application/json',
@@ -326,7 +326,7 @@ export class API{
     }
 
     static getRoutineSpecificUser(body){
-        return fetch('http://127.0.0.1:8000/api/routine/getRoutineSpecificUser/', {
+        return fetch('https://tfe-osteoclic.herokuapp.com/api/routine/getRoutineSpecificUser/', {
             method:'POST',
             headers:{
                 'Content-Type':'application/json',
@@ -337,7 +337,7 @@ export class API{
     }
 
     static getInfosSpecificRoutine(body){
-        return fetch('http://127.0.0.1:8000/api/routine/getInfosSpecificRoutine/', {
+        return fetch('https://tfe-osteoclic.herokuapp.com/api/routine/getInfosSpecificRoutine/', {
             method:'POST',
             headers:{
                 'Content-Type':'application/json',
@@ -348,7 +348,7 @@ export class API{
     }
 
     static getInfosAllVideos(){
-        return fetch('http://127.0.0.1:8000/api/video/allInfosVideos/', {
+        return fetch('https://tfe-osteoclic.herokuapp.com/api/video/allInfosVideos/', {
             method:'GET',
             headers:{
                 'Content-Type':'application/json',
@@ -358,7 +358,7 @@ export class API{
     }
 
     static getRoutines(){
-        return fetch('http://127.0.0.1:8000/api/routine', {
+        return fetch('https://tfe-osteoclic.herokuapp.com/api/routine', {
             method:'GET',
             headers:{
                 'Content-Type':'application/json',

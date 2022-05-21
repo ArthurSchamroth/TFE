@@ -37,7 +37,7 @@ function ListingPatients(props) {
     const [nouvellesVideos, setNouvellesVideos] = useState([]);
 
     useEffect(() => {
-        fetch("http://127.0.0.1:8000/api/fichePatient/", {
+        fetch("https://tfe-osteoclic.herokuapp.com/api/fichePatient/", {
         method: 'GET',
         headers: {
             'Content-Type': 'application/json',
