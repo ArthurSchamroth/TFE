@@ -2,20 +2,31 @@ import React, {useState, useEffect} from 'react';
 import { StatusBar } from 'expo-status-bar';
 import { StyleSheet, Text, View, FlatList } from 'react-native';
 import { TouchableOpacity } from 'react-native-gesture-handler';
+import {REACT_APP_API_token} from '@env';
+
+const TOKEN = process.env.REACT_APP_API_token
+console.log(TOKEN)
 
 export default function AffichagePatients(props) {
 
     const [listeFiches, setListeFiches] = useState([]);
+    const [isLoading, setIsLoading] = useState(false);
 
-    fetch(`https://tfe-osteoclic.herokuapp.com/api/fichePatient`, {
-        method: 'GET',
-        headers: {
-            'Authorization': `Token ${process.env.REACT_APP_API_token}`
+    useEffect(() => {
+        if(!isLoading){
+            fetch(`https://tfe-osteoclic.herokuapp.com/api/fichePatient`, {
+            method: 'GET',
+            headers: {
+                'Authorization': `Token ${REACT_APP_API_token}`
+                }
+            })
+            .then(resp => resp.json())
+            .then(resp => setListeFiches(resp))
+            .catch(error => console.log(error))
+            setIsLoading(true)
         }
-    })
-    .then(resp => resp.json())
-    .then(resp => setListeFiches(resp))
-
+    }, [])
+    
 
     const ficheClicked = (fiche) => {
         props.navigation.navigate("Details", {fiche:fiche})
@@ -23,7 +34,7 @@ export default function AffichagePatients(props) {
 
     return (
         <View>
-            <Text>Bienvenue dans l'application mobile de Monsieur Penning</Text>
+            <Text style={styles.title}>Bienvenue dans l'application mobile de Monsieur Penning</Text>
             {listeFiches !=  [] ? 
                 <FlatList 
                     data={listeFiches}
@@ -56,6 +67,13 @@ export default function AffichagePatients(props) {
         height: 50,
         backgroundColor: '#282C35'
     },
+    title: {
+        backgroundColor: '#005eb6',
+        fontSize: 20,
+        textAlign: 'center',
+        color: 'white',
+        marginBottom: 10
+    },  
     itemText: {
         color: '#fff',
         fontSize: 24
