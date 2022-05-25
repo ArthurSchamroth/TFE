@@ -1,41 +1,60 @@
 import { StatusBar } from 'expo-status-bar';
 import { useEffect, useState } from 'react';
-import { StyleSheet, Text, View, Button, AsyncStorage } from 'react-native';
-import { TouchableOpacity } from 'react-native-gesture-handler';
+import { StyleSheet, Text, View, Button } from 'react-native';
+import AsyncStorage from "@react-native-async-storage/async-storage";
+
 
 export default function Home(props, route) {
 
-    const [currentToken, setToken] = useState(props.navigation.getParam('token', null))
+    const [isLoading, setIsLoading] = useState(true);
+    const [currentToken, setToken] = useState()
+    const [nomUser, setNomUser] = useState("");
+    const [prenomUser, setPrenomUser] = useState("");
+    const [user, setUser] = useState();
 
-    const getData = async() => {
-        token = await AsyncStorage.getItem("Appli_Token")
-        if(token){
-            console.log(token)
-        }else{
-            console.log("non")
-        }
-    }
-
-    useEffect(() => {
-        const nom = AsyncStorage.getItem("NomUser")
-        console.log("testesteste" + nom._U)
+    useEffect(async () => {
+        await AsyncStorage.getItem("user")
+            
+            .then(resp => setUser(JSON.parse(resp)))
     }, [AsyncStorage])
 
-    const decoClicked = () => {
+    useEffect(() => {
+        if(user){
+            console.log("salut a tous", user);
+            setToken(user['TokenUser']);
+            setNomUser(user['NomUser']);
+            setPrenomUser(user['PrenomUser']) ;
+        }
+        setIsLoading(false);
+    }, [user])
+
+    const decoClicked = async () => {
         console.log("déconnexion")
+        await AsyncStorage.removeItem('user')
         props.navigation.navigate('Auth')
+        return true
+    }
+
+    const ressourcesClicked = () => {
+        props.navigation.navigate('Ressources')
     }
 
     return (
+        !isLoading ?
         <View style={styles.container}>
-            <Text>Bienvenue dans l'application mobile de Monsieur Penning</Text>
-            {currentToken ?
-                <Button title='Déconnexion' onPress={()=>decoClicked()} color="#939597"/> :
-                <Button title='Connexion' onPress={()=>props.navigation.navigate('Auth')} color="#939597"/>
+            {currentToken && currentToken != "" ?
+                <>  
+                    <Text>Bienvenue, voici vos différentes options.</Text>
+                    <Button title='Accès à mes ressources' onPress={()=>ressourcesClicked()} color="#939597"/>
+                    <Button title='Déconnexion' onPress={()=>decoClicked()} color="#939597"/>
+                </> :
+                <>
+                    <Text>Bienvenue dans l'application mobile de Monsieur Penning</Text>
+                    <Button title='Connexion' onPress={()=>props.navigation.navigate('Auth')} color="#939597"/>
+                </>
             } 
-            <Button title='AffichagePatients' onPress={()=>props.navigation.navigate('AffichagePatients')} color="#939597"/>
             <StatusBar style="auto" />
-        </View>
+        </View> : null
     );
     }
 

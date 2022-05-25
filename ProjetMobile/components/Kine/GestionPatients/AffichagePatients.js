@@ -3,14 +3,28 @@ import { StatusBar } from 'expo-status-bar';
 import { StyleSheet, Text, View, FlatList } from 'react-native';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import {REACT_APP_API_token} from '@env';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const TOKEN = process.env.REACT_APP_API_token
-console.log(TOKEN)
 
 export default function AffichagePatients(props) {
 
     const [listeFiches, setListeFiches] = useState([]);
     const [isLoading, setIsLoading] = useState(false);
+    const [user, setUser] = useState();
+    const [nomUser, setNomUser] = useState('');
+
+    useEffect(async () => {
+        await AsyncStorage.getItem("user")
+            .then(resp => setUser(JSON.parse(resp)))
+    }, [])
+
+    useEffect(() => {
+        if(user){
+            console.log("salut a tous", user)
+            setNomUser(user['NomUser'])
+        }
+    }, [user])
 
     useEffect(() => {
         if(!isLoading){
@@ -34,7 +48,7 @@ export default function AffichagePatients(props) {
 
     return (
         <View>
-            <Text style={styles.title}>Bienvenue dans l'application mobile de Monsieur Penning</Text>
+            <Text style={styles.title}>yrdy{nomUser}</Text>
             {listeFiches !=  [] ? 
                 <FlatList 
                     data={listeFiches}

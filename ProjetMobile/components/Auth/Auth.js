@@ -1,7 +1,8 @@
 import React, {useState, useEffect} from 'react';
-import { StyleSheet, Text, View, FlatList, Button, TextInput, AsyncStorage } from 'react-native';
+import { StyleSheet, Text, View, FlatList, Button, TextInput } from 'react-native';
 import { API } from '../api-service';
 import { LogBox } from 'react-native';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 LogBox.ignoreLogs(['Warning: Async Storage has been extracted from react-native core']);
 
@@ -25,59 +26,53 @@ export default function Auth(props) {
 
     const test = []
 
-    useEffect(() => {
-        API.listingTokens()
-        .then(resp => setListeToken(resp))
-        API.listingUser()
-        .then(function(resp){
-            return resp.json()
-        }).then(function (resp){
-            const liste = resp
-            for(const i of liste){
-                test.push(i["username"])
-            }
-        })
-        //.then(resp => setToken(, resp.token))
-        .then(resp => console.log(resp))
-        .catch(error => console.log(error))
-    }, []);
+    useEffect(async() => {
+        await AsyncStorage.removeItem('user')
+    }, [])
 
     useEffect(() => {
-        
-    }, [])
+        API.listingTokens()
+            .then(resp => setListeToken(resp))
+            API.listingUser()
+            .then(function(resp){
+                return resp.json()
+            }).then(function (resp){
+                const liste = resp
+                for(const i of liste){
+                    test.push(i["username"])
+                }
+            })
+        //.then(resp => setToken(, resp.token))
+        .catch(error => console.log(error))
+    }, []);
 
     const auth = () => {
         API.loginUser({username, password})
             .then(response =>{
-                console.log(response)
                 for(let i of listeToken){
                     if(response.token === (i['key'])){
                         setToken(response.token);
-                        saveData(response.token);
                         API.gettingDataFromToken({token: response.token})
                         .then(function(resp){
                             return resp.json()
                         }).then(function(resp){
-                            console.log(resp)
-                            console.log(resp)
                             setNom(resp["nom"]);
                             setPrenom(resp["prenom"]);
                             setEmail(resp["email"]);
                             setUsernameUser(resp["username"]);
                             setIdUser(resp['id']);
                             if(resp["fiche"]){
-                                console.log(resp['adresse'])
                                 setAdresse(resp['adresse']);
                                 setAge(resp["age"]);
                                 setAutorisation(resp["autorisation"]);
                                 setIdFiche(resp["fiche"])
                                 setTypeKine(resp["type_kine"])
                                 setProbleme(resp["probleme"])
-                                saveData(resp['nom'], resp.prenom, resp.email, resp.id,
+                                saveData(response.token, resp.nom, resp.prenom, resp.email, resp.id,
                                     resp.username, resp.adresse, resp.age, resp.autorisation, resp.fiche, resp.type_kine,
                                     resp.probleme)
                             }
-                            //props.navigation.navigate('Home', {token:response.token});
+                            props.navigation.navigate('Home', {token:response.token});
                         })
                         
                         .catch(err => console.log(err))
@@ -87,46 +82,46 @@ export default function Auth(props) {
         )
     }
 
-    const saveToken = async(token, nom, prenom, email, idUser, usernameUser, adresse, age, autorisation, idFiche, typeKine, probleme) => {
-        console.log(token, nom, prenom, email, idUser, usernameUser, adresse, age, autorisation, idFiche, typeKine, probleme)
-        await AsyncStorage.setItem('Appli_Token', token)
-    }
-
     const saveData = async(token, nom, prenom, email, idUser, usernameUser, adresse, age, autorisation, idFiche, typeKine, probleme) => {
-        console.log(token, nom, prenom, email, idUser, usernameUser, adresse, age, autorisation, idFiche, typeKine, probleme)
-        await AsyncStorage.setItem('Appli_Token', token)
-        await AsyncStorage.setItem('NomUser', nom)
-        await AsyncStorage.setItem('PrenomUser', prenom)
-        await AsyncStorage.setItem('EmailUser', email)
-        await AsyncStorage.setItem('IdUser', idUser)
-        await AsyncStorage.setItem('UsernameUser', usernameUser)
-        await AsyncStorage.setItem('AdresseUser', adresse)
-        await AsyncStorage.setItem('AgeUser', age)
-        await AsyncStorage.setItem('AuthorisationConsultationUser', autorisation)
-        await AsyncStorage.setItem('FicheIdUser', idFiche)
-        await AsyncStorage.setItem('TypeKineUser', typeKine)
-        await AsyncStorage.setItem('ProblemeUser', probleme)
+        console.log("save...", nom, prenom, email, idUser, usernameUser, adresse, age, autorisation, idFiche, typeKine, probleme)
+        let obj = {
+            TokenUser: token,
+            NomUser: nom,
+            PrenomUser: prenom,
+            EmailUser: email,
+            IdUser: idUser,
+            UsernameUser: usernameUser,
+            AdresseUser: adresse,
+            AgeUser: age,
+            AuthorisationConsultationUser: autorisation,
+            FicheIdUser: idFiche,
+            TypeKineUser: typeKine,
+            ProblemeUser: probleme
+        }
+        AsyncStorage.setItem('user', JSON.stringify(obj))
     }
 
     return (
         <View style={styles.container}>
-            <Text style={styles.label}>Username</Text>
+            <Text style={styles.label}>Pseudo</Text>
             <TextInput 
                 style={styles.input}
-                placeholder="Username"
+                placeholder="PrénomNom"
                 onChangeText={text => setUsername(text)}
                 value={username}
             />
-            <Text style={styles.label}>Password</Text>
+            <Text style={styles.label}>Mot de passe</Text>
             <TextInput 
                 style={styles.input}
-                placeholder="Password"
+                placeholder="MotDePasse123"
                 onChangeText={text => setPassword(text)}
                 value={password}
                 secureTextEntry={true}
                 autoCapitalize={'none'}
             />
-            <Button onPress={()=>auth()} title="Login"/>
+            <View style={{margin: 20}}>
+                <Button color="#6B889B" style={{borderRadius: 10}} onPress={()=>auth()} title="Envoyer"/>
+            </View>
         </View>
     );
     }
@@ -137,6 +132,22 @@ export default function Auth(props) {
             backgroundColor: '#fff',
             alignItems: 'center',
             paddingTop: 100,
+            borderColor: 'black'
+        },
+        input: {
+            backgroundColor: '#6B889B',
+            width: 250,
+            height: 50,
+            color: 'white',
+            borderRadius: 20,
+            padding: 5
+        },
+        label: {
+            fontSize: 20,
+            textDecorationLine: 'underline',
+            margin: 5            
+        },
+        envoyer: {
+            backgroundColor: 'red'
         }
-    
 });
