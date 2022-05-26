@@ -42,7 +42,12 @@ export default function AccueilRessources(props) {
         <View>
             <Text style={styles.title}>Bonjour {prenomUser} {nomUser}</Text>
             {prenomUser + nomUser == "ThomasPenning" || prenomUser + nomUser == "ArthurSchamroth" ? 
-                <Button title='AffichagePatients' onPress={()=>props.navigation.navigate('AffichagePatients')} color="#939597"/> : null
+                <>
+                    <Button title='Gestion des patients' onPress={()=>props.navigation.navigate('AffichagePatients')} color="#939597"/>
+                    <Button title='Gestion des rendez-vous' onPress={()=>props.navigation.navigate('RendezVous')} color="#939597"/>
+                    <Button title='Messagerie' onPress={()=>props.navigation.navigate('Messagerie')} color="#939597"/>
+                    <Button title='Routine' onPress={()=>props.navigation.navigate('RendezVous')} color="#939597"/>
+                </> : null
             }
         </View>
     );

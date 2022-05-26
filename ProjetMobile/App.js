@@ -9,6 +9,8 @@ import AffichagePatients from './components/Kine/GestionPatients/AffichagePatien
 import Details from './components/Kine/GestionPatients/DetailsFiche';
 import Edit from './components/Kine/GestionPatients/EditPatient';
 import AccueilRessources from './components/Ressources/AccueilRessources';
+import RendezVous from './components/Kine/RendezVous/RendezVous';
+import Messagerie from './components/Kine/Messagerie/Messagerie';
 
 const AppNavigator = createStackNavigator({
   Home: {screen: Home},
@@ -17,6 +19,8 @@ const AppNavigator = createStackNavigator({
   Details: {screen: Details},
   Edit: {screen: Edit},
   Ressources: {screen: AccueilRessources},
+  RendezVous: {screen: RendezVous},
+  Messagerie: {screen: Messagerie},
 })
 
 const App = createAppContainer(AppNavigator)
