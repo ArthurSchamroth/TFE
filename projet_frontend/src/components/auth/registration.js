@@ -19,7 +19,7 @@ function Register(){
     const [isPasswordOk, setIsPasswordOk] = useState(false);
     const [isCaptchaOk, setIsCaptchaOk] = useState(false);
 
-    let test = []
+    let liste_utilisateurs = []
 
     useEffect( async () => {
         const tokens = await API.listingTokens()
@@ -30,9 +30,9 @@ function Register(){
         }).then(function (resp){
             const liste = resp
             for(const i of liste){
-                test.push(i["username"])
+                liste_utilisateurs.push(i["username"])
             }
-        }).then(setListeInscrits(test))
+        }).then(setListeInscrits(liste_utilisateurs))
 
         
     }, []);

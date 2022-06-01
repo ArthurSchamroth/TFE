@@ -19,7 +19,6 @@ export default function AccueilRessources(props) {
 
     useEffect(() => {
         if(user){
-            console.log("salut a tous", user)
             setNomUser(user['NomUser'])
             setPrenomUser(user['PrenomUser'])
         }
@@ -47,7 +46,8 @@ export default function AccueilRessources(props) {
                     <Button title='Gestion des rendez-vous' onPress={()=>props.navigation.navigate('RendezVous')} color="#939597"/>
                     <Button title='Messagerie' onPress={()=>props.navigation.navigate('Messagerie')} color="#939597"/>
                     <Button title='Routine' onPress={()=>props.navigation.navigate('RendezVous')} color="#939597"/>
-                </> : null
+                </> : 
+                    <Button title="Aperçu de vos rendez-vous" color="#939597"/>
             }
         </View>
     );

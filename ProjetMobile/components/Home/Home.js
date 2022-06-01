@@ -14,13 +14,11 @@ export default function Home(props, route) {
 
     useEffect(async () => {
         await AsyncStorage.getItem("user")
-            
             .then(resp => setUser(JSON.parse(resp)))
     }, [AsyncStorage])
 
     useEffect(() => {
         if(user){
-            console.log("salut a tous", user);
             setToken(user['TokenUser']);
             setNomUser(user['NomUser']);
             setPrenomUser(user['PrenomUser']) ;

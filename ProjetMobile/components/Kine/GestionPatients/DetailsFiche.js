@@ -22,13 +22,13 @@ export default function Details(props) {
         <View style={styles.container}>
             <Text style={styles.titre}>Bienvenue sur la fiche de {fiche.prenom} {fiche.nom}</Text>
             <Text style={styles.fiche}>
-                <Text style={styles.sous_titre}>Nom :</Text> {fiche.nom} {'\n'}{'\n'}
-                <Text style={styles.sous_titre}>Prénom :</Text> {fiche.prenom} {'\n'}{'\n'}
-                <Text style={styles.sous_titre}>Date de naissance :</Text> {fiche.age} {'\n'}{'\n'}
-                <Text style={styles.sous_titre}>Adresse Mail :</Text> {fiche.adresse_mail} {'\n'}{'\n'}
-                <Text style={styles.sous_titre}>Description Problème :</Text> {fiche.description_probleme} {'\n'}{'\n'}
-                <Text style={styles.sous_titre}>Adresse :</Text> {fiche.adresse} {'\n'}{'\n'}
-                <Text style={styles.sous_titre}>Type de soin :</Text> {fiche.type_kine == "KR" ? 
+                <Text style={styles.sous_titre}>Nom</Text> : {fiche.nom} {'\n'}{'\n'}
+                <Text style={styles.sous_titre}>Prénom</Text> : {fiche.prenom} {'\n'}{'\n'}
+                <Text style={styles.sous_titre}>Date de naissance</Text> : {fiche.age} {'\n'}{'\n'}
+                <Text style={styles.sous_titre}>Adresse Mail</Text> : {fiche.adresse_mail} {'\n'}{'\n'}
+                <Text style={styles.sous_titre}>Description Problème</Text> : {fiche.description_probleme} {'\n'}{'\n'}
+                <Text style={styles.sous_titre}>Adresse</Text> : {fiche.adresse} {'\n'}{'\n'}
+                <Text style={styles.sous_titre}>Type de soin</Text> {fiche.type_kine == "KR" ? 
                     "Kinésithérapie Respiratoire" : fiche.type_kine == "K" ? "Kinésithérapie" : fiche.type_kine == "P" ? "Pédiatrie" : "Osthéopatie"
                 }
             </Text>

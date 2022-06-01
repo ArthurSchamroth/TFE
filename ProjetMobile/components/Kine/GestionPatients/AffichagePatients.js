@@ -21,7 +21,6 @@ export default function AffichagePatients(props) {
 
     useEffect(() => {
         if(user){
-            console.log("salut a tous", user)
             setNomUser(user['NomUser'])
         }
     }, [user])
@@ -48,16 +47,23 @@ export default function AffichagePatients(props) {
 
     return (
         <View>
-            <Text style={styles.title}>yrdy{nomUser}</Text>
+            <Text style={styles.title}>Voici vos patients.</Text>
             {listeFiches !=  [] ? 
                 <FlatList 
                     data={listeFiches}
                     renderItem = {({item}) => (
-                        <TouchableOpacity onPress={() => ficheClicked(item)}>
-                            <View style={styles.item}>
-                                <Text style={styles.itemText}>{item.nom} {item.prenom}</Text>
-                            </View>
-                        </TouchableOpacity>
+                        <>
+                            {item.prenom + item.nom == "ThomasPenning" || item.prenom + item.nom == "ArthurSchamroth" ? 
+                                null :
+                                <TouchableOpacity onPress={() => ficheClicked(item)}>
+                                    <View style={styles.item}>
+                                        <Text style={styles.itemText}>{item.nom} {item.prenom}</Text>
+                                    </View>
+                                </TouchableOpacity>
+                            }
+                            
+                        </>
+                        
                     )}
                     keyExtractor={(item, index) => index.toString()}
                 /> 
@@ -79,14 +85,17 @@ export default function AffichagePatients(props) {
         flex: 1,
         padding: 10,
         height: 50,
-        backgroundColor: '#282C35'
+        backgroundColor: '#282C35',
+        marginBottom: 3,
     },
     title: {
         backgroundColor: '#005eb6',
         fontSize: 20,
         textAlign: 'center',
         color: 'white',
-        marginBottom: 10
+        marginBottom: 10,
+        padding: 10,
+        fontWeight: 'bold',
     },  
     itemText: {
         color: '#fff',
