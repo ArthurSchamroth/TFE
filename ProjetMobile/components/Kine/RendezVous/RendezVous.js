@@ -56,7 +56,7 @@ export default function RendezVous(props) {
                         test.push(i)
                     }
                     const liste_triee = test.sort(trier)
-                    setListeRdv(liste_triee)
+                    setListeFuturRdvs(liste_triee)
                     
                     return listeFuturRdvs
                 })
@@ -96,46 +96,55 @@ export default function RendezVous(props) {
         </View>
         {isFuturRdv ? 
             <>
-                <Text style={styles.subtitle}>Bienvenue dans les rendez-vous du jour</Text>
+                <Text style={styles.subtitle}>Bienvenue dans vos rendez-vous du jour</Text>
+                {listeFuturRdvs.length != 0 ?
+                    <ScrollView style={styles.container_rdvs}>
+                    {listeFuturRdvs.map(rdv => {
+                        return(
+                            <View style={styles.rdv_carte} key={rdv.id}>
+                            {rdv.prenom + rdv.nom != "ThomasPenning" && new Date(rdv.date).toLocaleDateString("fr-CA", {year: "numeric", month:'2-digit', day: '2-digit'}) == currentDate ? 
+                                <View key={rdv.id}>
+                                    <Text style={styles.text}>Date : {rdv.date} Heure : {rdv.heure}</Text>
+                                    <Text style={styles.text}>Patient : {rdv.nom} {rdv.prenom}</Text>
+                                    <Text style={styles.text}>Description: {rdv.description}</Text>
+                                    {username === "ThomasPenning" || username === "ArthurSchamroth" ?
+                                        <Button title='Supprimer' onPress={() => delRdvClicked(rdv)}/> : null
+                                    }
+                                </View>
+                                : null
+                            }                      
+                            </View>
+                        )
+                    })}
+                    </ScrollView> : null
+                } 
+                
+            </>
+            
+            : isRdvDuJour ? 
+            <>
+            <Text style={styles.subtitle}>Bienvenue dans vos futurs rendez-vous</Text>
+            {listeFuturRdvs.length > 0 ?
                 <ScrollView style={styles.container_rdvs}>
                 {listeFuturRdvs.map(rdv => {
                     return(
-                        <View style={styles.rdv_carte} key={rdv.id}>
-                        {rdv.prenom + rdv.nom != "ThomasPenning" && new Date(rdv.date).toLocaleDateString("fr-CA", {year: "numeric", month:'2-digit', day: '2-digit'}) == currentDate ? 
-                            <View key={rdv.id}>
+                        <View key={rdv.id}>
+                        {rdv.prenom + rdv.nom != "ThomasPenning" && new Date(rdv.date).toLocaleDateString("fr-CA", {year: "numeric", month:'2-digit', day: '2-digit'}) > currentDate ? 
+                            <View style={[styles.rdv_carte, styles.shadowProp, styles.elevation]} key={rdv.id}>
                                 <Text style={styles.text}>Date : {rdv.date} Heure : {rdv.heure}</Text>
                                 <Text style={styles.text}>Patient : {rdv.nom} {rdv.prenom}</Text>
                                 <Text style={styles.text}>Description: {rdv.description}</Text>
-                                <Button title='Supprimer' onPress={() => delRdvClicked(rdv)}/>
+                                {username === "ThomasPenning" || username === "ArthurSchamroth" ?
+                                    <Button title='Supprimer' onPress={() => delRdvClicked(rdv)}/> : null
+                                }
                             </View>
                             : null
                         }                      
                         </View>
                     )
                 })}
-                </ScrollView>
-            </>
-            
-            : isRdvDuJour ? 
-            <>
-            <Text style={styles.subtitle}>Bienvenue dans les futurs rendez-vous</Text>
-            <ScrollView style={styles.container_rdvs}>
-            {listeFuturRdvs.map(rdv => {
-                return(
-                    <View key={rdv.id}>
-                    {rdv.prenom + rdv.nom != "ThomasPenning" && new Date(rdv.date).toLocaleDateString("fr-CA", {year: "numeric", month:'2-digit', day: '2-digit'}) > currentDate ? 
-                        <View style={styles.rdv_carte} key={rdv.id}>
-                            <Text style={styles.text}>Date : {rdv.date} Heure : {rdv.heure}</Text>
-                            <Text style={styles.text}>Patient : {rdv.nom} {rdv.prenom}</Text>
-                            <Text style={styles.text}>Description: {rdv.description}</Text>
-                            <Button title='Supprimer' onPress={() => delRdvClicked(rdv)}/>
-                        </View>
-                        : null
-                    }                      
-                    </View>
-                )
-            })}
-            </ScrollView>
+                </ScrollView> : null
+            }
         </>
             // si pas rdv du jour ni futur 
             : null
@@ -164,6 +173,8 @@ export default function RendezVous(props) {
             backgroundColor: '#939597',
             textAlign: 'center',
             alignContent: 'center',
+            padding: 10,
+            borderRadius: 10,
         },
         container_rdvs:{
             flex: 1,
