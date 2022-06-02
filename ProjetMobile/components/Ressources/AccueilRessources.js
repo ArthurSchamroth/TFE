@@ -51,6 +51,7 @@ export default function AccueilRessources(props) {
                     <Button title='Voir votre fiche santé' onPress={()=>props.navigation.navigate('FicheSanté')} color="#939597"/>
                     <Button title="Aperçu de vos rendez-vous" onPress={()=>props.navigation.navigate('RendezVous')} color="#939597"/>
                     <Button title="Aperçu de votre routine" onPress={()=>props.navigation.navigate('Routine')} color="#939597"/>
+                    <Button title='Messagerie' onPress={()=>props.navigation.navigate('Messagerie')} color="#939597"/>
                 </>
             }
         </View>
