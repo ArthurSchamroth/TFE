@@ -27,15 +27,14 @@ export default function Messagerie(props) {
     const [destinataireChoisi, setDestinataireChoisi] = useState('');
     const [contenuMessage, setContenuMessage] = useState('');
     const [isModalVisible, setIsModalVisible] = useState(false);
+    const [isDetinataireVide, setIsDetinataireVide] = useState(false);
+    const [isContenuVide, setIsContenuVide] = useState(false);
+    const [isRepondreAuKine, setIsRepondreAuKine] = useState(false);
 
     useEffect(async () => {
         await AsyncStorage.getItem("user")
             .then(resp => setUser(JSON.parse(resp)))
     }, [])
-
-    useEffect(() => {
-        console.log('nooooooooooon', user)
-    }, [user])
 
     const handleModal = () => { 
         setIsModalVisible(!isModalVisible);
@@ -102,16 +101,48 @@ export default function Messagerie(props) {
         setIsVoirAuteur(false);
     }
 
+    const RepondreMessageClickedPatient = () => {
+        console.log('okok')
+        setIsVoirMessageDuKine(false);
+        setIsRepondreAuKine(!isRepondreAuKine)
+    }
+
+    const envoyerMessageAuKine = () => {
+        if(contenuMessage == ''){
+            setIsContenuVide(true)
+        }else{
+            console.log(contenuMessage)
+            var today = new Date();
+            var date = today.getFullYear()  + "-" + today.getMonth() + "-" + today.getDate()
+            var time = today.getHours() + ':' + today.getMinutes() + ':' + today.getSeconds()
+            API.sendingMessage({
+                'user': user.FicheIdUser, 'date': date,'heure': time,  
+                'contenu': contenuMessage, 'dest': 'ThomasPenning'
+            })
+            setIsModalVisible(true);
+        }
+    }
+
     const envoyerMessage = () => {
-        console.log(destinataireChoisi, contenuMessage)
-        var today = new Date();
-        var date = today.getFullYear()  + "-" + today.getMonth() + "-" + today.getDate()
-        var time = today.getHours() + ':' + today.getMinutes() + ':' + today.getSeconds()
-        API.sendingMessage({
-            'user': user.FicheIdUser, 'date': date,'heure': time,  
-            'contenu': contenuMessage, 'dest': destinataireChoisi
-        })
-        setIsModalVisible(true);
+        if(destinataireChoisi == ''){
+            setIsDetinataireVide(true);
+        }
+        if(contenuMessage == ''){
+            setIsDetinataireVide(false);
+            setIsContenuVide(true);
+        }
+        else{
+            console.log(destinataireChoisi, contenuMessage)
+            var today = new Date();
+            var date = today.getFullYear()  + "-" + today.getMonth() + "-" + today.getDate()
+            var time = today.getHours() + ':' + today.getMinutes() + ':' + today.getSeconds()
+            API.sendingMessage({
+                'user': user.FicheIdUser, 'date': date,'heure': time,  
+                'contenu': contenuMessage, 'dest': destinataireChoisi
+            })
+            setIsModalVisible(true);
+        }
+        
     }
 
     return (
@@ -125,6 +156,7 @@ export default function Messagerie(props) {
                 </> : 
                 <>
                     <Button title='Voir mes messages' onPress={()=>voirMessagesClickedPatient()} color="#939597"/> 
+                    <Button title='Envoyez un message' onPress={()=>RepondreMessageClickedPatient()} color="#939597"/> 
                     {isVoirMessageDuKine ?
                         <View style={styles.container}>
                         <ScrollView style={styles.container_messages}>
@@ -140,9 +172,30 @@ export default function Messagerie(props) {
                         })}
                         </ScrollView>
                         </View>
-                        : isRepondre ?
+                        : isRepondreAuKine ?
                             <>
-                                <Text>Coucou</Text>
+                                <View>
+                                    <Text style={{marginTop: 10, fontWeight: 'bold', textDecorationLine: 'underline'}}>Destinataire :</Text>
+                                    <Text>Thomas Penning</Text>
+                                    <Text style={{marginBottom: 10, fontWeight: 'bold', textDecorationLine: 'underline'}}>Entrez votre message :</Text>
+                                    <TextInput 
+                                        style={styles.input}
+                                        placeholder="Votre message"
+                                        onChangeText={text => setContenuMessage(text)}
+                                        value={contenuMessage}
+                                        color='black'
+                                    />
+                                    <Button color="#6B889B" style={{borderRadius: 10}} onPress={()=>envoyerMessageAuKine()} title="Envoyer"/>
+                                    {isContenuVide ? <Text style={styles.erreur}>Veuillez entre un message valide</Text> : null} 
+                                </View>
+                                <View style={styles.container2}>
+                                    <Modal isVisible={isModalVisible}>
+                                        <View style={styles.popup}>
+                                        <Text style={styles.text}>Le message a été correctement envoyé !</Text>
+                                        <Button color='#33414A' font style={styles.bouton} title="Fermer" onPress={handleModal} />
+                                        </View>
+                                    </Modal>
+                                </View>
                             </>
                             : null
                     }
@@ -176,19 +229,26 @@ export default function Messagerie(props) {
                 </>
             : <Text>Aucun patient ne vous a envoyé de message !</Text> 
             : isRepondre ?
-                <>
+                <>  
+                    <Text style={{marginTop: 10, fontWeight: 'bold', textDecorationLine: 'underline'}}>Destinataire :</Text>
                     <RNPickerSelect
                         onValueChange={(value) => setDestinataireChoisi(value)}
                         items={destPossibleValues}
+                        placeholder={{ label: "Sélectionner votre destinataire", value: null, color: 'red' }}
+                        style={pickerStyle}
                     />
-                    <Text>Entrez votre message :</Text>
+                    <Text style={{marginBottom: 10, fontWeight: 'bold', textDecorationLine: 'underline'}}>Entrez votre message :</Text>
                     <TextInput 
                         style={styles.input}
                         placeholder="Votre message"
                         onChangeText={text => setContenuMessage(text)}
                         value={contenuMessage}
+                        color='black'
                     />
                     <Button color="#6B889B" style={{borderRadius: 10}} onPress={()=>envoyerMessage()} title="Envoyer"/>
+                    {isDetinataireVide ?
+                        <Text style={styles.erreur}>Veuillez sélectionner un destinataire !</Text> : isContenuVide ? <Text style={styles.erreur}>Veuillez entre un message valide</Text> : null
+                    }
                     <View style={styles.container2}>
                         <Modal isVisible={isModalVisible}>
                             <View style={styles.popup}>
@@ -196,80 +256,121 @@ export default function Messagerie(props) {
                             <Button color='#33414A' font style={styles.bouton} title="Fermer" onPress={handleModal} />
                             </View>
                         </Modal>
-                </View>
+                    </View>
                 </> : null
         }
         </>
     );
 }
 
-    const styles = StyleSheet.create({
-        container: {
-            backgroundColor: '#fff',
-            alignItems: 'center',
-            justifyContent: 'center',
-        },
-        item: {
-            marginTop: 10,
-            padding: 10,
-            height: 50,
-            backgroundColor: '#282C35'
-        },
-        title: {
-            backgroundColor: '#005eb6',
-            fontSize: 20,
-            textAlign: 'center',
-            color: 'white',
-            marginBottom: 10
-        },  
-        itemText: {
-            color: '#fff',
-            fontSize: 24,
-            textAlign: 'center'
-        },
-        container_all_msgs:{
-            justifyContent: 'center'
-        },
-        container_msg: {
-            backgroundColor: 'red',
-            width: 250,
-            borderColor: 'black'
-        },
-        container_messages:{
-            width: 200,
-        },
-        message:{
-            borderColor: 'black',
-            borderStyle: 'solid',
-            borderWidth: 2,
-            padding: 5,
-            marginTop: 10,
-            marginBottom: 10
-        },
-        container2: {
-            alignItems: "center",
-            justifyContent: "center",
-            backgroundColor: 'white',
-        },
-        text: {
-            fontSize: 16,
-            fontWeight: "400",
-            textAlign: "center",
-            color: 'white',
-            padding: 10,
-            marginBottom: 15
-        },
-        separator: {
-            marginVertical: 30,
-            height: 1,
-            width: "80%",
-        },
-        popup: {
-            height: 200,
-            alignItems: 'center',
-            justifyContent: "center",
-            textAlign: 'center',
-            backgroundColor: '#282C35',
-            borderRadius: 70,
-        }
+const pickerStyle = {
+	inputIOS: {
+		color: 'black',
+		paddingTop: 13,
+		paddingHorizontal: 10,
+		paddingBottom: 12,
+	},
+	inputAndroid: {
+		color: 'black',
+	},
+	placeholderColor: 'white',
+	underline: { borderTopWidth: 0 },
+	icon: {
+		position: 'absolute',
+		backgroundColor: 'transparent',
+		borderTopWidth: 5,
+		borderTopColor: '#00000099',
+		borderRightWidth: 5,
+		borderRightColor: 'transparent',
+		borderLeftWidth: 5,
+		borderLeftColor: 'transparent',
+		width: 0,
+		height: 0,
+		top: 20,
+		right: 15,
+	},
+};
+
+const styles = StyleSheet.create({
+    container: {
+        backgroundColor: '#fff',
+        alignItems: 'center',
+        justifyContent: 'center',
+    },
+    item: {
+        marginTop: 10,
+        padding: 10,
+        height: 50,
+        backgroundColor: '#282C35'
+    },
+    title: {
+        backgroundColor: '#005eb6',
+        fontSize: 20,
+        textAlign: 'center',
+        color: 'white',
+        marginBottom: 10
+    },  
+    itemText: {
+        color: '#fff',
+        fontSize: 24,
+        textAlign: 'center'
+    },
+    container_all_msgs:{
+        justifyContent: 'center'
+    },
+    container_msg: {
+        backgroundColor: 'red',
+        width: 250,
+        borderColor: 'black'
+    },
+    container_messages:{
+        width: 200,
+    },
+    message:{
+        borderColor: 'black',
+        borderStyle: 'solid',
+        borderWidth: 2,
+        padding: 5,
+        marginTop: 10,
+        marginBottom: 10
+    },
+    input: {
+        backgroundColor: '#6B889B',
+        width: '100%',
+        height: 50,
+        color: 'white',
+        padding: 5
+    },
+    container2: {
+        alignItems: "center",
+        justifyContent: "center",
+        backgroundColor: 'white',
+    },
+    text: {
+        fontSize: 16,
+        fontWeight: "400",
+        textAlign: "center",
+        color: 'white',
+        padding: 10,
+        marginBottom: 15
+    },
+    separator: {
+        marginVertical: 30,
+        height: 1,
+        width: "80%",
+    },
+    popup: {
+        height: 200,
+        alignItems: 'center',
+        justifyContent: "center",
+        textAlign: 'center',
+        backgroundColor: '#282C35',
+        borderRadius: 70,
+    },
+    erreur: {
+        marginTop: 15,
+        marginBottom: 15,
+        color: 'red',
+        fontWeight: 'bold'
+    }
 });

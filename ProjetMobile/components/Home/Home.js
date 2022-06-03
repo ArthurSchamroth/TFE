@@ -11,19 +11,31 @@ export default function Home(props, route) {
     const [nomUser, setNomUser] = useState("");
     const [prenomUser, setPrenomUser] = useState("");
     const [user, setUser] = useState();
+    const [isConnected, setIsConnected] = useState(false);
 
     useEffect(async () => {
         await AsyncStorage.getItem("user")
             .then(resp => setUser(JSON.parse(resp)))
-    }, [AsyncStorage])
+    }, [])
+
+    const token = props.navigation.getParam('token', null)
 
     useEffect(() => {
+        if(token){
+            console.log('token')
+            setIsConnected(true)
+            setIsLoading(false);
+        }
+    })
+
+    useEffect(async () => {
         if(user){
             setToken(user['TokenUser']);
             setNomUser(user['NomUser']);
             setPrenomUser(user['PrenomUser']) ;
+            setIsLoading(false);
         }
-        setIsLoading(false);
+        
     }, [user])
 
     const decoClicked = async () => {
@@ -40,11 +52,12 @@ export default function Home(props, route) {
     return (
         !isLoading ?
         <View style={styles.container}>
-            {currentToken && currentToken != "" ?
+            {isConnected ?
                 <>  
                     <Text>Bienvenue, voici vos différentes options.</Text>
                     <Button title='Accès à mes ressources' onPress={()=>ressourcesClicked()} color="#939597"/>
                     <Button title='Déconnexion' onPress={()=>decoClicked()} color="#939597"/>
+
                 </> :
                 <>
                     <Text>Bienvenue dans l'application mobile de Monsieur Penning</Text>
@@ -52,7 +65,13 @@ export default function Home(props, route) {
                 </>
             } 
             <StatusBar style="auto" />
-        </View> : null
+        </View> : 
+        <>
+            <View style={styles.container}>
+                <Text>Bienvenue dans l'application mobile de Monsieur Penning</Text>
+                <Button title='Connexion' onPress={()=>props.navigation.navigate('Auth')} color="#939597"/>
+            </View>
+        </>
     );
     }
 

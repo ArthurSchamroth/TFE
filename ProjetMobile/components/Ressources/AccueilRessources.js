@@ -11,6 +11,7 @@ export default function AccueilRessources(props) {
     const [user, setUser] = useState();
     const [nomUser, setNomUser] = useState('');
     const [prenomUser, setPrenomUser] = useState('');
+    const [isFiche, setIsFiche] = useState(false);
 
     useEffect(async () => {
         await AsyncStorage.getItem("user")
@@ -21,6 +22,11 @@ export default function AccueilRessources(props) {
         if(user){
             setNomUser(user['NomUser'])
             setPrenomUser(user['PrenomUser'])
+            if(user['FicheIdUser']){
+                setIsFiche(true);
+            }
+        }else{
+            setIsFiche(false);
         }
     }, [user])
 
@@ -32,12 +38,13 @@ export default function AccueilRessources(props) {
     }
 
     return (
-        nomUser == "" ?
-        <View>
-            <Text>Veuillez vous connecter afin d'avoir accès à vous ressources.</Text>
-            <Button title='Se connecter' onPress={()=>decoClicked()} color="#939597"/>
-        </View>
+        user && nomUser == "" ?
+            <View>
+                <Text>Veuillez vous connecter afin d'avoir accès à vous ressources.</Text>
+                <Button title='Se connecter' onPress={()=>decoClicked()} color="#939597"/>
+            </View>
         :
+        isFiche ?
         <View>
             <Text style={styles.title}>Bonjour {prenomUser} {nomUser}</Text>
             {prenomUser + nomUser == "ThomasPenning" || prenomUser + nomUser == "ArthurSchamroth" ? 
@@ -54,7 +61,12 @@ export default function AccueilRessources(props) {
                     <Button title='Messagerie' onPress={()=>props.navigation.navigate('Messagerie')} color="#939597"/>
                 </>
             }
-        </View>
+        </View> : 
+        <>  
+            <Text style={styles.title}>Veuillez compléter votre fiche santé afin d'avoir accès à toutes les ressources de l'application.</Text>
+            <Button title='Créer ma fiche santé' onPress={()=>props.navigation.navigate('NouvelleFiche')} color="#939597"/>
+            <Button title='Se déconnecter' onPress={()=>decoClicked()} color="#939597"/>
+        </>
     );
     }
 
