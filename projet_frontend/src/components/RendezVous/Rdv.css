@@ -35,16 +35,26 @@
     border: 2px solid;
     text-align: center;
     padding: 1% 2%;
-    text-decoration: underline;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 
 #tableau_rdv_precedents{
     margin-top: 5%;
     width: 80%;
+    box-shadow: 15px 11px 12px rgba(0,0,0,0.3);
+    border-radius: 10px;
 }
 
 .form_rdv_envoi_container{
     width: 50%;
+}
+
+.container_form_indispo{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center
 }
 
 .heure_dispo{
@@ -109,8 +119,9 @@ th, td{
 }
 
 .btn_choix_jour{
-    width: 25%;
+    width: 50%;
     background-color: #005eb6;
+    border-color: #005eb6;
     border-radius: 10px;
     color: #fff;
     margin: 0.2%;
@@ -120,6 +131,7 @@ th, td{
     background-color: #fff;
     border-radius: 10px;
     color: #005eb6;
+    border-color: 'white';
     transition: all 0.2s ease-in-out;
 }
 

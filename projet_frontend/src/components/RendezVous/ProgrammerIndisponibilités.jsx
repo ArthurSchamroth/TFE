@@ -123,66 +123,68 @@ function ProgrammerIndisponilibites(props){
         <>  
             <Navbar/>
             <div className="App">
-                <h1>Enregistrez ici vos dates d'indisponibilités</h1>
-                <button className='btn_choix_jour' onClick={jourPrecisClicked}>Jour Précis</button>
-                <button className='btn_choix_jour' onClick={jourPlsClicked}>Plusieurs jours</button>
-                {isUnJour ? 
-                    <div className='form_rdv_envoi_container'>
-                    <label htmlFor="date">Date</label><br/>
-                    <input id='date' type="date" value={date}
-                    onChange={evt => setDate(evt.target.value)}/><br/>
-                    {date != "" ? 
-                        <div className='radio-group'>
-                            {heures_rdv.map(heure=>{
-                                return(
-                                    <div key={`key-${heure}`}>  
-                                        {rdvDateHeure.includes(heure+":00") || rdvDateHeure.includes("0"+heure+":00")? 
-                                            null:
-                                            <>
-                                                <div className='heure_dispo'>
-                                                    <input className='heure_radio' name="choix_heure" value={heure} onChange={evt => setHeure(evt.target.value)} type="radio" id={`id-${heure}`}/>
-                                                    <label className="heure_label" htmlFor={`id-${heure}`}>{heure}</label>
-                                                </div>
-                                            </>
-                                        }
-                                        
-                                    </div>
-                                )
-                            })}
+                <div className="container_form_indispo">
+                    <h1>Enregistrez ici vos dates d'indisponibilités</h1>
+                    <button className='btn_choix_jour' onClick={jourPrecisClicked}>Jour Précis</button>
+                    <button className='btn_choix_jour' onClick={jourPlsClicked}>Plusieurs jours</button>
+                    {isUnJour ? 
+                        <div className='form_rdv_envoi_container'>
+                        <label htmlFor="date">Date</label><br/>
+                        <input id='date' type="date" value={date}
+                        onChange={evt => setDate(evt.target.value)}/><br/>
+                        {date != "" ? 
+                            <div className='radio-group'>
+                                {heures_rdv.map(heure=>{
+                                    return(
+                                        <div key={`key-${heure}`}>  
+                                            {rdvDateHeure.includes(heure+":00") || rdvDateHeure.includes("0"+heure+":00")? 
+                                                null:
+                                                <>
+                                                    <div className='heure_dispo'>
+                                                        <input className='heure_radio' name="choix_heure" value={heure} onChange={evt => setHeure(evt.target.value)} type="radio" id={`id-${heure}`}/>
+                                                        <label className="heure_label" htmlFor={`id-${heure}`}>{heure}</label>
+                                                    </div>
+                                                </>
+                                            }
+                                            
+                                        </div>
+                                    )
+                                })}
 
-                        <button className='btn_co_re' onClick={envoyerRdv}>Envoyer Indisponibilités</button>
-                        </div>:
-                        null
-                    } 
-                    </div> : 
-                        isPlsJours ? 
-                        <>
-                        <h2>Sélectionnez vos dates</h2>
-                        <ReactDatePicker
-                                onChange={(date) => handleDateChange(date)}
-                                selectsStart={true}
-                                selected={startDate}
-                                startDate={startDate}
-                                endDate={endDate}
-                                inline={true}
-                            />
-                        {isPlsJoursSelected && dates.length != 0 ? 
-                            <>  
-                                <button className='btn_select_houres' onClick={() => setHeuresSelected(heures_rdv.slice(0, 4))}>Matin</button>
-                                <button className='btn_select_houres' onClick={() => setHeuresSelected(heures_rdv.slice(4, 9))}>Après-midi</button>
-                                <button className='btn_select_houres' onClick={() => setHeuresSelected(heures_rdv.slice(0, 9))}>Journée Entière</button>
-                                {isHeuresSelected ? 
-                                    <button className='btn_envoyer_indispo' onClick={envoyerIndisponibilités}>
-                                        Envoyer
-                                    </button> : 
-                                    null
-                                }
+                            <button className='btn_co_re' onClick={envoyerRdv}>Envoyer Indisponibilités</button>
+                            </div>:
+                            null
+                        } 
+                        </div> : 
+                            isPlsJours ? 
+                            <>
+                            <h2>Sélectionnez vos dates</h2>
+                            <ReactDatePicker
+                                    onChange={(date) => handleDateChange(date)}
+                                    selectsStart={true}
+                                    selected={startDate}
+                                    startDate={startDate}
+                                    endDate={endDate}
+                                    inline={true}
+                                />
+                            {isPlsJoursSelected && dates.length != 0 ? 
+                                <>  
+                                    <button className='btn_select_houres' onClick={() => setHeuresSelected(heures_rdv.slice(0, 4))}>Matin</button>
+                                    <button className='btn_select_houres' onClick={() => setHeuresSelected(heures_rdv.slice(4, 9))}>Après-midi</button>
+                                    <button className='btn_select_houres' onClick={() => setHeuresSelected(heures_rdv.slice(0, 9))}>Journée Entière</button>
+                                    {isHeuresSelected ? 
+                                        <button className='btn_envoyer_indispo' onClick={envoyerIndisponibilités}>
+                                            Envoyer
+                                        </button> : 
+                                        null
+                                    }
+                                </> 
+                                : null
+                            }
                             </> 
                             : null
-                        }
-                        </> 
-                        : null
-                }
+                    }
+                    </div>
                 </div>
         </>
     )

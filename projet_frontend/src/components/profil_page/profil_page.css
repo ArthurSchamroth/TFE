@@ -16,6 +16,7 @@
     border: 3px solid #005eb6;
     border-radius: 5px;
     padding: 10px;
+    box-shadow: 5px 3px 6px rgba(15,15,15,0.4)
 }
 
 .profil_button_container_deco{
@@ -27,6 +28,7 @@
     border: 3px solid red;
     border-radius: 5px;
     padding: 10px;
+    box-shadow: 5px 3px 6px rgba(236, 3, 3, 0.4)
 }
 
 #test{
@@ -72,6 +74,7 @@
 .profil_redirection:hover{
     margin-bottom: 15px;
     background-color: #005eb6;
+    border-color: #005eb6;
     border-radius: 10px;
     width: 12rem;
     color: white;
@@ -87,8 +90,8 @@
 
 .salutation_profil{
     color: black;
-    text-decoration: underline;
-    font-size: 36px;
+    font-weight: bold;
+    font-size: 40px;
     margin-bottom: 16px;
 }
 
@@ -106,6 +109,11 @@
 
     .profil_button_container_deco{
         width: 24rem;
+    }
+
+    .salutation_profil{
+        text-align: center;
+        font-size: 26px;
     }
 }
 
