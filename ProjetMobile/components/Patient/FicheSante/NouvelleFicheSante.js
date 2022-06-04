@@ -24,15 +24,17 @@ export default function NouvelleFicheSante(props) {
     const [detailProb, setDetailProb] = useState('');
     const [autorisation, setAutorisation] = useState('non');
     const [isModalVisible, setIsModalVisible] = useState(false);
+    const [isAlert, setIsAlert] = useState(false);
 
     useEffect(async () => {
         await AsyncStorage.getItem("utilisateur")
             .then(resp => setUser(JSON.parse(resp)))
     }, [])
 
-    const handleModal = () => { 
+    const handleModal = async () => { 
         setIsModalVisible(!isModalVisible);
-        props.navigation.navigate('Ressources')
+        await AsyncStorage.removeItem('utilisateur')
+        props.navigation.navigate('Auth')
     }
 
     const changerAutorisation = () => {
@@ -143,6 +145,12 @@ export default function NouvelleFicheSante(props) {
                             }
                         </View>
                     </TouchableOpacity>
+                {isAlert ? 
+                    <View style={{width: '50%'}}>
+                        <Text style={{color: 'red', fontWeight:'bold'}}>Veuillez compléter tous les champs du formulaire avant d'envoyer !</Text> 
+                    </View>
+                    : null
+                }
                 <Button color="#6B889B" style={{borderRadius: 10}} onPress={()=>envoyerFiche()} title="Envoyer Fiche"/>
                 <View style={styles.container2}>
                     <Modal isVisible={isModalVisible}>

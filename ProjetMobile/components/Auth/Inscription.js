@@ -18,12 +18,12 @@ export default function Inscription(props) {
     const [listeToken, setListeToken] = useState([]);
     const [username, setUsername] = useState(first_name + last_name);
     const [listeInscrits, setListeInscrits] = useState([]);
-    const [isVerified, setIsVerified] = useState(false);
-    const [isInputNull, setIsInputNull] = useState(false);
-    const [isUserKnowed, setIsUserKnowed] = useState(false);
-    const [isPasswordOk, setIsPasswordOk] = useState(false);
-    const [listePrete, setListePrete] = useState(false);
     const [isModalVisible, setIsModalVisible] = useState(false);
+    const [dejaFait, setDejaFait] = useState(false);
+    const [isModalVisibleInputVide, setIsModalVisibleInputVide] = useState(false);
+    const [isModalVisibleMdpDifferents, setIsModalVisibleMdpDifferents] = useState(false);
+    const [isModalVisibleDejaConnu, setIsModalVisibleDejaConnu] = useState(false);
+
 
     let liste_utilisateurs = []
 
@@ -48,47 +48,62 @@ export default function Inscription(props) {
         props.navigation.navigate('Auth')
     }
 
+    const handleModal2 = () => {
+        setIsModalVisibleInputVide(!isModalVisibleInputVide);
+        props.navigation.navigate('Auth')
+    }
+
+    const handleModal3 = () => {
+        setIsModalVisibleMdpDifferents(!isModalVisibleMdpDifferents);
+        props.navigation.navigate('Auth')
+    }
+
+    const handleModal4 = () => {
+        setIsModalVisibleDejaConnu(!isModalVisibleDejaConnu);
+        props.navigation.navigate('Auth')
+    }
+
     useEffect(()=>{
         const pseudo = first_name + last_name;
         setUsername(pseudo);
     }, [first_name, last_name])
 
-    const registerClicked = e => {
+    const registerClicked = () => {
+        console.log('test', repeated_password, password, first_name, last_name, email)
         const tokens = API.listingTokens()
         setListeToken(tokens)
-        console.log(listeToken)
         for(const i of listeToken){
             API.gettingDataFromToken({token: i.key}).then(function(resp){
                 return resp.json()
             }).then(function(resp){
-                console.log(resp.username)
                 if(resp.username == username){
                     console.log('utilisateur déjà connu')
                 }
             })
         }
-        e.preventDefault();
         var passw=  /^[A-Za-z0-9]\w{7,25}$/;
         // User vide
         const pseudo = first_name.concat(last_name)
         setUsername(pseudo)
-        if(repeated_password == "" || password == "" || first_name == "" || last_name == "" || email == ""){
-            setIsInputNull(true)
-        }
-        if(password == repeated_password){
-            if(listeInscrits.includes(pseudo)){
-                setIsInputNull(false)
-                setIsUserKnowed(true)
-            }else{
-                API.registerUser({username, password, first_name, last_name, email})
-                setIsModalVisible(true);
+        if(repeated_password.length == 0 && password.length == 0 && first_name.length == 0 && last_name.length == 0 && email.length == 0){
+            console.log("peut être")
+            setIsModalVisibleInputVide(true)
+        }else{
+            if(repeated_password.length == 0 || password.length == 0 || first_name.length == 0 || last_name.length == 0 || email.length == 0){
+                setIsModalVisibleInputVide(true)
             }
+                if(password!="" && repeated_password!="" && password == repeated_password){
+                    if(listeInscrits.includes(pseudo)){
+                        setIsModalVisibleDejaConnu(true)
+                    }else{
+                        API.registerUser({username, password, first_name, last_name, email})
+                        setIsModalVisible(true);
+                    }
+                }
+                else{
+                    setIsModalVisibleMdpDifferents(true);
+                }
         }
-        else{
-            console.log('mdp différents')
-            setIsPasswordOk(true)
-        }
-        
     }
 
     return (
@@ -98,14 +113,14 @@ export default function Inscription(props) {
             <TextInput 
                 style={styles.input}
                 placeholder="Prénom"
-                onChangeText={text => setFirst_name(text)}
+                onChangeText={text => {setFirst_name(text)}}
                 value={first_name}
             />
             <Text style={styles.label}>Nom</Text>
             <TextInput 
                 style={styles.input}
                 placeholder="Nom"
-                onChangeText={text => setLast_name(text)}
+                onChangeText={text => {setLast_name(text)}}
                 value={last_name}
             />
             <Text style={styles.label}>Adresse Mail</Text>
@@ -113,7 +128,7 @@ export default function Inscription(props) {
                 style={styles.input}
                 placeholder="Prénom"
                 email
-                onChangeText={text => setEmail(text)}
+                onChangeText={text => {setEmail(text)}}
                 value={email}
             />
             <Text style={styles.label}>Mot de passe</Text>
@@ -122,29 +137,21 @@ export default function Inscription(props) {
                 placeholder="Mdp123"
                 value={password}
                 secureTextEntry={true}
-                onChangeText={text => setPassword(text)}
+                onChangeText={text => {setPassword(text)}}
             />
             <Text style={styles.label}>Répéter mot de passe</Text>
             <TextInput 
                 style={styles.input}
                 placeholder="Mdp123"
-                onChangeText={text => setRepeated_password(text)}
+                onChangeText={text => {setRepeated_password(text)}}
                 value={repeated_password}
                 secureTextEntry={true}
             />
             <View>
         </View>
             <View style={{margin: 20}}>
-                <Button color="#6B889B" style={{borderRadius: 10}} onPress={(e)=> registerClicked(e)} title="S'inscrire"/>
+                <Button color="#6B889B" style={{borderRadius: 10}} onPress={()=> registerClicked()} title="S'inscrire"/>
             </View>
-            {isInputNull ?
-                <Text style={{color:'red', fontWeight:"bold"}}>Veuillez compléter tous les champs du formulaire.</Text> :
-                isUserKnowed ?
-                    <Text style={{color:'red', fontWeight:"bold"}}>{first_name} {last_name} est déjà inscrit</Text> :
-                    isPasswordOk ?  
-                        <Text style={{color:'red', fontWeight:"bold"}}>Veuillez entrer deux fois un mot de passe identique composé de caractères alphanumériques (entre 7 et 25 caractères).</Text> :
-                        null
-            } 
             <TouchableOpacity onPress={()=> props.navigation.navigate('Auth')}>
                 <View>
                     <Text style={{color: '#6B889B', textDecorationLine: 'underline'}}>
@@ -158,6 +165,30 @@ export default function Inscription(props) {
                 <View style={styles.popup}>
                 <Text style={styles.text}>{first_name} {last_name} a bien été inscrit !</Text>
                 <Button color='#33414A' font style={styles.bouton} title="Fermer" onPress={handleModal} />
+                </View>
+            </Modal>
+        </View>
+        <View style={styles.container2}>
+            <Modal isVisible={isModalVisibleInputVide}>
+                <View style={styles.popup}>
+                <Text style={styles.text}>Veuillez compléter tous les champs !</Text>
+                <Button color='#33414A' font style={styles.bouton} title="Fermer" onPress={handleModal2} />
+                </View>
+            </Modal>
+        </View>
+        <View style={styles.container2}>
+            <Modal isVisible={isModalVisibleMdpDifferents}>
+                <View style={styles.popup}>
+                <Text style={styles.text}>Veuillez remplir deux fois le même mot de passe !</Text>
+                <Button color='#33414A' font style={styles.bouton} title="Fermer" onPress={handleModal3} />
+                </View>
+            </Modal>
+        </View>
+        <View style={styles.container2}>
+            <Modal isVisible={isModalVisibleDejaConnu}>
+                <View style={styles.popup}>
+                <Text style={styles.text}>{first_name} {last_name} déjà connu !</Text>
+                <Button color='#33414A' font style={styles.bouton} title="Fermer" onPress={handleModal4} />
                 </View>
             </Modal>
         </View>
