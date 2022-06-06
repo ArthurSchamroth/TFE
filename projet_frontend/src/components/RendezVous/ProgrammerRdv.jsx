@@ -44,7 +44,9 @@ function ProgrammerRdv(props){
         }
     }, [date])
 
-    var minDate = new Date().toISOString().split("T")[0];
+    var minDate = new Date();
+    minDate.setDate(minDate.getDate()+1)
+    minDate = minDate.toISOString().split("T")[0]
 
     if(document.getElementById("date2")){
         const picker = document.getElementById("date2");

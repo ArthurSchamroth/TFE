@@ -10,6 +10,8 @@ import Footer from '../footer/footer'
 function Profil_Kine(){
     const [token, setToken, deleteToken] = useCookies([('mr-token')]);
     const [pseudo, setPseudo] = useState('');
+    const [nom, setNom] = useState('');
+    const [prenom, setPrenom] = useState('');
     const [fiche, setFiche] = useState('');
 
     const logoutUser = () => {
@@ -22,11 +24,15 @@ function Profil_Kine(){
         .then(function(resp){
             return resp.json()
         }).then(function(resp){
+            const prenom = (resp['prenom'])
+            const nom = (resp['nom'])
             const a = (resp["username"])
             if(resp["fiche"]){
                 setFiche(resp['fiche'])
             }
             setPseudo(a)
+            setPrenom(prenom)
+            setNom(nom)
         })
     }, []);
 
@@ -34,7 +40,7 @@ function Profil_Kine(){
         <>
             <Navbar/>
             <div className="App">
-                <div className="salutation_profil">Bonjour {pseudo}</div> 
+                <div className="salutation_profil">Bienvenue dans votre espace personnel {prenom} {nom}.</div> 
                 {fiche == "" ? <p className='fiche_incomplete_error'>Veuillez compléter une première fois votre fiche santé avant de pouvoir accéder aux autres fonctionnalités.</p> : null}
                 <div className="profil_container">
                     {pseudo == "ArthurSchamroth" || pseudo == "ThomasPenning" ? 
@@ -76,7 +82,7 @@ function Profil_Kine(){
                                 <div className="profil_button_container">
                                     <h1>Gestion des Routines</h1>
                                     <p>Gérez les Routines attribuables aux patients.</p>
-                                    <a href="/gestion_routine"><button className='profil_redirection'>Commentaires</button></a>
+                                    <a href="/gestion_routine"><button className='profil_redirection'>Gestion routines</button></a>
                                 </div>
                             </> : 
                                 <div className="profil_button_container">
