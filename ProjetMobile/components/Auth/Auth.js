@@ -134,6 +134,7 @@ export default function Auth(props) {
             <TextInput 
                 style={styles.input}
                 placeholder="PrénomNom"
+                placeholderTextColor="white"
                 onChangeText={text => setUsername(text)}
                 value={username}
             />
@@ -141,6 +142,7 @@ export default function Auth(props) {
             <TextInput 
                 style={styles.input}
                 placeholder="MotDePasse123"
+                placeholderTextColor="white"
                 onChangeText={text => setPassword(text)}
                 value={password}
                 secureTextEntry={true}
@@ -152,11 +154,11 @@ export default function Auth(props) {
                 <Text style={{color: 'red', fontWeight: 'bold', marginTop: 20}}>Identifiant/Mot de passe incorrect.</Text> : null
             }
             <View style={{margin: 20}}>
-                <Button color="#6B889B" style={{borderRadius: 10}} onPress={()=>auth()} title="Se connecter"/>
+                <Button color="#3AACF6" style={{borderRadius: 10}} onPress={()=>auth()} title="Se connecter"/>
             </View>
             <TouchableOpacity onPress={()=> props.navigation.navigate('Inscription')}>
                 <View>
-                    <Text style={{color: '#6B889B', textDecorationLine: 'underline'}}>
+                    <Text style={{color: '#3AACF6', textDecorationLine: 'underline'}}>
                         Pas encore de compte ? Inscrivez-vous ici
                     </Text>
                 </View>
@@ -174,7 +176,7 @@ export default function Auth(props) {
             borderColor: 'black'
         },
         input: {
-            backgroundColor: '#6B889B',
+            backgroundColor: '#3AACF6',
             width: 250,
             height: 50,
             color: 'white',

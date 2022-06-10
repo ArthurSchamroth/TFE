@@ -39,33 +39,53 @@ export default function AccueilRessources(props) {
 
     return (
         user && nomUser == "" ?
-            <View>
+            <View style={styles.container}>
                 <Text>Veuillez vous connecter afin d'avoir accès à vous ressources.</Text>
                 <Button title='Se connecter' onPress={()=>decoClicked()} color="#939597"/>
             </View>
         :
         isFiche ?
-        <View>
-            <Text style={styles.title}>Bonjour {prenomUser} {nomUser}</Text>
-            {prenomUser + nomUser == "ThomasPenning" || prenomUser + nomUser == "ArthurSchamroth" ? 
-                <>
-                    <Button title='Gestion des patients' onPress={()=>props.navigation.navigate('AffichagePatients')} color="#939597"/>
-                    <Button title='Gestion des rendez-vous' onPress={()=>props.navigation.navigate('RendezVous')} color="#939597"/>
-                    <Button title='Messagerie' onPress={()=>props.navigation.navigate('Messagerie')} color="#939597"/>
-                    <Button title='Routine' onPress={()=>props.navigation.navigate('RendezVous')} color="#939597"/>
-                </> : 
-                <>
-                    <Button title='Voir votre fiche santé' onPress={()=>props.navigation.navigate('FicheSanté')} color="#939597"/>
-                    <Button title="Aperçu de vos rendez-vous" onPress={()=>props.navigation.navigate('RendezVous')} color="#939597"/>
-                    <Button title="Aperçu de votre routine" onPress={()=>props.navigation.navigate('Routine')} color="#939597"/>
-                    <Button title='Messagerie' onPress={()=>props.navigation.navigate('Messagerie')} color="#939597"/>
-                </>
-            }
-        </View> : 
+        <>
+            <View style={styles.container}>
+                <Text style={styles.title}>Bonjour {prenomUser} {nomUser}</Text>
+                {prenomUser + nomUser == "ThomasPenning" || prenomUser + nomUser == "ArthurSchamroth" ? 
+                    <View>
+                        <View style={styles.buttonPresentation}>
+                            <Button title='Gestion des patients' onPress={()=>props.navigation.navigate('AffichagePatients')} color="#3AACF6"/>
+                        </View>
+                        <View style={styles.buttonPresentation}>
+                            <Button title='Gestion des rendez-vous' onPress={()=>props.navigation.navigate('RendezVous')} color="#3AACF6"/>
+                        </View>
+                        <View style={styles.buttonPresentation}>
+                            <Button title='Messagerie' onPress={()=>props.navigation.navigate('Messagerie')} color="#3AACF6"/>
+                        </View>
+                    </View> : 
+                    <View>
+                        <View style={styles.buttonPresentation}>
+                            <Button title='Voir votre fiche santé' onPress={()=>props.navigation.navigate('FicheSanté')} color="#3AACF6"/>
+                        </View>
+                        <View style={styles.buttonPresentation}>
+                            <Button title="Aperçu de vos rendez-vous" onPress={()=>props.navigation.navigate('RendezVous')} color="#3AACF6"/>
+                        </View>
+                        <View style={styles.buttonPresentation}>
+                            <Button title="Aperçu de votre routine" onPress={()=>props.navigation.navigate('Routine')} color="#3AACF6"/>
+                        </View>
+                        <View style={styles.buttonPresentation}>
+                            <Button title='Messagerie' onPress={()=>props.navigation.navigate('Messagerie')} color="#3AACF6"/>
+                        </View>
+                    </View>
+                }
+            </View>
+        </> : 
         <>  
             <Text style={styles.title}>Veuillez compléter votre fiche santé afin d'avoir accès à toutes les ressources de l'application.</Text>
-            <Button title='Créer ma fiche santé' onPress={()=>props.navigation.navigate('NouvelleFiche')} color="#939597"/>
-            <Button title='Se déconnecter' onPress={()=>decoClicked()} color="#939597"/>
+            <View style={styles.buttonPresentation}>
+                <Button title='Créer ma fiche santé' onPress={()=>props.navigation.navigate('NouvelleFiche')} color="#3AACF6"/>
+            </View>
+            <View style={styles.buttonPresentation}>
+                <Button title='Se déconnecter' onPress={()=>decoClicked()} color="#3AACF6"/>
+            </View>
+            
         </>
     );
     }
@@ -75,7 +95,6 @@ export default function AccueilRessources(props) {
         flex: 1,
         backgroundColor: '#fff',
         alignItems: 'center',
-        justifyContent: 'center',
     },
     item: {
         flex: 1,
@@ -88,12 +107,16 @@ export default function AccueilRessources(props) {
         fontSize: 20,
         textAlign: 'center',
         color: 'white',
+        width: 350,
         marginBottom: 10,
         padding: 10,
     },  
     itemText: {
         color: '#fff',
         fontSize: 24
+    },
+    buttonPresentation: {
+        marginBottom: 10,
+        width: 300,
     }
-    
 });

@@ -111,6 +111,7 @@ export default function Inscription(props) {
         <View style={styles.container}>
             <Text style={styles.label}>Prénom</Text>
             <TextInput 
+                placeholderTextColor="white"
                 style={styles.input}
                 placeholder="Prénom"
                 onChangeText={text => {setFirst_name(text)}}
@@ -118,6 +119,7 @@ export default function Inscription(props) {
             />
             <Text style={styles.label}>Nom</Text>
             <TextInput 
+                placeholderTextColor="white"
                 style={styles.input}
                 placeholder="Nom"
                 onChangeText={text => {setLast_name(text)}}
@@ -125,6 +127,7 @@ export default function Inscription(props) {
             />
             <Text style={styles.label}>Adresse Mail</Text>
             <TextInput 
+                placeholderTextColor="white"
                 style={styles.input}
                 placeholder="Prénom"
                 email
@@ -134,6 +137,7 @@ export default function Inscription(props) {
             <Text style={styles.label}>Mot de passe</Text>
             <TextInput 
                 style={styles.input}
+                placeholderTextColor="white"
                 placeholder="Mdp123"
                 value={password}
                 secureTextEntry={true}
@@ -142,6 +146,7 @@ export default function Inscription(props) {
             <Text style={styles.label}>Répéter mot de passe</Text>
             <TextInput 
                 style={styles.input}
+                placeholderTextColor="white"
                 placeholder="Mdp123"
                 onChangeText={text => {setRepeated_password(text)}}
                 value={repeated_password}
@@ -150,11 +155,11 @@ export default function Inscription(props) {
             <View>
         </View>
             <View style={{margin: 20}}>
-                <Button color="#6B889B" style={{borderRadius: 10}} onPress={()=> registerClicked()} title="S'inscrire"/>
+                <Button color="#3AACF6" style={{borderRadius: 10}} onPress={()=> registerClicked()} title="S'inscrire"/>
             </View>
             <TouchableOpacity onPress={()=> props.navigation.navigate('Auth')}>
                 <View>
-                    <Text style={{color: '#6B889B', textDecorationLine: 'underline'}}>
+                    <Text style={{color: '#3AACF6', textDecorationLine: 'underline'}}>
                         Déjà un compte ? Connectez vous ici
                     </Text>
                 </View>
@@ -164,7 +169,7 @@ export default function Inscription(props) {
             <Modal isVisible={isModalVisible}>
                 <View style={styles.popup}>
                 <Text style={styles.text}>{first_name} {last_name} a bien été inscrit !</Text>
-                <Button color='#33414A' font style={styles.bouton} title="Fermer" onPress={handleModal} />
+                <Button color='#3AACF6' font style={styles.bouton} title="Fermer" onPress={handleModal} />
                 </View>
             </Modal>
         </View>
@@ -172,7 +177,7 @@ export default function Inscription(props) {
             <Modal isVisible={isModalVisibleInputVide}>
                 <View style={styles.popup}>
                 <Text style={styles.text}>Veuillez compléter tous les champs !</Text>
-                <Button color='#33414A' font style={styles.bouton} title="Fermer" onPress={handleModal2} />
+                <Button color='#3AACF6' font style={styles.bouton} title="Fermer" onPress={handleModal2} />
                 </View>
             </Modal>
         </View>
@@ -180,7 +185,7 @@ export default function Inscription(props) {
             <Modal isVisible={isModalVisibleMdpDifferents}>
                 <View style={styles.popup}>
                 <Text style={styles.text}>Veuillez remplir deux fois le même mot de passe !</Text>
-                <Button color='#33414A' font style={styles.bouton} title="Fermer" onPress={handleModal3} />
+                <Button color='#3AACF6' font style={styles.bouton} title="Fermer" onPress={handleModal3} />
                 </View>
             </Modal>
         </View>
@@ -188,7 +193,7 @@ export default function Inscription(props) {
             <Modal isVisible={isModalVisibleDejaConnu}>
                 <View style={styles.popup}>
                 <Text style={styles.text}>{first_name} {last_name} déjà connu !</Text>
-                <Button color='#33414A' font style={styles.bouton} title="Fermer" onPress={handleModal4} />
+                <Button color='#3AACF6' font style={styles.bouton} title="Fermer" onPress={handleModal4} />
                 </View>
             </Modal>
         </View>
@@ -205,7 +210,7 @@ export default function Inscription(props) {
             borderColor: 'black'
         },
         input: {
-            backgroundColor: '#6B889B',
+            backgroundColor: '#3AACF6',
             width: 250,
             height: 50,
             color: 'white',

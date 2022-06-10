@@ -1,7 +1,7 @@
 {
   "expo": {
-    "name": "ProjetMobile",
-    "slug": "ProjetMobile",
+    "name": "OsteoClic",
+    "slug": "OsteoClic",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",

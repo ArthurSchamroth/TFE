@@ -1,6 +1,6 @@
 import { StatusBar } from 'expo-status-bar';
 import { useEffect, useState } from 'react';
-import { StyleSheet, Text, View, Button } from 'react-native';
+import { StyleSheet, Text, View, Button, Image } from 'react-native';
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
 
@@ -54,22 +54,39 @@ export default function Home(props, route) {
         <View style={styles.container}>
             {isConnected ?
                 <>  
-                    <Text>Bienvenue, voici vos différentes options.</Text>
-                    <Button title='Accès à mes ressources' onPress={()=>ressourcesClicked()} color="#939597"/>
-                    <Button title='Déconnexion' onPress={()=>decoClicked()} color="#939597"/>
+                    <Image style={{width: 150, height: 150, marginBottom: 60}} source={require('./img/photo_presentation.png')}/>
+                    <View style={styles.containerPresentation}>
+                        <Text style={styles.textPresentation}>Bienvenue, voici vos différentes options.</Text>
+                        <View style={styles.buttonPresentation}>
+                            <Button title='Accès à mes ressources' onPress={()=>ressourcesClicked()} color="#3AACF6"/>
+                        </View>
+                        <View style={styles.buttonPresentation}>
+                            <Button  title='Déconnexion' onPress={()=>decoClicked()} color="#3AACF6"/>
+                        </View>
+                        
+                    </View>
 
                 </> :
                 <>
-                    <Text>Bienvenue dans l'application mobile de Monsieur Penning</Text>
-                    <Button title='Connexion' onPress={()=>props.navigation.navigate('Auth')} color="#939597"/>
+                    <Image style={{width: 150, height: 150, marginBottom: 60}} source={require('./img/photo_presentation.png')}/>
+                    <View style={styles.containerPresentation}>
+                        <Text style={styles.textPresentation}>Bienvenue dans l'application mobile de Monsieur Penning !</Text>
+                        <Text style={styles.textPresentation}>Vous pouvez retrouver ici des informations liées à votre suivi.</Text>
+                        <Text style={styles.textPresentation}>Connectez ou inscrivez vous !</Text>
+                        <Button title='Connexion' onPress={()=>props.navigation.navigate('Auth')} color="#3AACF6"/>
+                    </View>
+                    
                 </>
             } 
             <StatusBar style="auto" />
         </View> : 
         <>
             <View style={styles.container}>
-                <Text>Bienvenue dans l'application mobile de Monsieur Penning</Text>
-                <Button title='Connexion' onPress={()=>props.navigation.navigate('Auth')} color="#939597"/>
+                <Image style={{width: 150, height: 150, marginBottom: 60}} source={require('./img/photo_presentation.png')}/>
+                <Text style={styles.textPresentation}>Bienvenue dans l'application mobile de Monsieur Penning.</Text>
+                <Text style={styles.textPresentation}>Vous pouvez retrouver ici des informations liées à votre suivi.</Text>
+                <Text style={styles.textPresentation}>Connectez ou inscrivez vous !</Text>
+                <Button title='Connexion' onPress={()=>props.navigation.navigate('Auth')} color="#3AACF6"/>
             </View>
         </>
     );
@@ -81,5 +98,18 @@ export default function Home(props, route) {
         backgroundColor: '#fff',
         alignItems: 'center',
         justifyContent: 'center',
+    },
+    containerPresentation:{
+        width: 300,
+    },
+    textPresentation:{
+        textAlign: 'center',
+        marginTop: 10,
+        marginBottom: 10,
+        fontWeight: 'bold',
+        fontSize: 20,
+    },
+    buttonPresentation: {
+        marginBottom: 10
     }
 });

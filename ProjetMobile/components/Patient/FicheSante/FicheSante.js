@@ -121,5 +121,6 @@ export default function FicheSante(props) {
             textDecorationStyle: 'solid',
             backgroundColor: '#005eb6',
             padding: 10,
+            width: 350
         },
 });
