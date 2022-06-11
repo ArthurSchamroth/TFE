@@ -89,20 +89,26 @@ export default function RendezVous(props) {
 
     return (
         <>
-        <View>
+        <View style={{alignItems: 'center'}}>
             <Text style={styles.title}>Voici votre accueil de rendez-vous : {nomUser}</Text>
-            <Button title='Rendez-vous du jour' onPress={()=>rendezVousFuturClicked()} color="#939597"/>
-            <Button title='Futurs rendez-vous' onPress={()=>rendezVousDuJourClicked()} color="#939597"/>
+            <View style={{width: 300, marginBottom: 10}}>  
+                <Button title='Rendez-vous du jour' onPress={()=>rendezVousFuturClicked()} color="#3AACF6"/>
+            </View>
+            <View style={{width: 300}}>
+                <Button title='Futurs rendez-vous' onPress={()=>rendezVousDuJourClicked()} color= "#3AACF6"/>
+            </View>
+            
         </View>
         {isFuturRdv ? 
             <>
-                <Text style={styles.subtitle}>Bienvenue dans vos rendez-vous du jour</Text>
-                {listeFuturRdvs.length != 0 ?
+                <Text style={styles.subtitle}>Voici vos rendez-vous du jour</Text>
+                {listeFuturRdvs.length > 0 ?
+                    <>
                     <ScrollView style={styles.container_rdvs}>
                     {listeFuturRdvs.map(rdv => {
                         return(
+                            rdv.prenom + rdv.nom != "ThomasPenning" && new Date(rdv.date).toLocaleDateString("fr-CA", {year: "numeric", month:'2-digit', day: '2-digit'}) == currentDate ? 
                             <View style={styles.rdv_carte} key={rdv.id}>
-                            {rdv.prenom + rdv.nom != "ThomasPenning" && new Date(rdv.date).toLocaleDateString("fr-CA", {year: "numeric", month:'2-digit', day: '2-digit'}) == currentDate ? 
                                 <View key={rdv.id}>
                                     <Text style={styles.text}>Date : {rdv.date} Heure : {rdv.heure}</Text>
                                     <Text style={styles.text}>Patient : {rdv.nom} {rdv.prenom}</Text>
@@ -110,20 +116,18 @@ export default function RendezVous(props) {
                                     {username === "ThomasPenning" || username === "ArthurSchamroth" ?
                                         <Button title='Supprimer' onPress={() => delRdvClicked(rdv)}/> : null
                                     }
-                                </View>
+                                </View></View>
                                 : null
-                            }                      
-                            </View>
                         )
                     })}
-                    </ScrollView> : null
+                    </ScrollView></> : null
                 } 
                 
             </>
             
             : isRdvDuJour ? 
             <>
-            <Text style={styles.subtitle}>Bienvenue dans vos futurs rendez-vous</Text>
+            <Text style={styles.subtitle}>Voici vos futurs rendez-vous</Text>
             {listeFuturRdvs.length > 0 ?
                 <ScrollView style={styles.container_rdvs}>
                 {listeFuturRdvs.map(rdv => {
@@ -163,11 +167,14 @@ export default function RendezVous(props) {
             marginBottom:20,
             backgroundColor: '#005eb6',
             padding: 10,
+            width: 350
         },
         subtitle:{
             margin: 15,
             fontSize:18,
-            textAlign: 'center'
+            textAlign: 'center',
+            fontWeight: 'bold',
+            textDecorationLine: 'underline'
         },
         rdv_carte:{
             backgroundColor: '#939597',

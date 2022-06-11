@@ -1,6 +1,6 @@
 import React, {useState, useEffect} from 'react';
 import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View, FlatList } from 'react-native';
+import { StyleSheet, Text, View, FlatList, ScrollView } from 'react-native';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import {REACT_APP_API_token} from '@env';
 import AsyncStorage from '@react-native-async-storage/async-storage';
@@ -46,8 +46,9 @@ export default function AffichagePatients(props) {
     }
 
     return (
-        <View>
+        <View style={{alignItems: 'center'}}>
             <Text style={styles.title}>Voici vos patients.</Text>
+            <View style={{width: 300}}>
             {listeFiches !=  [] ? 
                 <FlatList 
                     data={listeFiches}
@@ -69,6 +70,7 @@ export default function AffichagePatients(props) {
                 /> 
                 : null
             }
+            </View>
             <StatusBar style="auto" />
         </View>
     );
@@ -85,8 +87,8 @@ export default function AffichagePatients(props) {
         flex: 1,
         padding: 10,
         height: 50,
-        backgroundColor: '#282C35',
-        marginBottom: 3,
+        backgroundColor: '#3AACF6',
+        marginBottom: 10,
     },
     title: {
         backgroundColor: '#005eb6',
@@ -96,10 +98,12 @@ export default function AffichagePatients(props) {
         marginBottom: 10,
         padding: 10,
         fontWeight: 'bold',
+        width: 350
     },  
     itemText: {
         color: '#fff',
-        fontSize: 24
+        fontSize: 24,
+        textAlign: 'center'
     }
     
 });

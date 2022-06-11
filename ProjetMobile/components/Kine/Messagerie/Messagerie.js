@@ -147,16 +147,31 @@ export default function Messagerie(props) {
 
     return (
         <>
-        <View>
-            <Text style={styles.title}>Voici votre messagerie : {nomUser}</Text>
+        <View style={{alignItems: 'center', backgroundColor:'white'}}>
+            
             {username == "ThomasPenning" || username == "ArthurSchamroth" ? 
                 <>
-                <Button title='Voir mes messages' onPress={()=>voirMessagesClicked()} color="#939597"/>  
-                <Button title='Envoyez un message' onPress={()=>RepondreMessageClicked()} color="#939597"/>
+                    <View style={styles.container_liste}>
+                        <Text style={styles.title}>Voici votre messagerie : {nomUser}</Text>
+                        <View style={styles.item}>
+                            <Button title='Voir mes messages' onPress={()=>voirMessagesClicked()} color="#3AACF6"/>
+                        </View>
+                        <View style={styles.item}>
+                            <Button title='Envoyez un message' onPress={()=>RepondreMessageClicked()} color="#3AACF6"/>
+                        </View>
+                    </View>
                 </> : 
-                <>
-                    <Button title='Voir mes messages' onPress={()=>voirMessagesClickedPatient()} color="#939597"/> 
-                    <Button title='Envoyez un message' onPress={()=>RepondreMessageClickedPatient()} color="#939597"/> 
+                <View style={{backgroundColor: 'white', width: 300}}>
+                    <View style={styles.container_liste}>
+                        <Text style={styles.title}>Voici votre messagerie : {nomUser}</Text>
+                        <View style={styles.item}>
+                            <Button title='Voir mes messages' onPress={()=>voirMessagesClickedPatient()} color="#3AACF6"/> 
+                        </View>
+                        <View style={styles.item}>
+                            <Button title='Envoyez un message' onPress={()=>RepondreMessageClickedPatient()} color="#3AACF6"/>
+                        </View>
+                    </View>
+                    <View>
                     {isVoirMessageDuKine ?
                         <View style={styles.container}>
                         <ScrollView style={styles.container_messages}>
@@ -175,36 +190,41 @@ export default function Messagerie(props) {
                         : isRepondreAuKine ?
                             <>
                                 <View>
-                                    <Text style={{marginTop: 10, fontWeight: 'bold', textDecorationLine: 'underline'}}>Destinataire :</Text>
-                                    <Text>Thomas Penning</Text>
-                                    <Text style={{marginBottom: 10, fontWeight: 'bold', textDecorationLine: 'underline'}}>Entrez votre message :</Text>
+                                    <Text style={{fontSize: 20, marginTop: 10, fontWeight: 'bold', textDecorationLine: 'underline'}}>Destinataire :</Text>
+                                    <Text style={{fontSize: 18}}>Thomas Penning</Text>
+                                    <Text style={{fontSize: 20, marginBottom: 10, fontWeight: 'bold', textDecorationLine: 'underline'}}>Entrez votre message :</Text>
                                     <TextInput 
                                         style={styles.input}
+                                        placeholderTextColor= 'white'
                                         placeholder="Votre message"
                                         onChangeText={text => setContenuMessage(text)}
                                         value={contenuMessage}
                                         color='black'
                                     />
-                                    <Button color="#6B889B" style={{borderRadius: 10}} onPress={()=>envoyerMessageAuKine()} title="Envoyer"/>
+                                    <View style={{marginTop: 10, marginBottom: 10}}>
+                                        <Button color="#005eb6" style={{borderRadius: 10,}} onPress={()=>envoyerMessageAuKine()} title="Envoyer"/>
+                                    </View>
                                     {isContenuVide ? <Text style={styles.erreur}>Veuillez entre un message valide</Text> : null} 
                                 </View>
                                 <View style={styles.container2}>
                                     <Modal isVisible={isModalVisible}>
                                         <View style={styles.popup}>
                                         <Text style={styles.text}>Le message a été correctement envoyé !</Text>
-                                        <Button color='#33414A' font style={styles.bouton} title="Fermer" onPress={handleModal} />
+                                        <Button color='#005eb6' font style={styles.bouton} title="Fermer" onPress={handleModal} />
                                         </View>
                                     </Modal>
                                 </View>
                             </>
                             : null
                     }
-                </>
+                    </View>
+                </View>
             }
         </View>
         {isVoirAuteurs ?
             listeAuteurs.length != 0 ? 
                 <>
+                <View style={styles.container_liste}>
                 <FlatList 
                 data={listeAuteurs}
                 renderItem = {({item}) => (
@@ -216,36 +236,43 @@ export default function Messagerie(props) {
                 )}
                 keyExtractor={(item, index) => index.toString()}
                 />
-                <ScrollView>
+                <ScrollView >
                     {listeMessagesSpecific.map(message => {
                         return(
                             <View style={styles.message} key={message.id}>
-                                <Text>Auteur : {auteurSelected} Date et Heure : {message.date} {message.heure}</Text>
-                                <Text>Contenu : {message.contenu}</Text>   
+                                <Text style={{fontWeight: 'bold'}}>Auteur : </Text><Text>{auteurSelected}</Text><Text style={{fontWeight: 'bold'}}>Date et Heure : </Text><Text>{message.date} {message.heure}</Text>
+                                <Text style={{fontWeight: 'bold'}}>Contenu : </Text><Text>{message.contenu}</Text>   
                             </View>
                         )
                     })}
                 </ScrollView>
+                </View>
                 </>
             : <Text>Aucun patient ne vous a envoyé de message !</Text> 
             : isRepondre ?
                 <>  
-                    <Text style={{marginTop: 10, fontWeight: 'bold', textDecorationLine: 'underline'}}>Destinataire :</Text>
+                    <Text style={{marginTop: 10, fontWeight: 'bold', textDecorationLine: 'underline', left: 20}}>Destinataire :</Text>
                     <RNPickerSelect
                         onValueChange={(value) => setDestinataireChoisi(value)}
                         items={destPossibleValues}
-                        placeholder={{ label: "Sélectionner votre destinataire", value: null, color: 'red' }}
+                        placeholder={{ label: "Sélectionner votre destinataire", value: null, color: '#3AACF6' }}
                         style={pickerStyle}
                     />
-                    <Text style={{marginBottom: 10, fontWeight: 'bold', textDecorationLine: 'underline'}}>Entrez votre message :</Text>
-                    <TextInput 
+                    <Text style={{marginBottom: 10, fontWeight: 'bold', textDecorationLine: 'underline', left: 20}}>Entrez votre message :</Text>
+                    
+                    <View style={{marginRight:10, marginLeft:10, marginBottom: 10, borderRadius: 10}}>
+                        <TextInput 
                         style={styles.input}
+                        placeholderTextColor="white"
                         placeholder="Votre message"
                         onChangeText={text => setContenuMessage(text)}
                         value={contenuMessage}
                         color='black'
-                    />
-                    <Button color="#6B889B" style={{borderRadius: 10}} onPress={()=>envoyerMessage()} title="Envoyer"/>
+                        />    
+                    </View>
+                    <View style={{margin: 10}}>
+                        <Button color="#005eb6" style={{borderRadius: 10}} onPress={()=>envoyerMessage()} title="Envoyer"/>
+                    </View>
                     {isDetinataireVide ?
                         <Text style={styles.erreur}>Veuillez sélectionner un destinataire !</Text> : isContenuVide ? <Text style={styles.erreur}>Veuillez entre un message valide</Text> : null
                     }
@@ -253,7 +280,7 @@ export default function Messagerie(props) {
                         <Modal isVisible={isModalVisible}>
                             <View style={styles.popup}>
                             <Text style={styles.text}>Le message a été correctement envoyé !</Text>
-                            <Button color='#33414A' font style={styles.bouton} title="Fermer" onPress={handleModal} />
+                            <Button color='#005eb6' font style={styles.bouton} title="Fermer" onPress={handleModal} />
                             </View>
                         </Modal>
                     </View>
@@ -269,9 +296,11 @@ const pickerStyle = {
 		paddingTop: 13,
 		paddingHorizontal: 10,
 		paddingBottom: 12,
+        marginLeft: 10
 	},
 	inputAndroid: {
 		color: 'black',
+        marginLeft: 10
 	},
 	placeholderColor: 'white',
 	underline: { borderTopWidth: 0 },
@@ -301,14 +330,16 @@ const styles = StyleSheet.create({
         marginTop: 10,
         padding: 10,
         height: 50,
-        backgroundColor: '#282C35'
+        backgroundColor: '#3AACF6',
     },
     title: {
         backgroundColor: '#005eb6',
         fontSize: 20,
         textAlign: 'center',
         color: 'white',
-        marginBottom: 10
+        padding: 10,
+        marginBottom: 10,
+        width: 350
     },  
     itemText: {
         color: '#fff',
@@ -324,7 +355,8 @@ const styles = StyleSheet.create({
         borderColor: 'black'
     },
     container_messages:{
-        width: 200,
+        width: 350,
+        left: 50
     },
     message:{
         borderColor: 'black',
@@ -332,10 +364,11 @@ const styles = StyleSheet.create({
         borderWidth: 2,
         padding: 5,
         marginTop: 10,
-        marginBottom: 10
+        marginBottom: 10,
+        width: 250
     },
     input: {
-        backgroundColor: '#6B889B',
+        backgroundColor: '#3AACF6',
         width: '100%',
         height: 50,
         color: 'white',
@@ -364,7 +397,7 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         justifyContent: "center",
         textAlign: 'center',
-        backgroundColor: '#282C35',
+        backgroundColor: '#3AACF6',
         borderRadius: 70,
     },
     erreur: {
@@ -372,5 +405,14 @@ const styles = StyleSheet.create({
         marginBottom: 15,
         color: 'red',
         fontWeight: 'bold'
-    }
+    },
+    item: {
+        height: 35,
+        backgroundColor: '#3AACF6',
+        marginBottom: 10,
+        width: 200
+    }, 
+    container_liste:{
+        alignItems: 'center'
+    },
 });
