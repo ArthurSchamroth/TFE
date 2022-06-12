@@ -60,8 +60,24 @@ function HomePage(){
                         
                     </div>
                     <div className="mapContainer">
+                        <h1>Localisation</h1>
                         <MapGH/>
                     </div>
+                    <div style={{marginTop: 20}}>
+                        <h1>Application Mobile</h1>
+                        <div className='applicationContainer'>
+                            <div className='textApplication'>
+                                <p className='text_presentation'>En plus de cette application, Monsieur Penning met également à disposition mobile offrant un suivi au quotidien poussé.<br/>
+                                Il s'agit d'une application de consultation, cette application web est plus complète que la mobile mais cette dernière peut s'avérer être un outil pratique.<br/>
+                                Pour l'installer, il vous suffit de scanner le QR code ci-contre.
+                                </p>
+                            </div>
+                            <div className='qrApplication'>
+                                <img className='imgQr' src="/LienOsteoClicFinal.png" alt="QR Code Appli" />
+                            </div>
+                        </div>
+                    </div>
+
                 </div>
                 <CookieConsent debug={true} buttonStyle={{backgroundColor: "#005eb6", color: "white", borderRadius:"10px", marginRight: "15px"}} buttonText="J'accepte">
                     Ce site utilise des cookies afin d'enregistrer votre connexion et que vous n'ayez plus à vous connecter manuellement la prochaine fois.
