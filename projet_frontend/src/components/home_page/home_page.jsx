@@ -8,12 +8,41 @@ import Footer from '../footer/footer';
 
 function HomePage(){
     const [token, setToken] = useCookies([('mr-token')]);
+    const [modal, setModal] = useState(false);
+
+    const toggleModal = () => {
+        setModal(!modal);
+    }
 
     return(
         <>
             <Navbar/>
             <div className='App'>
                 <div className="container">
+                    {modal ?
+                        <div>
+                            <div>
+                                <div className="popup">
+                                    <h1>Mentions Légales</h1>
+                                    <p>Ce site est la propriété de Monsieur Thomas Penning. <br/> Avenue Winston Churchill, 37/15, Uccle, Région de Bruxelles<br/>
+                                    Ce site est hébergé par Azure.</p>
+                                    <h2>Traitement des données</h2>
+                                    <p>Toutes les données collectées sont utilisées afin de répondre au mieux à votre de demande de suivi. Vos données ne seronts en aucun cas communiquées à des tiers.<br/>
+                                    Vous pouvez corriger certaines de vos informations ou demandez à Monsieur Penning de modifier celles auxquelles vous n'avez pas accès via la messagerie du site.</p>
+                                    <h2>Cookies</h2>
+                                    <p>Les cookies sont ici utilisés afin de vous faciliter l'utilisation de cette application web. Les données qui y sont stockées ne seront jamais divulgées.<br/>
+                                    Ces données ne seront pas utilisées pour vous suivre mais pour vous faciliter cette utilisation.
+                                    </p>
+                                    <div className='container_button_popup'>
+                                        <button onClick={toggleModal}>
+                                            Fermer
+                                        </button>
+                                    </div>
+                                    
+                                </div>
+                            </div>
+                        </div> : null
+                    }                
                     <h1>Présentation</h1>
                     <div className="presentationContainer">
                         <p className='text_presentation'>
@@ -77,13 +106,14 @@ function HomePage(){
                             </div>
                         </div>
                     </div>
-
                 </div>
                 <CookieConsent debug={true} buttonStyle={{backgroundColor: "#005eb6", color: "white", borderRadius:"10px", marginRight: "15px"}} buttonText="J'accepte">
-                    Ce site utilise des cookies afin d'enregistrer votre connexion et que vous n'ayez plus à vous connecter manuellement la prochaine fois.
+                    Ce site utilise des cookies afin d'enregistrer votre connexion et que vous n'ayez plus à vous connecter manuellement la prochaine fois.<br/>
+                    <button onClick={toggleModal} style={{borderRadius: '10px', backgroundColor: 'transparent', color: 'white', marginTop: "10px", borderColor: 'white'}}>
+                        En savoir plus
+                    </button>
                 </CookieConsent>
             </div>
-            
         </>
     )
 }

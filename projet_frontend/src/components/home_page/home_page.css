@@ -108,6 +108,52 @@
     height: 100%
 }
 
+.popup{
+    height: 75%;
+    width: 50%;
+    padding: 3%;
+    background-color: rgb(53, 53, 53);
+    position: fixed;
+    top: 5%;
+    right: 25%;
+    z-index: 9999;
+    box-shadow: 20px 13px 12px rgba(0,0,0,0.4);
+    border-radius: 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.popup h1{
+    color: rgb(207, 207, 207);
+    margin-bottom: 2%;
+    text-decoration: underline;
+} 
+
+.popup h2{
+    text-align: center;
+    color: rgb(207, 207, 207);
+}
+
+.popup p{
+    color: white;
+    text-align: center;
+}
+
+.popup button{
+    border-radius: 10px;
+    background-color: transparent;
+    color: white;
+    border-color: white
+}
+
+.popup button:hover{
+    background-color: white;
+    color: rgb(53, 53, 53);
+    transition: all 0.2s ease-in-out;
+}
+
 @media only screen and (max-width:840px){
 
     .presentationContainer{
@@ -166,6 +212,22 @@
     
     .imgQr{
         display: block;
+    }
+
+    .popup{
+        height: 80%;
+        width: 75%;
+        padding: 3%;
+        background-color: rgb(53, 53, 53);
+        position: fixed;
+        left: 12.5%;
+        z-index: 9999;
+        box-shadow: 20px 13px 12px rgba(0,0,0,0.4);
+        border-radius: 20px;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
     }
 }
 
