@@ -4,7 +4,7 @@
     "slug": "OsteoClic",
     "version": "1.0.0",
     "orientation": "portrait",
-    "icon": "./assets/p1256.jpg",
+    "icon": "./assets/icon_correct.png",
     "splash": {
       "image": "./assets/splash.png",
       "resizeMode": "contain",
