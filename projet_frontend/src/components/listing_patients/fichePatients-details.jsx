@@ -79,7 +79,7 @@ function FichePatientsDetails(props){
                                 }}>Adresse : {props.fichePatient.adresse}</p>
                                 <p>Description Problème : {props.fichePatient.description_probleme}</p>
                                 <p>Description de soin demandé : {type[props.fichePatient.type_kine]}</p>
-                                <p>Autorisé à consulter le dossier médical : {props.fichePatient.autorisation_consultation == "oui" ? 'Oui' : 'Non'}</p>
+                                <p>Autorisé à consulter les radiographies : {props.fichePatient.autorisation_consultation == "oui" ? 'Oui' : 'Non'}</p>
                                 <div className='container_btn_profil'>
                                     <Popup trigger={<button title="Supprimer l'utilisateur" className='del_btn_user'><FontAwesomeIcon className='button_del_fiche' icon={faTrashCan}/></button>} position='bottom center'>
                                     <div>Voulez-vous supprimer ce patient ? (Toutes les informations le concernant seront supprimées !)</div>

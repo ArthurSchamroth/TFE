@@ -196,12 +196,12 @@ function Fiche_Sante(props){
 
                     {props.autorisation ? 
                         <div className="autorisation_container">
-                        {props.autorisation == "oui" ? <p><strong>Monsieur Penning a accès à votre dossier médical.</strong></p> : <p><strong>Monsieur Penning n'a pas accès à votre dossier médical.</strong></p>}
+                        {props.autorisation == "oui" ? <p><strong>Monsieur Penning a accès à vos radiographies.</strong></p> : <p><strong>Monsieur Penning n'a pas accès à vos radiographies.</strong></p>}
                         <br/></div> : 
                         <>
-                        <label htmlFor="autorisation_dossier">Cochez pour autoriser Monsieur Penning à accéder à votre dossier médical.</label>
+                        <label htmlFor="autorisation_dossier">Cochez pour autoriser Monsieur Penning à accéder à vos radiographies.</label>
                         <input id="autorisation_dossier" className='radio_autorisation' type="checkbox" onChange={() => autorisationChecked()}/>
-                        {isAutorisationChecked == "oui" ? <p>Monsieur Penning a accès à votre dossier.</p> : null}
+                        {isAutorisationChecked == "oui" ? <p>Monsieur Penning a accès à vos radiographies.</p> : null}
                         <br/></>
                     }
                     {isAlert ? 
